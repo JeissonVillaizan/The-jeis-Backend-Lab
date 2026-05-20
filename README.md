@@ -1,3 +1,46 @@
+# The Jeis Portfolio — Backend Lab
+
+Welcome to the slightly magical backend lair of Jeisson Villaizan. This repository powers the portfolio site where code, coffee, and curiosity collide.
+
+## What is this?
+- A Laravel + Vite portfolio site with Tailwind styling.
+- Features: certifications manager (secret-protected create/delete), contact messages saved to DB, dashboard counters, and image uploads for certificates.
+
+## Quickstart (for humans who like to run things)
+1. Copy `.env.example` to `.env` and set your values.
+2. Set `CERT_SECRET` in your `.env` (this protects cert creation/deletion).
+3. Install PHP / Composer deps and Node packages:
+
+```bash
+composer install
+npm install
+```
+
+4. Create storage link, migrate DB and seed translations (optional):
+
+```bash
+php artisan storage:link
+php artisan migrate
+php artisan db:seed --class=TranslationSeeder
+```
+
+5. Run the app and Vite (in separate terminals):
+
+```bash
+php artisan serve --host=0.0.0.0
+npm run dev
+```
+
+Then open http://127.0.0.1:8000 and try the contact modal or the Certifications page.
+
+## Notes
+- Uploaded certificate images live in `storage/app/public/certifications` and are served via `public/storage`.
+- The certifications form requires the secret from `CERT_SECRET` in `.env` — please keep it secret, keep it safe.
+
+## Want more?
+- I can add CI, Docker, or automated deploys — tell me which and I’ll conjure them up.
+
+Enjoy the code. May your migrations be swift and your tests green. 🚀
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
