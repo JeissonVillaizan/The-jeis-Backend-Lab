@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jei&#039;s Backendlab - Dashboard</title>
+    <script type="module" src="http://[::]:5173/@vite/client"></script><link rel="stylesheet" href="http://[::]:5173/resources/css/app.css" /><script type="module" src="http://[::]:5173/resources/js/app.js"></script></head>
+<body class="bg-gradient-to-br from-[#0b1120] via-[#111827] to-[#1e3a8a] text-gray-100 min-h-screen">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <!-- resources/views/components/sidebar.blade.php -->
+
+<!-- Mobile overlay -->
+<div id="mobile-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden md:hidden"></div>
+
+<!-- Mobile sidebar (drawer) -->
+<div id="mobile-sidebar" class="fixed inset-y-0 left-0 z-40 w-64 transform -translate-x-full transition-transform md:hidden">
+    <aside class="h-full bg-[#0f1419] border-r border-blue-900/20 shadow-xl">
+        <div class="h-full flex flex-col">
+            <!-- Logo Section -->
+            <div class="px-6 py-8 border-b border-blue-900/20">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-bold text-white">Jei's Backendlab</h1>
+                        <p class="text-xs text-gray-400">v1.0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="flex-1 px-4 py-6 space-y-2">
+                <a href="/" class="flex items-center gap-3 px-4 py-3 rounded-lg bg-blue-900/20 text-blue-400 font-medium transition-all hover:bg-blue-900/30">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-3m0 0l7-4 7 4M5 9v10a1 1 0 001 1h12a1 1 0 001-1V9m-9 11l4-4m0 0l4 4m-4-4v4"></path>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="/projects" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-gray-200 hover:bg-gray-800/50 transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                    </svg>
+                    <span>Projects</span>
+                </a>
+
+                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-gray-200 hover:bg-gray-800/50 transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+                    </svg>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <!-- Footer -->
+            <div class="px-4 py-4 border-t border-blue-900/20">
+                <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800/50 cursor-pointer transition-all">
+                    <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-sm font-bold">
+                        J
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-white truncate">Jeisson Dev</p>
+                        <p class="text-xs text-gray-400 truncate">jeissonvillaizan@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+</div>
+
+<!-- Desktop sidebar -->
+<aside class="w-64 bg-[#0f1419] border-r border-blue-900/20 shadow-xl hidden md:block">
+    <div class="h-full flex flex-col">
+        <!-- Logo Section -->
+        <div class="px-6 py-8 border-b border-blue-900/20">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-white">Jei's Backendlab</h1>
+                    <p class="text-xs text-gray-400">v1.0</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 px-4 py-6 space-y-2">
+            <a href="/" class="flex items-center gap-3 px-4 py-3 rounded-lg bg-blue-900/20 text-blue-400 font-medium transition-all hover:bg-blue-900/30">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-3m0 0l7-4 7 4M5 9v10a1 1 0 001 1h12a1 1 0 001-1V9m-9 11l4-4m0 0l4 4m-4-4v4"></path>
+                </svg>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="/projects" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-gray-200 hover:bg-gray-800/50 transition-all">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                </svg>
+                <span>Projects</span>
+            </a>
+
+            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-gray-200 hover:bg-gray-800/50 transition-all">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+                </svg>
+                <span>Settings</span>
+            </a>
+        </nav>
+
+        <!-- Footer -->
+        <div class="px-4 py-4 border-t border-blue-900/20">
+            <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800/50 cursor-pointer transition-all">
+                <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-sm font-bold">
+                    J
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-white truncate">Jeisson Dev</p>
+                    <p class="text-xs text-gray-400 truncate">jeissonvillaizan@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Header -->
+            <!-- resources/views/components/header.blade.php -->
+<header class="bg-[#0f1419] border-b border-blue-900/20 px-6 py-4 shadow-lg">
+    <div class="flex items-center justify-between">
+        <div class="flex items-center gap-4">
+            <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg hover:bg-gray-800 text-gray-300" aria-label="Open menu">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+
+            <div>
+                <h2 class="text-2xl font-bold text-white">Dashboard</h2>
+                <p class="text-sm text-gray-400 mt-1">Welcome to my web portfolio</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2 bg-[#111827] border border-blue-900/30 rounded-lg p-1">
+                <a href="http://127.0.0.1:8000/locale/en" class="px-3 py-1 text-xs font-semibold rounded-md transition-all bg-blue-600 text-white">
+                    EN
+                </a>
+                <a href="http://127.0.0.1:8000/locale/es" class="px-3 py-1 text-xs font-semibold rounded-md transition-all text-gray-300 hover:bg-gray-800">
+                    ES
+                </a>
+            </div>
+
+            <button class="p-2 hover:bg-gray-800 rounded-lg transition-all text-gray-400 hover:text-gray-200">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                </svg>
+            </button>
+            <button class="p-2 hover:bg-gray-800 rounded-lg transition-all text-gray-400 hover:text-gray-200">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+</header>
+
+            <!-- Content -->
+            <main class="flex-1 overflow-y-auto">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                    <div class="space-y-8">
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Card 1 -->
+        <div class="bg-gradient-to-br from-[#1a2942] to-[#0f1419] border border-blue-900/30 rounded-xl p-6 hover:border-blue-800/50 transition-all shadow-xl">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-gray-400 text-sm">Completed Projects</p>
+                    <p class="text-3xl font-bold text-white mt-2">12</p>
+                </div>
+                <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                    </svg>
+                </div>
+            </div>
+            <p class="text-xs text-green-400 mt-4">↑ 2 this month</p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-gradient-to-br from-[#1a2942] to-[#0f1419] border border-blue-900/30 rounded-xl p-6 hover:border-blue-800/50 transition-all shadow-xl">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-gray-400 text-sm">Visits This Month</p>
+                    <p class="text-3xl font-bold text-white mt-2">2,543</p>
+                </div>
+                <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                    </svg>
+                </div>
+            </div>
+            <p class="text-xs text-green-400 mt-4">↑ 12% vs last month</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-gradient-to-br from-[#1a2942] to-[#0f1419] border border-blue-900/30 rounded-xl p-6 hover:border-blue-800/50 transition-all shadow-xl">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-gray-400 text-sm">Skills</p>
+                    <p class="text-3xl font-bold text-white mt-2">15</p>
+                </div>
+                <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                </div>
+            </div>
+            <p class="text-xs text-gray-400 mt-4">3 in progress</p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="bg-gradient-to-br from-[#1a2942] to-[#0f1419] border border-blue-900/30 rounded-xl p-6 hover:border-blue-800/50 transition-all shadow-xl">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-gray-400 text-sm">Contacts Received</p>
+                    <p class="text-3xl font-bold text-white mt-2">47</p>
+                </div>
+                <div class="w-12 h-12 bg-pink-500/20 rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                </div>
+            </div>
+            <p class="text-xs text-yellow-400 mt-4">5 unanswered</p>
+        </div>
+    </div>
+
+    <!-- Welcome Section -->
+    <div class="bg-gradient-to-br from-[#1a2942] to-[#0f1419] border border-blue-900/30 rounded-xl p-8 shadow-xl">
+        <h3 class="text-2xl font-bold text-white mb-4">Welcome to my Backendlab</h3>
+        <p class="text-gray-300 leading-relaxed mb-6">
+            This is my space to show my work, skills, and projects. I also track my progress and organize my professional journey here. Explore freely!
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <button class="border border-gray-600 text-gray-300 hover:bg-gray-700 font-medium py-2 px-4 rounded-lg transition-all">
+                View my GitHub
+            </button>
+            <button class="border border-blue-500 text-blue-400 hover:bg-blue-500/10 font-medium py-2 px-4 rounded-lg transition-all">
+                View Resume
+            </button>
+            <button class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-all">
+                Contact Me
+            </button>
+        </div>
+    </div>
+
+    <!-- Recent Projects -->
+    <div class="bg-gradient-to-br from-[#1a2942] to-[#0f1419] border border-blue-900/30 rounded-xl shadow-xl">
+        <div class="p-6 border-b border-blue-900/20">
+            <h3 class="text-xl font-bold text-white">Recent Projects</h3>
+        </div>
+        <div class="p-6">
+            <div class="space-y-4">
+                                <div class="flex items-center justify-between p-4 bg-[#0f1419] rounded-lg hover:bg-[#1a2942] transition-all">
+                    <div>
+                        <p class="text-white font-medium">Red Social Emergente</p>
+                        <p class="text-sm text-gray-400">Laravel + Vue.js + PostgreSQL</p>
+                    </div>
+                    <span class="px-3 py-1 text-xs rounded-full
+                                                    bg-green-500/20 text-green-400
+                                            ">
+                                                    Completed
+                                            </span>
+                </div>
+                                <div class="flex items-center justify-between p-4 bg-[#0f1419] rounded-lg hover:bg-[#1a2942] transition-all">
+                    <div>
+                        <p class="text-white font-medium">Sistema Automatización IA + WhatsApp</p>
+                        <p class="text-sm text-gray-400">EasyPanel + Evolution API + N8N + Goflow API</p>
+                    </div>
+                    <span class="px-3 py-1 text-xs rounded-full
+                                                    bg-green-500/20 text-green-400
+                                            ">
+                                                    Completed
+                                            </span>
+                </div>
+                                <div class="flex items-center justify-between p-4 bg-[#0f1419] rounded-lg hover:bg-[#1a2942] transition-all">
+                    <div>
+                        <p class="text-white font-medium">Sistema Dropshipping con Shopify</p>
+                        <p class="text-sm text-gray-400">Laravel + Shopify + Coordinadora</p>
+                    </div>
+                    <span class="px-3 py-1 text-xs rounded-full
+                                                    bg-yellow-500/20 text-yellow-400
+                                            ">
+                                                    In Progress
+                                            </span>
+                </div>
+                            </div>
+        </div>
+    </div>
+</div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    </body>
+</html>
+

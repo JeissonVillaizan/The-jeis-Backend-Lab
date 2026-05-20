@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
+use Symfony\Component\HttpFoundation\Response;
+
+class SetLocale
+{
+    public function handle(Request $request, Closure $next): Response
+    {
+        $locale = $request->session()->get('locale', 'en');
+
+        if (! in_array($locale, ['en', 'es'], true)) {
+            $locale = 'en';
+        }
+
+        app()->setLocale($locale);
+        View::share('currentLocale', $locale);
+
+        return $next($request);
+    }
+}
