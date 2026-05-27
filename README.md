@@ -3,26 +3,29 @@
 A Laravel portfolio site with a dashboard, certifications, contact form, translations, and uploaded certificate images.
 
 ## What you need
+
 - PHP 8.3+
 - Composer
 - Node.js + npm
 - MySQL if you want to use a database server, or SQLite for local testing
 
 ## Fast setup
+
 1. Copy `.env.example` to `.env`.
 2. Generate an app key if it is empty:
-   - `php artisan key:generate`
+    - `php artisan key:generate`
 3. Install dependencies:
-   - `composer install`
-   - `npm install`
+    - `composer install`
+    - `npm install`
 4. Prepare storage and database:
-   - `php artisan storage:link`
-   - `php artisan migrate --seed`
+    - `php artisan storage:link`
+    - `php artisan migrate --seed`
 5. Start the app:
-   - `php artisan serve`
-   - `npm run dev`
+    - `php artisan serve`
+    - `npm run dev`
 
 ## Important .env values
+
 If you only want the project running locally, these are the only values you really need to care about:
 
 - `APP_NAME`: site name
@@ -36,6 +39,7 @@ If you only want the project running locally, these are the only values you real
 - `QUEUE_CONNECTION`: `sync` unless you use queues
 
 ## For InfinityFree or shared hosting
+
 - Set `APP_ENV=production`
 - Set `APP_DEBUG=false`
 - Set `APP_URL` to your real domain
@@ -47,12 +51,15 @@ If you only want the project running locally, these are the only values you real
 - Clear any old compiled views if you can access the server files: `storage/framework/views`
 
 ## Notes
+
 - Certificate images are stored in `storage/app/public/certifications`.
 - The certifications form uses `CERT_SECRET` to protect create/delete actions.
 - If you do not use AWS, leave the AWS variables empty or remove them from your local `.env`.
 
 ## If something breaks
+
 The most common causes are:
+
 - missing `vendor/`
 - wrong `APP_URL`
 - stale view cache
