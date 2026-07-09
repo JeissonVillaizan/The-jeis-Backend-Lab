@@ -1,0 +1,750 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>Portafolio — Jeisson Villaizan</title>
+        <meta
+            name="description"
+            content="Portafolio profesional — proyectos, habilidades y contacto"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --bg: #0f1724;
+                --card: #0b1220;
+                --muted: #9aa4b2;
+                --accent: #7c3aed;
+                --glass: rgba(255, 255, 255, 0.04);
+                --max-width: 1000px;
+                color-scheme: dark;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            html,
+            body {
+                height: 100%;
+            }
+            body {
+                margin: 0;
+                font-family:
+                    Inter,
+                    system-ui,
+                    -apple-system,
+                    Segoe UI,
+                    Roboto,
+                    "Helvetica Neue",
+                    Arial;
+                background: linear-gradient(180deg, #071127 0%, #09121b 100%);
+                color: #e6eef8;
+                -webkit-font-smoothing: antialiased;
+            }
+            .container {
+                max-width: var(--max-width);
+                margin: 32px auto;
+                padding: 24px;
+            }
+            header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 16px;
+            }
+            .brand {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+            .logo {
+                width: 48px;
+                height: 48px;
+                border-radius: 10px;
+                background: linear-gradient(135deg, var(--accent), #06b6d4);
+                display: grid;
+                place-items: center;
+                color: white;
+                font-weight: 700;
+            }
+            nav a {
+                color: var(--muted);
+                text-decoration: none;
+                margin-left: 14px;
+                font-weight: 600;
+            }
+            nav a:hover {
+                color: white;
+            }
+            .hero {
+                display: grid;
+                grid-template-columns: 1fr 320px;
+                gap: 28px;
+                align-items: center;
+                margin-top: 28px;
+            }
+            .card {
+                background: linear-gradient(
+                    180deg,
+                    rgba(255, 255, 255, 0.02),
+                    transparent
+                );
+                border-radius: 12px;
+                padding: 20px;
+                box-shadow: 0 6px 20px rgba(2, 6, 23, 0.6);
+            }
+            h1 {
+                margin: 0 0 8px;
+                font-size: 28px;
+            }
+            p.lead {
+                color: var(--muted);
+                margin: 0 0 16px;
+            }
+            .cta {
+                display: inline-flex;
+                gap: 8px;
+            }
+            .btn {
+                background: var(--accent);
+                color: white;
+                padding: 10px 14px;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 700;
+            }
+            .secondary {
+                background: transparent;
+                border: 1px solid rgba(255, 255, 255, 0.06);
+                color: var(--muted);
+                padding: 9px 12px;
+                border-radius: 8px;
+            }
+            .skills {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-top: 12px;
+            }
+            .skill {
+                background: var(--glass);
+                padding: 6px 10px;
+                border-radius: 999px;
+                color: var(--muted);
+                font-weight: 600;
+                font-size: 13px;
+            }
+            .profile-card {
+                text-align: center;
+            }
+            .avatar {
+                width: 120px;
+                height: 120px;
+                border-radius: 16px;
+                margin: 0 auto 12px;
+                display: grid;
+                place-items: center;
+                background: linear-gradient(180deg, #122233, #0b1726);
+                font-size: 48px;
+                color: #8ab4ff;
+            }
+            section {
+                margin-top: 28px;
+            }
+            .projects {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 16px;
+                align-items: stretch;
+            }
+            .project {
+                padding: 16px;
+                border-radius: 12px;
+                background: linear-gradient(
+                    180deg,
+                    rgba(124, 58, 237, 0.06),
+                    rgba(11, 18, 32, 0.6)
+                );
+                border-left: 4px solid var(--accent);
+                border: 1px solid rgba(124, 58, 237, 0.08);
+                box-shadow: 0 8px 30px rgba(2, 6, 23, 0.65);
+                transition:
+                    transform 0.18s ease,
+                    box-shadow 0.18s ease;
+                display: flex;
+                flex-direction: column;
+                min-height: 250px;
+            }
+            .project:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 18px 40px rgba(2, 6, 23, 0.7);
+            }
+            .project h3 {
+                margin: 0 0 8px;
+                font-size: 16px;
+            }
+            .project-summary {
+                margin-top: 8px;
+                line-height: 1.35;
+                font-size: 12px;
+                flex: 1;
+            }
+            .project-meta {
+                font-size: 12px !important;
+                line-height: 1.35;
+            }
+            .project-actions {
+                margin-top: auto;
+                padding-top: 12px;
+            }
+            footer {
+                margin-top: 40px;
+                padding: 18px;
+                text-align: center;
+                color: var(--muted);
+                font-size: 14px;
+            }
+            .grid-2 {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+            @media (max-width: 880px) {
+                .hero {
+                    grid-template-columns: 1fr;
+                }
+                .grid-2 {
+                    grid-template-columns: 1fr;
+                }
+            }
+            .contact-card input,
+            .contact-card textarea {
+                width: 100%;
+                padding: 10px;
+                border-radius: 8px;
+                border: 1px solid rgba(255, 255, 255, 0.04);
+                background: transparent;
+                color: inherit;
+                margin-top: 8px;
+            }
+            .socials {
+                display: flex;
+                gap: 10px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .icon {
+                width: 36px;
+                height: 36px;
+                border-radius: 10px;
+                display: grid;
+                place-items: center;
+                background: rgba(255, 255, 255, 0.03);
+            }
+            .social-link {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 40px;
+                padding: 0 14px;
+                border-radius: 999px;
+                width: auto;
+                height: auto;
+                text-decoration: none;
+                color: #e6eef8;
+                background: rgba(255, 255, 255, 0.04);
+                border: 1px solid rgba(255, 255, 255, 0.06);
+                white-space: nowrap;
+            }
+            .muted {
+                color: var(--muted);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <div class="brand">
+                    <div class="logo">JV</div>
+                    <div>
+                        <div style="font-weight: 800">Jeisson Villaizan</div>
+                        <div class="muted" style="font-size: 13px">
+                            Desarrollador Backend y Web
+                        </div>
+                    </div>
+                </div>
+                <nav>
+                    <a href="#about">Sobre mí</a>
+                    <a href="#projects">Proyectos</a>
+                    <a href="#skills">Habilidades</a>
+                    <a href="#contact">Contacto</a>
+                </nav>
+            </header>
+
+            <main>
+                <section class="hero">
+                    <div class="card">
+                        <h1>Jeisson Villaizan — Desarrollador Backend y Web</h1>
+                        <p class="lead">
+                            Desarrollador Backend especializado en PHP, Laravel,
+                            WordPress, Shopify, APIs y sistemas de
+                            automatización. Enfocado en plataformas escalables,
+                            soluciones e‑commerce y flujos de trabajo asistidos
+                            por IA.
+                        </p>
+                        <div class="skills">
+                            <div class="skill">PHP</div>
+                            <div class="skill">Laravel</div>
+                            <div class="skill">WordPress / WooCommerce</div>
+                            <div class="skill">Shopify</div>
+                            <div class="skill">APIs y Webhooks</div>
+                            <div class="skill">Automatizaciones (n8n)</div>
+                            <div class="skill">MySQL / PostgreSQL</div>
+                            <div class="skill">JavaScript / React</div>
+                        </div>
+                        <div style="margin-top: 16px" class="cta">
+                            <a class="btn" href="#projects">Ver proyectos</a>
+                            <a class="secondary" href="#contact">Contáctame</a>
+                        </div>
+                        <div
+                            style="
+                                margin-top: 18px;
+                                color: var(--muted);
+                                font-size: 14px;
+                            "
+                        >
+                            Disponible para trabajo remoto y proyectos
+                            freelance.
+                        </div>
+                    </div>
+
+                    <aside class="card profile-card">
+                        <div class="avatar">JV</div>
+                        <div style="font-weight: 700">Jeisson Villaizan</div>
+                        <div class="muted" style="font-size: 13px">
+                            Desarrollador Backend y Web · Disponible
+                        </div>
+                        <div style="margin-top: 12px" class="muted">
+                            Especializado en plataformas escalables, soluciones
+                            e‑commerce y sistemas de automatización.
+                        </div>
+                        <div style="margin-top: 14px" class="socials">
+                            <a
+                                class="icon"
+                                href="https://github.com/JeissonVillaizan"
+                                title="GitHub"
+                                aria-label="GitHub"
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                <svg
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M12 .5C5.73.5.75 5.48.75 11.75c0 4.96 3.22 9.17 7.69 10.65.56.1.76-.24.76-.54 0-.27-.01-1-.02-1.96-3.13.68-3.79-1.43-3.79-1.43-.51-1.3-1.24-1.65-1.24-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.73 1.16 1.73 1.16 1 .17 1.56 1.03 1.56 1.03.99 1.7 2.6 1.21 3.23.93.1-.72.39-1.21.71-1.49-2.5-.28-5.13-1.25-5.13-5.56 0-1.23.44-2.24 1.16-3.03-.12-.28-.5-1.42.11-2.96 0 0 .95-.3 3.11 1.15a10.8 10.8 0 0 1 2.83-.38c.96 0 1.93.13 2.83.38 2.16-1.45 3.11-1.15 3.11-1.15.62 1.54.24 2.68.12 2.96.72.79 1.15 1.8 1.15 3.03 0 4.32-2.63 5.27-5.14 5.55.4.34.76 1.02.76 2.06 0 1.49-.01 2.7-.01 3.07 0 .3.2.65.77.54C20.79 20.92 24 16.71 24 11.75 24 5.48 18.97.5 12 .5z"
+                                        fill="currentColor"
+                                    /></svg
+                            ></a>
+                            <a
+                                class="icon"
+                                href="https://www.linkedin.com/in/jeisson-villaizan/"
+                                title="LinkedIn"
+                                aria-label="LinkedIn"
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                <svg
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M4.98 3.5C3.88 3.5 3 4.38 3 5.48c0 1.1.88 1.98 1.98 1.98 1.1 0 1.98-.88 1.98-1.98 0-1.1-.88-1.98-1.98-1.98zM3 8.5h4v12H3v-12zM9.5 8.5h3.8v1.6h.1c.5-.95 1.72-1.96 3.56-1.96 3.8 0 4.5 2.5 4.5 5.75v6.6h-4v-5.85c0-1.4-.03-3.2-2-3.2-2 0-2.3 1.56-2.3 3.07v6h-4v-12z"
+                                        fill="currentColor"
+                                    /></svg
+                            ></a>
+                        </div>
+                    </aside>
+                </section>
+
+                <section id="projects">
+                    <h2 style="margin: 0 0 12px">Proyectos destacados</h2>
+                    <div class="projects">
+                        <article class="project">
+                            <h3>Connections Club</h3>
+                            <div class="muted project-meta">
+                                Plataforma social para interacción y comunidad
+                            </div>
+                            <p class="muted project-summary">
+                                Backend con PHP y Laravel para usuarios, base de
+                                datos escalable e integraciones API.
+                            </p>
+                            <div class="project-actions">
+                                <a
+                                    class="btn"
+                                    href="https://connections-club.com/"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    style="padding: 8px 10px; font-size: 13px"
+                                    >Visitar sitio</a
+                                >
+                            </div>
+                        </article>
+
+                        <article class="project">
+                            <h3>Nexus Drops</h3>
+                            <div class="muted project-meta">
+                                Automatización para dropshipping en Shopify
+                            </div>
+                            <p class="muted project-summary">
+                                Integraciones con Shopify para productos,
+                                pedidos y webhooks.
+                            </p>
+                            <div class="project-actions">
+                                <a
+                                    class="btn"
+                                    href="https://nexusdrops.online/"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    style="padding: 8px 10px; font-size: 13px"
+                                    >Visitar sitio</a
+                                >
+                            </div>
+                        </article>
+
+                        <article class="project">
+                            <h3>BankDV</h3>
+                            <div class="muted project-meta">
+                                Administración de servicios bancarios
+                            </div>
+                            <p class="muted project-summary">
+                                Backend con Laravel, permisos y flujo financiero
+                                seguro.
+                            </p>
+                            <div class="project-actions">
+                                <a
+                                    class="btn"
+                                    href="https://bankdv.com/"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    style="padding: 8px 10px; font-size: 13px"
+                                    >Visitar sitio</a
+                                >
+                            </div>
+                        </article>
+
+                        <article class="project">
+                            <h3>TicketGo</h3>
+                            <div class="muted project-meta">
+                                Plataforma digital de venta y gestión de eventos
+                            </div>
+                            <p class="muted project-summary">
+                                Desarrollo de funciones para venta de tickets,
+                                acceso QR, validación de asistentes y
+                                optimización de reservas en tiempo real.
+                            </p>
+                            <div class="project-actions">
+                                <a
+                                    class="btn"
+                                    href="https://ticketgo.click/"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    style="padding: 8px 10px; font-size: 13px"
+                                    >Visitar sitio</a
+                                >
+                            </div>
+                        </article>
+
+                        <article class="project">
+                            <h3>Revela ID</h3>
+                            <div class="muted project-meta">
+                                Pruebas de aptitud y evaluación de candidatos
+                            </div>
+                            <p class="muted project-summary">
+                                Actualmente en mantenimiento por motivos
+                                legales. Personalicé Quizmaker con lógica de
+                                evaluación, reportes automáticos y mejoras de
+                                seguridad/rendimiento.
+                            </p>
+                        </article>
+
+                        <article class="project">
+                            <h3>Attipas México</h3>
+                            <div class="muted project-meta">
+                                Optimización y personalización de tienda Shopify
+                            </div>
+                            <p class="muted project-summary">
+                                Formularios, UI, datos de usuarios e
+                                integraciones para optimizar ventas y
+                                experiencia frontend.
+                            </p>
+                            <div class="project-actions">
+                                <a
+                                    class="btn"
+                                    href="https://www.attipas.mx/?v=80ad0b9fa48a"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    style="padding: 8px 10px; font-size: 13px"
+                                    >Visitar sitio</a
+                                >
+                            </div>
+                        </article>
+
+                        <article class="project">
+                            <h3>Cyfral</h3>
+                            <div class="muted project-meta">
+                                Sitio corporativo SEO para tecnología y
+                                ciberseguridad
+                            </div>
+                            <p class="muted project-summary">
+                                Sitio corporativo con foco en SEO, rendimiento
+                                web y estructura de contenido técnico.
+                            </p>
+                            <div class="project-actions">
+                                <a
+                                    class="btn"
+                                    href="https://cyfral.com.co/"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    style="padding: 8px 10px; font-size: 13px"
+                                    >Visitar sitio</a
+                                >
+                            </div>
+                        </article>
+
+                        <article class="project">
+                            <h3>Namasté Beach Club — Tierra Bomba</h3>
+                            <div class="muted project-meta">
+                                Hotel y beach club para turismo y reservas
+                                online
+                            </div>
+                            <p class="muted project-summary">
+                                Integración de pasarela de pago, gestión de
+                                reservas y diseño UI/UX orientado a conversión.
+                            </p>
+                            <div class="project-actions">
+                                <a
+                                    class="btn"
+                                    href="https://www.namastebeachclub.com/"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    style="padding: 8px 10px; font-size: 13px"
+                                    >Visitar sitio</a
+                                >
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <section id="skills">
+                    <h2 style="margin: 0 0 12px">Habilidades</h2>
+                    <div class="grid-2">
+                        <div class="card">
+                            <h3 style="margin-top: 0">Técnicas</h3>
+                            <ul
+                                class="muted"
+                                style="margin: 8px 0 0; padding-left: 18px"
+                            >
+                                <li>JavaScript (ES6+), TypeScript</li>
+                                <li>PHP & Laravel</li>
+                                <li>React, Vue</li>
+                                <li>APIs REST / GraphQL</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <h3 style="margin-top: 0">Otras</h3>
+                            <ul
+                                class="muted"
+                                style="margin: 8px 0 0; padding-left: 18px"
+                            >
+                                <li>UX/UI básico, accesibilidad</li>
+                                <li>Metodologías ágiles</li>
+                                <li>Optimización y pruebas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="contact">
+                    <h2 style="margin: 0 0 12px">Contacto</h2>
+                    <div class="grid-2">
+                        <div class="card">
+                            <h3 style="margin-top: 0">Datos</h3>
+                            <p
+                                style="
+                                    margin: 8px 0 0;
+                                    font-weight: 700;
+                                    color: #e6eef8;
+                                "
+                            >
+                                Jeisson Villaizan
+                            </p>
+                            <p class="muted" style="margin: 6px 0 14px">
+                                Backend Developer (PHP / Laravel)
+                            </p>
+                            <p class="muted" style="margin: 6px 0">
+                                Bogotá D.C., Colombia
+                            </p>
+                            <p class="muted" style="margin: 6px 0">
+                                Email:
+                                <a href="mailto:Jeissonvillaizan@gmail.com"
+                                    >Jeissonvillaizan@gmail.com</a
+                                >
+                            </p>
+                            <p class="muted" style="margin: 6px 0">
+                                LinkedIn:
+                                <a
+                                    href="https://www.linkedin.com/in/jeisson-villaizan/"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    >linkedin.com/in/jeisson-villaizan</a
+                                >
+                            </p>
+                            <p class="muted" style="margin: 6px 0">
+                                Phone:
+                                <a href="tel:+573194846945">+57 319 484 6945</a>
+                            </p>
+                            <div style="margin-top: 12px" class="socials">
+                                <a
+                                    class="social-link"
+                                    href="https://www.linkedin.com/in/jeisson-villaizan/"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    >LinkedIn</a
+                                >
+                                <a
+                                    class="social-link"
+                                    href="https://github.com/JeissonVillaizan"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    >GitHub</a
+                                >
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3 style="margin-top: 0">Referencias laborales</h3>
+                            <div
+                                class="projects"
+                                style="grid-template-columns: 1fr; gap: 10px"
+                            >
+                                <article
+                                    class="project"
+                                    style="min-height: auto; padding: 12px"
+                                >
+                                    <h3
+                                        style="
+                                            font-size: 15px;
+                                            margin-bottom: 4px;
+                                        "
+                                    >
+                                        Siul Negrete
+                                    </h3>
+                                    <p
+                                        class="muted project-summary"
+                                        style="
+                                            margin-top: 0;
+                                            font-size: 12px;
+                                            flex: none;
+                                        "
+                                    >
+                                        +57 317 4950630
+                                    </p>
+                                </article>
+
+                                <article
+                                    class="project"
+                                    style="min-height: auto; padding: 12px"
+                                >
+                                    <h3
+                                        style="
+                                            font-size: 15px;
+                                            margin-bottom: 4px;
+                                        "
+                                    >
+                                        Michael Ladino (referencia personal)
+                                    </h3>
+                                    <p
+                                        class="muted project-summary"
+                                        style="
+                                            margin-top: 0;
+                                            font-size: 12px;
+                                            flex: none;
+                                        "
+                                    >
+                                        +57 313 2454122
+                                    </p>
+                                </article>
+
+                                <article
+                                    class="project"
+                                    style="min-height: auto; padding: 12px"
+                                >
+                                    <h3
+                                        style="
+                                            font-size: 15px;
+                                            margin-bottom: 4px;
+                                        "
+                                    >
+                                        Juan Luis
+                                    </h3>
+                                    <p
+                                        class="muted project-summary"
+                                        style="
+                                            margin-top: 0;
+                                            font-size: 12px;
+                                            flex: none;
+                                        "
+                                    >
+                                        +58 414-7369177
+                                    </p>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <footer>
+                © <span id="year"></span> jeisson villaizan — Disponible para
+                nuevos proyectos · <span class="muted">Hecho con HTML/CSS</span>
+            </footer>
+        </div>
+
+        <script>
+            document.getElementById("year").textContent =
+                new Date().getFullYear();
+            function sendMail(e) {
+                e.preventDefault();
+                const name = document.getElementById("name").value;
+                const email = document.getElementById("email").value;
+                const msg = document.getElementById("message").value;
+                const subject = encodeURIComponent(
+                    "Contacto desde portafolio: " + name,
+                );
+                const body = encodeURIComponent(
+                    "De: " + name + " (" + email + ")\n\n" + msg,
+                );
+                window.location.href =
+                    "mailto:Jeissonvillaizan@gmail.com?subject=" +
+                    subject +
+                    "&body=" +
+                    body;
+            }
+            function copyEmail() {
+                const txt = document.getElementById("myemail").textContent;
+                navigator.clipboard?.writeText(txt).then(() => {
+                    alert("Email copiado: " + txt);
+                });
+            }
+        </script>
+    </body>
+</html>
