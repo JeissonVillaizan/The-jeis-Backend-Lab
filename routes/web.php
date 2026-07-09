@@ -6,10 +6,14 @@ use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\CertificationController;
+use App\Http\Controllers\SettingsController;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/projects', [ProjectController::class, 'index'])->name('projects');
 Route::get('/certifications', [CertificationController::class, 'index'])->name('certifications');
+Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
+Route::post('/settings/translations', [SettingsController::class, 'store'])->name('settings.translations.store');
+Route::delete('/settings/translations/{translation}', [SettingsController::class, 'destroy'])->name('settings.translations.destroy');
 Route::post('/contact', [ContactMessageController::class, 'store'])->name('contact.store');
 Route::post('/certifications', [CertificationController::class, 'store'])->name('certifications.store');
 Route::delete('/certifications/{certification}', [CertificationController::class, 'destroy'])->name('certifications.destroy');
