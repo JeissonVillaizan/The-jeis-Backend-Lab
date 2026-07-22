@@ -45,6 +45,19 @@
             </form>
         </div>
 
+        <div class="p-6 space-y-4">
+
+    <input
+        type="password"
+        id="modal-secret">
+
+    <button
+        id="translation-confirm-save">
+        Confirmar
+    </button>
+
+</div>
+
         <div class="lg:col-span-2 bg-gradient-to-br from-[#1a2942] to-[#0f1419] border border-blue-900/30 rounded-xl shadow-xl overflow-hidden">
             <div class="p-6 border-b border-blue-900/20 flex items-center justify-between">
                 <div>
