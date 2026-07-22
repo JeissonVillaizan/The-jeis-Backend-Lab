@@ -119,40 +119,65 @@
 </div>
 
 <!-- Delete modal -->
-<div id="cert-delete-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 {{ session('open_cert_delete_modal') || $errors->getBag('destroy')->any() ? '' : 'hidden' }}"></div>
+<div id="cert-delete-overlay" class="fixed inset-0 bg-black/50 z-40 {{ session('open_cert_delete_modal') || $errors->getBag('destroy')->any() ? '' : 'hidden' }}"></div>
+
 <div id="cert-delete-modal" class="fixed inset-0 z-50 flex items-start pt-24 justify-center px-4 sm:px-6 lg:px-8 {{ session('open_cert_delete_modal') || $errors->getBag('destroy')->any() ? '' : 'hidden' }}">
-    <div class="w-full max-w-lg bg-[#0f1419] border border-blue-900/30 rounded-xl shadow-xl overflow-hidden">
+    <div class="w-full max-w-lg bg-gradient-to-br from-[#1a2942] to-[#0f1419] border border-blue-900/30 rounded-xl shadow-xl overflow-hidden">
+
         <div class="px-6 py-4 border-b border-blue-900/20 flex items-center justify-between">
-            <h3 class="text-lg font-bold text-white">{{ t('certifications.delete.title') }}</h3>
-            <button type="button" id="cert-delete-close" class="text-gray-400 hover:text-white" aria-label="{{ t('certifications.delete.aria_close') }}">✕</button>
+            <h3 class="text-lg font-bold text-white">
+                {{ t('certifications.delete.title') }}
+            </h3>
+
+            <button
+                type="button"
+                id="cert-delete-close"
+                class="text-gray-400 hover:text-white"
+                aria-label="{{ t('certifications.delete.aria_close') }}">
+                ✕
+            </button>
         </div>
 
         <form id="cert-delete-form" class="p-6 space-y-4" method="POST" action="">
             @csrf
             @method('DELETE')
 
-            @if($errors->getBag('destroy')->any())
-                <div class="rounded-md border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200">
-                    <ul class="list-disc pl-5 space-y-1">
-                        @foreach($errors->getBag('destroy')->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
             <p id="cert-delete-title" class="text-sm text-gray-300"></p>
 
             <div>
-                <label class="block text-sm text-gray-400 mb-1">{{ t('certifications.fields.secret_prompt') }}</label>
-                <input type="password" name="secret" class="w-full bg-[#0b1116] border border-blue-900/20 rounded-md px-3 py-2 text-gray-200" placeholder="{{ t('certifications.delete.secret_placeholder') }}" />
+                <label class="block text-sm text-gray-400 mb-1">
+                    {{ t('certifications.fields.secret_prompt') }}
+                </label>
+
+                <input
+                    type="password"
+                    name="secret"
+                    class="w-full bg-[#0b1116] border border-blue-900/20 rounded-md px-3 py-2 text-gray-200"
+                    placeholder="{{ t('certifications.delete.secret_placeholder') }}" />
+
+                @if($errors->getBag('destroy')->any())
+                    <p class="mt-2 text-sm text-red-300">
+                        {{ $errors->getBag('destroy')->first() }}
+                    </p>
+                @endif
             </div>
 
             <div class="flex items-center justify-end gap-2 pt-4 border-t border-blue-900/20">
-                <button type="button" id="cert-delete-cancel" class="px-4 py-2 rounded-md bg-gray-700 text-gray-200 hover:bg-gray-600">{{ t('certifications.delete.cancel') }}</button>
-                <button type="submit" class="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700">{{ t('certifications.delete.confirm') }}</button>
+                <button
+                    type="button"
+                    id="cert-delete-cancel"
+                    class="px-4 py-2 rounded-md bg-gray-700 text-gray-200 hover:bg-gray-600">
+                    {{ t('certifications.delete.cancel') }}
+                </button>
+
+                <button
+                    type="submit"
+                    class="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700">
+                    {{ t('certifications.delete.confirm') }}
+                </button>
             </div>
         </form>
+
     </div>
 </div>
 
@@ -180,6 +205,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const deletePromptTemplate = @json(t('certifications.delete.prompt'));
     const deleteFallbackText = @json(t('certifications.delete.fallback'));
 
+    
     function openModal() {
         if (overlay) overlay.classList.remove('hidden');
         if (modal) modal.classList.remove('hidden');
@@ -193,6 +219,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function openDeleteModal(certId, certTitle) {
+            console.log('ID:', certId);
+
+    deleteForm.action = `${deleteBaseAction}/${certId}`;
+
+    console.log('Action:', deleteForm.action);
         if (deleteForm) deleteForm.action = `${deleteBaseAction}/${certId}`;
         if (deleteTitle) deleteTitle.textContent = certTitle ? deletePromptTemplate.replace(':title', certTitle) : deleteFallbackText;
         if (deleteOverlay) deleteOverlay.classList.remove('hidden');
@@ -247,5 +278,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (e.key === 'Escape') closeDeleteModal();
     });
 });
+
+
 </script>
 @endsection

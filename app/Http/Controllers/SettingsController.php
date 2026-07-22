@@ -25,8 +25,16 @@ class SettingsController extends Controller
             'key' => ['required', 'string', 'max:255'],
             'locale' => ['required', 'in:en,es'],
             'value' => ['required', 'string', 'max:5000'],
+            'secret' => ['required', 'string'],
         ]);
-
+        
+        if ($data['secret'] !== env('SECRET')) {
+            return back()
+            ->withInput()
+            ->with('open_translation_modal', true)
+            ->withErrors(['secret' => 'No eres Jeisson Villaizan!'])
+            ->with('message', 'No eres Jeisson Villaizan!');
+        }
         Translation::query()->updateOrCreate(
             [
                 'key' => $data['key'],

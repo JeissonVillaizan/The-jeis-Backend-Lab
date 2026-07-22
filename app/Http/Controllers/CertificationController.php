@@ -30,7 +30,7 @@ class CertificationController extends Controller
         $data = $validator->validated();
 
         // Validate secret matches env value
-        $secret = env('CERT_SECRET');
+        $secret = env('SECRET');
         if (! $secret || $data['secret'] !== $secret) {
             return back()
                 ->withErrors(['secret' => t('certifications.errors.not_jeisson')], 'store')
@@ -75,7 +75,7 @@ class CertificationController extends Controller
 
         $data = $validator->validated();
 
-        $secret = env('CERT_SECRET');
+        $secret = env('SECRET');
         if (! $secret || $data['secret'] !== $secret) {
             return back()
                 ->withErrors(['secret' => t('certifications.errors.not_jeisson')], 'destroy')
