@@ -9,6 +9,13 @@ use Illuminate\Support\Facades\Storage;
 
 class CertificationController extends Controller
 {
+    public function index()
+    {
+        $certifications = Certification::orderBy('date', 'desc')->get();
+
+        return view('pages.certifications', compact('certifications'));
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -29,11 +36,13 @@ class CertificationController extends Controller
 
         $data = $validator->validated();
 
-        // Validate secret matches env value
         $secret = env('SECRET');
+
         if (! $secret || $data['secret'] !== $secret) {
             return back()
-                ->withErrors(['secret' => t('certifications.errors.not_jeisson')], 'store')
+                ->withErrors([
+                    'secret' => t('certifications.errors.not_jeisson')
+                ], 'store')
                 ->withInput()
                 ->with('open_cert_modal', true);
         }
@@ -46,19 +55,12 @@ class CertificationController extends Controller
         ];
 
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('certifications', 'public');
-            $certData['image'] = $path;
+            $certData['image'] = $request->file('image')->store('certifications', 'public');
         }
 
         Certification::create($certData);
 
         return back()->with('status', 'Certification added');
-    }
-
-    public function index()
-    {
-        $certifications = Certification::orderBy('date', 'desc')->get();
-        return view('pages.certifications', compact('certifications'));
     }
 
     public function destroy(Request $request, Certification $certification)
@@ -70,16 +72,31 @@ class CertificationController extends Controller
         if ($validator->fails()) {
             return back()
                 ->withErrors($validator, 'destroy')
-                ->with('open_cert_delete_modal', true);
+                ->with(
+                    [
+                        'open_cert_delete_modal' => true,
+                        'delete_certification_id' => $certification->id,
+                        'delete_certification_title' => $certification->title,
+                    ]
+                );
         }
 
         $data = $validator->validated();
 
         $secret = env('SECRET');
+
         if (! $secret || $data['secret'] !== $secret) {
             return back()
-                ->withErrors(['secret' => t('certifications.errors.not_jeisson')], 'destroy')
-                ->with('open_cert_delete_modal', true);
+                ->withErrors([
+                    'secret' => t('certifications.errors.not_jeisson')
+                ], 'destroy')
+                ->with(
+                    [
+                        'open_cert_delete_modal' => true,
+                        'delete_certification_id' => $certification->id,
+                        'delete_certification_title' => $certification->title,
+                    ]
+                );
         }
 
         if ($certification->image) {
