@@ -157,47 +157,4 @@
 </div>
 @endsection
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const openModalButtons = document.querySelectorAll('.translation-open-modal');
-        const modalOverlay = document.getElementById('translation-modal-overlay');
-        const modalContainer = document.getElementById('translation-modal-container');
-        const closeModalButton = document.getElementById('translation-close');
-        const cancelModalButton = document.getElementById('translation-cancel');
-        const confirmModalButton = document.getElementById('translation-confirm');
-        const secretInput = document.getElementById('modal-secret');
-        let currentForm = null;
-
-        openModalButtons.forEach(button => {
-            button.addEventListener('click', function () {
-
-                currentForm = this.closest('form');
-
-                modalOverlay.classList.remove('hidden');
-                modalContainer.classList.remove('hidden');
-
-                secretInput.value = '';
-                secretInput.focus();
-            });
-        });
-
-        closeModalButton.addEventListener('click', closeModal);
-        cancelModalButton.addEventListener('click', closeModal);
-        modalOverlay.addEventListener('click', closeModal);
-        
-
-
-        function closeModal() {
-            modalOverlay.classList.add('hidden');
-            modalContainer.classList.add('hidden');
-            secretInput.value = '';
-        }
-        function submitForm() {
-            const hiddenSecret = currentForm.querySelector('[name="secret"]');
-            hiddenSecret.value = secretInput.value;
-            currentForm.submit();
-        }
-        
-        confirmModalButton.addEventListener('click', submitForm);
-    });
-</script>
+<script src="{{ asset('js/AuthModal.js') }}" defer></script>

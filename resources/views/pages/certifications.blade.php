@@ -220,7 +220,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function openDeleteModal(certId, certTitle) {
             console.log('ID:', certId);
-
+            console.log('Title:', certTitle);
     deleteForm.action = `${deleteBaseAction}/${certId}`;
 
     console.log('Action:', deleteForm.action);

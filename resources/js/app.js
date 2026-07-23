@@ -1,4 +1,4 @@
-// Mobile sidebar toggle for responsive layout
+// Mobil../../public/js/AuthModal.jsle for responsive layout
 document.addEventListener("DOMContentLoaded", function () {
     const mobileSidebar = document.getElementById("mobile-sidebar");
     const overlay = document.getElementById("mobile-overlay");
