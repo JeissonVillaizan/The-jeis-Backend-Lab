@@ -88,5 +88,13 @@
 <div id="overlay" class="flex items-center justify-center fixed inset-0 bg-black/50 z-40 hidden"></div>
 
 <script src="{{ asset('js/AuthModal.js') }}" defer></script>
+<script type="application/json" id="modalTranslations">
+    {
+        "confirmChanges":"{{ t('Translation.Confirm_Changes') }}",
+        "passwordDescription":"{{ t('Translation.Password.Description') }}",
+        "password":"{{ t('Translation.Password') }}",
+        "cancel":"{{ t('Translation.cancel') }}",
+        "confirm":"{{ t('Translation.confirm') }}"
+    }
+</script>
 @endsection
-

@@ -1,4 +1,6 @@
 const openModal = document.querySelectorAll('[data-modal="open-modal"]');
+const modalScript = document.getElementById("modalTranslations");
+const modalTranslations = JSON.parse(modalScript.innerText);
 
 openModal.forEach((button) => {
     button.addEventListener("click", (e) => {
@@ -39,7 +41,7 @@ function openSubmitModal(id = null, behavior, data = null) {
 
         <div class="px-6 py-4 border-b border-blue-900/20 flex items-center justify-between">
             <h3 class="text-lg font-bold text-white">
-                {{ t('Translation.Confirm_Changes') }}
+                ${modalTranslations.confirmChanges}
             </h3>
 
             <button type="button"
@@ -53,12 +55,12 @@ function openSubmitModal(id = null, behavior, data = null) {
         <div class="p-6 space-y-4">
 
             <p class="text-sm text-gray-300">
-                {{ t('Translation.Password.Description') }}
+               ${modalTranslations.passwordDescription} 
             </p>
 
             <div>
                 <label class="block text-sm text-gray-400 mb-1">
-                    {{ t('Translation.Password') }}
+                  ${modalTranslations.password}  
                 </label>
 
                 <input
@@ -68,11 +70,9 @@ function openSubmitModal(id = null, behavior, data = null) {
                     class="w-full bg-[#0b1116] border border-blue-900/20 rounded-md px-3 py-2 text-gray-200"
                     placeholder="Password" />
 
-                @error('secret')
                     <p class="mt-2 text-sm text-red-300">
                         {{ $message }}
                     </p>
-                @enderror
             </div>
 
             <div class="flex items-center justify-end gap-2 pt-4 border-t border-blue-900/20">
@@ -80,13 +80,13 @@ function openSubmitModal(id = null, behavior, data = null) {
                         id="translation-cancel"
                         data-modal="close-modal"
                         class="px-4 py-2 rounded-md bg-gray-700 text-gray-200 hover:bg-gray-600">
-                    {{ t('Translation.cancel') }}
+                    ${modalTranslations.cancel}
                 </button>
 
                 <button type="submit"
                         id="translation-confirm"
                         class=" px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700">
-                    {{ t('Translation.confirm') }}
+                    ${modalTranslations.confirm}
                 </button>
             </div>
 
