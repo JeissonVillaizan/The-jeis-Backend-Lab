@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			.hidden {
+				visibility: hidden;
+			}
+
+			.fixed {
+				position: fixed;
+				inset: 0;
+			}
+
+			.overlay {
+				height: 100dvh;
+				width: 100dvw;
+				background-color: rgba(0, 0, 0, 0.322);
+				z-index: 10;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+
+			.modal {
+				padding: 3rem;
+				height: 50dvh;
+				width: 60dvw;
+				background-color: aliceblue;
+				border-radius: 20px;
+				border: 1px solid rgb(82, 86, 89);
+				z-index: 20;
+				form {
+					display: flex;
+					flex-direction: column;
+					gap: 2rem;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<button data-id="1" data-modal="open-modal" data-behavior="delete">
+			eliminar item
+		</button>
+		<button data-id="2" data-modal="open-modal" data-behavior="delete">
+			eliminar item
+		</button>
+		<button data-id="3" data-modal="open-modal" data-behavior="delete">
+			eliminar item
+		</button>
+		<button data-id="4" data-modal="open-modal" data-behavior="delete">
+			eliminar item
+		</button>
+		<button data-id="1" data-modal="open-modal" data-behavior="create">
+			create item
+		</button>
+		<div class="overlay fixed hidden"></div>
+
+		<script>
+			const openModal = document.querySelectorAll('[data-modal="open-modal"]');
+
+			openModal.forEach((button) => {
+				button.addEventListener('click', (e) => {
+					const element = e.target;
+					const id = element.getAttribute('data-id');
+					const behavior = element.getAttribute('data-behavior');
+					openSubmitModal(id, behavior);
+				});
+			});
+
+			function openSubmitModal(id, behavior) {
+				const container = document.querySelector('.overlay');
+				container.innerHTML = `<div class="modal">
+				<form>
+					<h1> elemento a ${behavior} ${id}</h1>
+					<label>
+						<p>Escribe tu email</p>
+						<input type="email" name="email" id="email" />
+
+					</label>
+
+					<button data-id="1" data-modal="close-modal">
+							cerrar modal
+						</button>
+						<button type='submit'>
+							subir modal
+						</button>
+				</form>
+			</div>`;
+
+				container.classList.remove('hidden');
+
+				container
+					.querySelector('[data-modal="close-modal"]')
+					.addEventListener('click', () => {
+						closeModal(container);
+					});
+
+				container.addEventListener('click', (e) => {
+					if (event.target === event.currentTarget) {
+						closeModal(container);
+					}
+				});
+
+				const form = container.querySelector('form');
+				form.addEventListener('submit', (e) => {
+					e.preventDefault();
+					const formData = new FormData(e.target);
+					const dataObject = Object.fromEntries(formData.entries());
+
+					const endpoints = [
+						{ behavior: 'delete', endpoint: '/enpoint/delete' },
+						{ behavior: 'create', endpoint: '/enpoint/create' },
+					];
+
+					const filteredEndpoint = endpoints.find(
+						(obj) => obj.behavior === behavior,
+					);
+
+					console.log(
+						filteredEndpoint.endpoint + ' || ' + JSON.stringify(dataObject),
+					);
+				});
+			}
+
+			function closeModal(container) {
+				container.classList.add('hidden');
+			}
+
+			function submitData() {}
+		</script>
+	</body>
+</html>

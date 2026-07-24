@@ -1,43 +1,161 @@
-const openModalButtons = document.querySelectorAll(".translation-open-modal");
-const modalOverlay = document.getElementById("translation-modal-overlay");
-const modalContainer = document.getElementById("translation-modal-container");
-const closeModalButton = document.getElementById("translation-close");
-const cancelModalButton = document.getElementById("translation-cancel");
-const confirmModalButton = document.getElementById("translation-confirm");
-const secretInput = document.getElementById("modal-secret");
+const openModal = document.querySelectorAll('[data-modal="open-modal"]');
 
-console.log("AuthModal.js cargado");
+openModal.forEach((button) => {
+    button.addEventListener("click", (e) => {
+        const element = e.target;
+        const id = element.getAttribute("data-id");
+        const behavior = element.getAttribute("data-behavior");
+        openSubmitModal(id, behavior);
+    });
+});
 
-if (modalOverlay) {
-    let currentForm = null;
-
-    openModalButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-            currentForm = button.closest("form");
-
-            modalOverlay.classList.remove("hidden");
-            modalContainer.classList.remove("hidden");
-
-            secretInput.value = "";
-            secretInput.focus();
+document
+    .querySelector("#saveTranslation-form")
+    ?.addEventListener("submit", (e) => {
+        e.preventDefault();
+        let isEmptyField = false;
+        const formData = new FormData(e.target);
+        const dataObject = Object.fromEntries(formData.entries());
+        Object.values(dataObject).forEach((value) => {
+            if (value.trim() === "") {
+                isEmptyField = true;
+            }
         });
+
+        if (isEmptyField) {
+            alert("Please fill in all fields.");
+            return;
+        }
+
+        openSubmitModal(null, "saveTranslation", dataObject);
     });
 
-    closeModalButton.addEventListener("click", closeModal);
-    cancelModalButton.addEventListener("click", closeModal);
-    modalOverlay.addEventListener("click", closeModal);
-    confirmModalButton.addEventListener("click", submitForm);
+function openSubmitModal(id = null, behavior, data = null) {
+    const container = document.querySelector("#overlay");
 
-    function closeModal() {
-        modalOverlay.classList.add("hidden");
-        modalContainer.classList.add("hidden");
-        secretInput.value = "";
-    }
+    container.innerHTML = `
 
-    function submitForm() {
-        if (!currentForm) return;
+    <form class="w-full max-w-lg bg-gradient-to-br from-[#1a2942] to-[#0f1419] border border-blue-900/30 rounded-xl shadow-xl overflow-hidden">
 
-        currentForm.querySelector('[name="secret"]').value = secretInput.value;
-        currentForm.submit();
-    }
+        <div class="px-6 py-4 border-b border-blue-900/20 flex items-center justify-between">
+            <h3 class="text-lg font-bold text-white">
+                {{ t('Translation.Confirm_Changes') }}
+            </h3>
+
+            <button type="button"
+                    id="translation-close"
+                    data-modal="close-modal"
+                    class="text-gray-400 hover:text-white">
+                ✕
+            </button>
+        </div>
+
+        <div class="p-6 space-y-4">
+
+            <p class="text-sm text-gray-300">
+                {{ t('Translation.Password.Description') }}
+            </p>
+
+            <div>
+                <label class="block text-sm text-gray-400 mb-1">
+                    {{ t('Translation.Password') }}
+                </label>
+
+                <input
+                    id="modal-secret"
+                    name="secret"
+                    type="password"
+                    class="w-full bg-[#0b1116] border border-blue-900/20 rounded-md px-3 py-2 text-gray-200"
+                    placeholder="Password" />
+
+                @error('secret')
+                    <p class="mt-2 text-sm text-red-300">
+                        {{ $message }}
+                    </p>
+                @enderror
+            </div>
+
+            <div class="flex items-center justify-end gap-2 pt-4 border-t border-blue-900/20">
+                <button type="button"
+                        id="translation-cancel"
+                        data-modal="close-modal"
+                        class="px-4 py-2 rounded-md bg-gray-700 text-gray-200 hover:bg-gray-600">
+                    {{ t('Translation.cancel') }}
+                </button>
+
+                <button type="submit"
+                        id="translation-confirm"
+                        class=" px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700">
+                    {{ t('Translation.confirm') }}
+                </button>
+            </div>
+
+        </div>
+    </form>
+            `;
+
+    container.classList.remove("hidden");
+
+    container
+        .querySelector('[data-modal="close-modal"]')
+        .addEventListener("click", () => {
+            closeModal(container);
+        });
+
+    container.addEventListener("click", (e) => {
+        if (event.target === event.currentTarget) {
+            closeModal(container);
+        }
+    });
+
+    const form = container.querySelector("form");
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const dataObject = Object.fromEntries(formData.entries());
+
+        const endpoints = [
+            {
+                behavior: "saveTranslation",
+                endpoint: "/settings/translations",
+                method: "POST",
+            },
+            {
+                behavior: "deleteTranslation",
+                endpoint: "/settings/translations/",
+                method: "DELETE",
+            },
+        ];
+
+        const filteredEndpoint = endpoints.find(
+            (obj) => obj.behavior === behavior,
+        );
+
+        if (id) {
+            filteredEndpoint.endpoint += id;
+        }
+        const dataJSON = JSON.stringify(data, null, 2);
+        const response = fetch(filteredEndpoint.endpoint, {
+            method: filteredEndpoint.method,
+            headers: {
+                "Content-Type": "application/json",
+                "X-secret": dataObject.secret,
+            },
+            body: dataJSON,
+        })
+            .then((response) => response.json())
+
+            .then((data) => {
+                if (data.success) {
+                    alert(data.message);
+                    closeModal(container);
+                } else {
+                    alert(data.message);
+                }
+            });
+    });
+}
+
+function closeModal(container) {
+    container.classList.add("hidden");
 }

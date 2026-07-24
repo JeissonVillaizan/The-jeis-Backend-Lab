@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Translation;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
 class SettingsController extends Controller
@@ -19,39 +20,70 @@ class SettingsController extends Controller
         return view('pages.settings', compact('translations'));
     }
 
-    public function store(Request $request): RedirectResponse
-    {
-        $data = $request->validate([
-            'key' => ['required', 'string', 'max:255'],
-            'locale' => ['required', 'in:en,es'],
-            'value' => ['required', 'string', 'max:5000'],
-            'secret' => ['required', 'string'],
-        ]);
-        
-        if ($data['secret'] !== env('SECRET')) {
-            return back()
-            ->withInput()
-            ->with('open_translation_modal', true)
-            ->withErrors(['secret' => 'No eres Jeisson Villaizan!'])
-            ->with('message', 'No eres Jeisson Villaizan!');
-        }
-        Translation::query()->updateOrCreate(
-            [
-                'key' => $data['key'],
-                'locale' => $data['locale'],
-            ],
-            [
-                'value' => $data['value'],
-            ]
-        );
+public function store(Request $request)
+{
 
-        return back()->with('status', 'Translation saved successfully.');
+    $validator = Validator::make($request->all(), [
+        'key' => ['required', 'string', 'max:255'],
+        'locale' => ['required', 'in:en,es'],
+        'value' => ['required', 'string', 'max:5000'],
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Validation failed.',
+            'errors' => $validator->errors(),
+        ], 422);
     }
 
-    public function destroy(Translation $translation): RedirectResponse
+    $data = $validator->validated();
+
+    $secret = $request->header('X-secret');
+
+    if ($secret !== env('SECRET')) {
+        return response()->json([
+            'success' => false,
+            'message' => 'No eres Jeisson Villaizan!',
+        ], 403);
+
+    }
+
+    Translation::updateOrCreate(
+        [
+            'key' => $data['key'],
+            'locale' => $data['locale'],
+        ],
+        [
+            'value' => $data['value'],
+        ]
+    );
+    return response()->json([
+        'success' => true,
+        'message' => 'Translation saved successfully.',
+        'data' => $data,
+    ], 200);
+}
+
+    public function destroy(Request $request, Translation $translation)
     {
+
+    $secret = $request->header('X-secret');
+
+            if ($secret !== env('SECRET')) {
+        return response()->json([
+            'success' => false,
+            'message' => 'No eres Jeisson Villaizan!',
+        ], 403);
+
+    }
         $translation->delete();
 
-        return back()->with('status', 'Translation deleted successfully.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Translation deleted successfully.'
+        ]);
     }
+        
+
 }
