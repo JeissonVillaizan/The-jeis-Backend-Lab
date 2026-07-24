@@ -1,425 +1,1073 @@
--- --------------------------------------------------------
--- Host:                         127.0.0.1
--- Versión del servidor:         8.4.3 - MySQL Community Server - GPL
--- SO del servidor:              Win64
--- HeidiSQL Versión:             12.8.0.6908
--- --------------------------------------------------------
+--
+-- PostgreSQL database dump
+--
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+\restrict kGLuhkO7EunHR0yDYzmJcUa8yY3yUy6EfglQgJfK6M5OaAfKdLEeIgI8fzod4ib
 
--- Volcando estructura para tabla jeis_backendlab.cache
-CREATE TABLE IF NOT EXISTS `cache` (
-  `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `expiration` bigint NOT NULL,
-  PRIMARY KEY (`key`),
-  KEY `cache_expiration_index` (`expiration`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+-- Dumped from database version 18.4
+-- Dumped by pg_dump version 18.4
 
--- Volcando datos para la tabla jeis_backendlab.cache: ~0 rows (aproximadamente)
+-- Started on 2026-07-24 21:40:30 UTC
 
--- Volcando estructura para tabla jeis_backendlab.cache_locks
-CREATE TABLE IF NOT EXISTS `cache_locks` (
-  `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `owner` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `expiration` bigint NOT NULL,
-  PRIMARY KEY (`key`),
-  KEY `cache_locks_expiration_index` (`expiration`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
 
--- Volcando datos para la tabla jeis_backendlab.cache_locks: ~0 rows (aproximadamente)
+--
+-- TOC entry 904 (class 1247 OID 16515)
+-- Name: project_status_enum; Type: TYPE; Schema: public; Owner: postgres
+--
 
--- Volcando estructura para tabla jeis_backendlab.certifications
-CREATE TABLE IF NOT EXISTS `certifications` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `issuer` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `date` date DEFAULT NULL,
-  `url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TYPE public.project_status_enum AS ENUM (
+    'Completado',
+    'En Progreso',
+    'Planificado'
+);
 
--- Volcando datos para la tabla jeis_backendlab.certifications: ~0 rows (aproximadamente)
 
--- Volcando estructura para tabla jeis_backendlab.contact_messages
-CREATE TABLE IF NOT EXISTS `contact_messages` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `subject` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `message` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+ALTER TYPE public.project_status_enum OWNER TO postgres;
 
--- Volcando datos para la tabla jeis_backendlab.contact_messages: ~0 rows (aproximadamente)
+SET default_tablespace = '';
 
--- Volcando estructura para tabla jeis_backendlab.dashboard_visits
-CREATE TABLE IF NOT EXISTS `dashboard_visits` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `month_key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `visits` int unsigned NOT NULL DEFAULT '1430',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `dashboard_visits_month_key_unique` (`month_key`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+SET default_table_access_method = heap;
 
--- Volcando datos para la tabla jeis_backendlab.dashboard_visits: ~1 rows (aproximadamente)
-REPLACE INTO `dashboard_visits` (`id`, `month_key`, `visits`, `created_at`, `updated_at`) VALUES
-	(1, '2026-05', 1478, '2026-05-21 02:37:31', '2026-05-21 03:50:32');
+--
+-- TOC entry 219 (class 1259 OID 16389)
+-- Name: cache; Type: TABLE; Schema: public; Owner: postgres
+--
 
--- Volcando estructura para tabla jeis_backendlab.failed_jobs
-CREATE TABLE IF NOT EXISTS `failed_jobs` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`),
-  KEY `failed_jobs_connection_queue_failed_at_index` (`connection`,`queue`,`failed_at`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE public.cache (
+    key character varying(255) NOT NULL,
+    value text NOT NULL,
+    expiration bigint NOT NULL
+);
 
--- Volcando datos para la tabla jeis_backendlab.failed_jobs: ~0 rows (aproximadamente)
 
--- Volcando estructura para tabla jeis_backendlab.jobs
-CREATE TABLE IF NOT EXISTS `jobs` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `queue` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `attempts` smallint unsigned NOT NULL,
-  `reserved_at` int unsigned DEFAULT NULL,
-  `available_at` int unsigned NOT NULL,
-  `created_at` int unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `jobs_queue_index` (`queue`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+ALTER TABLE public.cache OWNER TO postgres;
 
--- Volcando datos para la tabla jeis_backendlab.jobs: ~0 rows (aproximadamente)
+--
+-- TOC entry 220 (class 1259 OID 16400)
+-- Name: cache_locks; Type: TABLE; Schema: public; Owner: postgres
+--
 
--- Volcando estructura para tabla jeis_backendlab.job_batches
-CREATE TABLE IF NOT EXISTS `job_batches` (
-  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `total_jobs` int NOT NULL,
-  `pending_jobs` int NOT NULL,
-  `failed_jobs` int NOT NULL,
-  `failed_job_ids` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `options` mediumtext COLLATE utf8mb4_unicode_ci,
-  `cancelled_at` int DEFAULT NULL,
-  `created_at` int NOT NULL,
-  `finished_at` int DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE public.cache_locks (
+    key character varying(255) NOT NULL,
+    owner character varying(255) NOT NULL,
+    expiration bigint NOT NULL
+);
 
--- Volcando datos para la tabla jeis_backendlab.job_batches: ~0 rows (aproximadamente)
 
--- Volcando estructura para tabla jeis_backendlab.migrations
-CREATE TABLE IF NOT EXISTS `migrations` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+ALTER TABLE public.cache_locks OWNER TO postgres;
 
--- Volcando datos para la tabla jeis_backendlab.migrations: ~9 rows (aproximadamente)
-REPLACE INTO `migrations` (`id`, `migration`, `batch`) VALUES
-	(1, '0001_01_01_000000_create_users_table', 1),
-	(2, '0001_01_01_000001_create_cache_table', 1),
-	(3, '0001_01_01_000002_create_jobs_table', 1),
-	(4, '2026_05_13_205405_create_projects_table', 2),
-	(5, '2026_05_13_220000_create_translations_table', 3),
-	(6, '2026_05_20_000000_create_certifications_table', 4),
-	(7, '2026_05_20_000001_add_image_to_certifications_table', 5),
-	(8, '2026_05_20_000002_create_dashboard_visits_table', 6),
-	(9, '2026_05_20_000003_create_contact_messages_table', 7);
+--
+-- TOC entry 222 (class 1259 OID 16412)
+-- Name: certifications; Type: TABLE; Schema: public; Owner: postgres
+--
 
--- Volcando estructura para tabla jeis_backendlab.password_reset_tokens
-CREATE TABLE IF NOT EXISTS `password_reset_tokens` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE public.certifications (
+    id bigint NOT NULL,
+    title character varying(255) NOT NULL,
+    issuer character varying(255) DEFAULT NULL::character varying,
+    date date,
+    url character varying(255) DEFAULT NULL::character varying,
+    image character varying(255) DEFAULT NULL::character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
 
--- Volcando datos para la tabla jeis_backendlab.password_reset_tokens: ~0 rows (aproximadamente)
 
--- Volcando estructura para tabla jeis_backendlab.projects
-CREATE TABLE IF NOT EXISTS `projects` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `technologies` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` enum('Completado','En Progreso','Planificado') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'En Progreso',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+ALTER TABLE public.certifications OWNER TO postgres;
 
--- Volcando datos para la tabla jeis_backendlab.projects: ~3 rows (aproximadamente)
-REPLACE INTO `projects` (`id`, `title`, `description`, `technologies`, `status`, `created_at`, `updated_at`) VALUES
-	(1, 'Sistema Dropshipping con Shopify', 'Sistema completo de dropshipping integrado con Shopify y gestión de coordinadora para entregas automáticas.', 'Laravel + Shopify + Coordinadora', 'En Progreso', '2026-05-14 01:56:20', '2026-05-14 01:56:20'),
-	(2, 'Sistema Automatización IA + WhatsApp', 'Plataforma de automatización de procesos empresariales con integración de inteligencia artificial y WhatsApp API para comunicación directa con clientes.', 'EasyPanel + Evolution API + N8N + Goflow API', 'Completado', '2026-05-14 01:56:26', '2026-05-14 01:56:26'),
-	(3, 'Red Social Emergente', 'Red social moderna diseñada para profesionales backend con features de conexión, compartir proyectos y colaboración en tiempo real.', 'Laravel + Vue.js + PostgreSQL', 'Completado', '2026-05-14 01:56:30', '2026-05-14 01:56:30');
+--
+-- TOC entry 221 (class 1259 OID 16411)
+-- Name: certifications_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
 
--- Volcando estructura para tabla jeis_backendlab.sessions
-CREATE TABLE IF NOT EXISTS `sessions` (
-  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_id` bigint unsigned DEFAULT NULL,
-  `ip_address` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_agent` text COLLATE utf8mb4_unicode_ci,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `last_activity` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `sessions_user_id_index` (`user_id`),
-  KEY `sessions_last_activity_index` (`last_activity`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+ALTER TABLE public.certifications ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.certifications_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
 
--- Volcando datos para la tabla jeis_backendlab.sessions: ~11 rows (aproximadamente)
-REPLACE INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-	('0qPgHEKNcvextVz58tp1yCWB1gjBVCs7dZxTD1TX', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.26200; es-CO) PowerShell/7.6.0', 'eyJfdG9rZW4iOiJ2TWlmRUVpbVpKd09iS0FadHJKS05oMzU0YUtxZ3lxMWlrVFZBd0dCIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwIiwicm91dGUiOm51bGx9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19', 1779313144),
-	('AWiIugwllmFefE4TA2U5JGQPNBQilYhlGbzDik33', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.120.0 Chrome/142.0.7444.265 Electron/39.8.8 Safari/537.36', 'eyJfdG9rZW4iOiJVMDY1aFl3RGlHSG95TnBDeDBqOE1ZcTBhQXQ3bkxmdEUydkJEYVJRIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwIiwicm91dGUiOm51bGx9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19', 1779317432),
-	('ECWLIKiwSu3C4PbBmBUfm6VbCu6KajxuskMDYfjE', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.26200; es-CO) PowerShell/7.6.0', 'eyJfdG9rZW4iOiJQUjB5d093T21UYVlnaWRLZTFBbnR6ZjY4NEhWbFBUaVBSWmhqVkFhIiwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119fQ==', 1779313771),
-	('HlGRLml4epGXxc4ZSpDrhNfrTO45m9NIq9KKo9aM', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.26200; es-CO) PowerShell/7.6.0', 'eyJfdG9rZW4iOiIzcFdQNGkyVkxidVV6OXliNFdVUFBPZDNrREZrM051QmNpdzFwcDBrIiwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119fQ==', 1779313690),
-	('Iz9w4p4YIgy4p0jJ6Eq88vV69pWKKS3VhLiyusLu', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJiWlIxTDdYRVUxRk81Z0lnQ3lTWHk0VWh2enFwN0IzNmpEeFdQSnB0IiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwIiwicm91dGUiOm51bGx9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19', 1779313232),
-	('mwhL1vNF7WFrs8Rqao5i1rvvNqTj6bDZ7vy0QLgP', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJNSVE2bXpUT1VYY3A1MWtqNHRXdDQ3aVVHSnpyNTQ1QVFLRHlqb1FUIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwIiwicm91dGUiOm51bGx9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX0sImxvY2FsZSI6ImVzIn0=', 1779316994),
-	('pSTztvPXcBrVBRPuZyIRxKvVNj0QbMnORIg5T5g1', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJJb3FnTlQ0ODdPT3hoWTh4dlBtWmgzekZ2cjYzYnhia3FZWkQydHpFIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwXC9jZXJ0aWZpY2F0aW9ucyIsInJvdXRlIjoiY2VydGlmaWNhdGlvbnMifSwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119LCJsb2NhbGUiOiJlcyJ9', 1779317070),
-	('uCecO0JRlLWQUAAfcxxtKJyX7qG0Rxbk6UWra2i5', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.26200; es-CO) PowerShell/7.6.0', 'eyJfdG9rZW4iOiJwREZOSDNkWUNhYjNoaUNFN1h1TGRMWXdOYWxrd0VVVnVoS2g3VFU4IiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwIiwicm91dGUiOm51bGx9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19', 1779313658),
-	('xuCQofmBvJsXaPinnCI8njWrgUh29EE77H8ub0ur', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.26200; es-CO) PowerShell/7.6.0', 'eyJfdG9rZW4iOiIxajZSellLeGVqZ0tlYUtTVHlZU1JwMTc1SWY1SkxCeXRPWGo0eDBZIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwIiwicm91dGUiOm51bGx9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19', 1779313672),
-	('YCMhjqn5OzFHVshzLcuaPNJ73owBYVyOXnXZBWw9', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.26200; es-CO) PowerShell/7.6.0', 'eyJfdG9rZW4iOiJhNHRHcVlkcGJFNTNhWWZ1ZzdRbU1GOVU3NTE3WG54bWd1bGRtQWJ4IiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwIiwicm91dGUiOm51bGx9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19', 1779313051),
-	('YffVMT5aB5O6VPRlQqj8WA09spn57nQVf7V9z1hH', NULL, '127.0.0.1', 'curl/8.19.0', 'eyJfdG9rZW4iOiJyQ2U0cnU4dWlYa3lHRE9KR3owNHBpNmF1WldxcTh5OGM1NG42clFSIiwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119fQ==', 1779308996);
 
--- Volcando estructura para tabla jeis_backendlab.translations
-CREATE TABLE IF NOT EXISTS `translations` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `locale` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `translations_key_locale_unique` (`key`,`locale`),
-  KEY `translations_locale_index` (`locale`)
-) ENGINE=InnoDB AUTO_INCREMENT=282 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+--
+-- TOC entry 224 (class 1259 OID 16425)
+-- Name: contact_messages; Type: TABLE; Schema: public; Owner: postgres
+--
 
--- Volcando datos para la tabla jeis_backendlab.translations: ~184 rows (aproximadamente)
-REPLACE INTO `translations` (`id`, `key`, `locale`, `value`, `created_at`, `updated_at`) VALUES
-	(1, 'header.default_title', 'en', 'Dashboard', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(2, 'header.default_title', 'es', 'Dashboard', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(3, 'header.default_subtitle', 'en', 'Welcome to your professional portfolio', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(4, 'header.default_subtitle', 'es', 'Bienvenido a tu portafolio profesional', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(5, 'nav.dashboard', 'en', 'Dashboard', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(6, 'nav.dashboard', 'es', 'Dashboard', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(7, 'nav.projects', 'en', 'Projects', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(8, 'nav.projects', 'es', 'Proyectos', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(9, 'nav.settings', 'en', 'Settings', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(10, 'nav.settings', 'es', 'Configuracion', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(11, 'home.page_title', 'en', 'Dashboard', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(12, 'home.page_title', 'es', 'Dashboard', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(13, 'home.page_subtitle', 'en', 'Welcome to my web portfolio', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(14, 'home.page_subtitle', 'es', 'Bienvenido a mi Portafolio web', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(15, 'home.stats.completed_projects', 'en', 'Completed Projects', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(16, 'home.stats.completed_projects', 'es', 'Proyectos Completados', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(17, 'home.stats.completed_projects_change', 'en', '↑ 2 this month', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(18, 'home.stats.completed_projects_change', 'es', '↑ 2 este mes', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(19, 'home.stats.month_visits', 'en', 'Visits This Month', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(20, 'home.stats.month_visits', 'es', 'Visitas Este Mes', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(21, 'home.stats.month_visits_change', 'en', '↑ 12% vs last month', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(22, 'home.stats.month_visits_change', 'es', '↑ 12% comparado', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(23, 'home.stats.skills', 'en', 'Skills', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(24, 'home.stats.skills', 'es', 'Habilidades', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(25, 'home.stats.skills_in_progress', 'en', '3 in progress', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(26, 'home.stats.skills_in_progress', 'es', '3 en progreso', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(27, 'home.stats.contacts_received', 'en', 'Contacts Received', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(28, 'home.stats.contacts_received', 'es', 'Contactos Recibidos', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(29, 'home.stats.contacts_pending', 'en', '5 unanswered', '2026-05-14 02:26:34', '2026-05-14 02:26:34'),
-	(30, 'home.stats.contacts_pending', 'es', '5 no respondidas', '2026-05-14 02:26:34', '2026-05-14 02:26:34'),
-	(31, 'home.welcome.title', 'en', 'Welcome to my Backendlab', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(32, 'home.welcome.title', 'es', 'Bienvenido a mi Backendlab', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(33, 'home.welcome.description', 'en', 'This is my space to show my work, skills, and projects. I also track my progress and organize my professional journey here. Explore freely!', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(34, 'home.welcome.description', 'es', 'Este es mi espacio para demostrarte mi trabajo, habilidades y proyectos, ademas, aqui registro mis logros y organizo mi vida laboral. ¡Explora a tu gusto!', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(35, 'home.actions.github', 'en', 'View my GitHub', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(36, 'home.actions.github', 'es', 'Ver mi Github', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(37, 'home.actions.resume', 'en', 'View Resume', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(38, 'home.actions.resume', 'es', 'Ver Curriculum', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(39, 'home.actions.contact', 'en', 'Contact Me', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(40, 'home.actions.contact', 'es', 'Contactame', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(41, 'home.recent_projects', 'en', 'Recent Projects', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(42, 'home.recent_projects', 'es', 'Proyectos Recientes', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(43, 'projects.page_title', 'en', 'My Projects', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(44, 'projects.page_title', 'es', 'Mis Proyectos', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(45, 'projects.page_subtitle', 'en', 'Explore the projects I have developed', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(46, 'projects.page_subtitle', 'es', 'Explora los proyectos que he desarrollado', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(47, 'projects.description', 'en', 'Description', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(48, 'projects.description', 'es', 'Descripcion', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(49, 'projects.technologies', 'en', 'Technologies', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(50, 'projects.technologies', 'es', 'Tecnologias', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(51, 'projects.view_details', 'en', 'View Details', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(52, 'projects.view_details', 'es', 'Ver Detalles', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(53, 'projects.empty', 'en', 'No projects available yet.', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(54, 'projects.empty', 'es', 'No hay proyectos disponibles aun.', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(55, 'projects.empty_short', 'en', 'No projects available', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(56, 'projects.empty_short', 'es', 'No hay proyectos disponibles', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(57, 'status.completed', 'en', 'Completed', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(58, 'status.completed', 'es', 'Completado', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(59, 'status.in_progress', 'en', 'In Progress', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(60, 'status.in_progress', 'es', 'En Progreso', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(61, 'status.planned', 'en', 'Planned', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(62, 'status.planned', 'es', 'Planificado', '2026-05-14 02:26:34', '2026-05-21 02:47:54'),
-	(63, 'nav.certifications', 'en', 'Certifications', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(64, 'nav.certifications', 'es', 'Certificaciones', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(65, 'certifications.page_title', 'en', 'Certifications', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(66, 'certifications.page_title', 'es', 'Certificaciones', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(67, 'certifications.page_subtitle', 'en', 'Manage your professional certifications', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(68, 'certifications.page_subtitle', 'es', 'Administra tus certificaciones profesionales', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(69, 'certifications.add', 'en', 'Add', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(70, 'certifications.add', 'es', 'Añadir', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(71, 'certifications.empty', 'en', 'No certifications yet. Click add to create one.', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(72, 'certifications.empty', 'es', 'Aún no hay certificaciones. Haz clic en añadir para crear una.', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(73, 'certifications.add_new', 'en', 'Add New Certification', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(74, 'certifications.add_new', 'es', 'Añadir nueva certificación', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(75, 'certifications.fields.title', 'en', 'Title', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(76, 'certifications.fields.title', 'es', 'Título', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(77, 'certifications.fields.issuer', 'en', 'Issuer', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(78, 'certifications.fields.issuer', 'es', 'Emisor', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(79, 'certifications.fields.date', 'en', 'Date', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(80, 'certifications.fields.date', 'es', 'Fecha', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(81, 'certifications.fields.url', 'en', 'URL', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(82, 'certifications.fields.url', 'es', 'URL', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(83, 'actions.cancel', 'en', 'Cancel', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(84, 'actions.cancel', 'es', 'Cancelar', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(85, 'actions.save', 'en', 'Save', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(86, 'actions.save', 'es', 'Guardar', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(87, 'certifications.placeholders.title', 'en', 'Eg: AWS Certified Developer', '2026-05-21 01:49:54', '2026-05-21 01:49:54'),
-	(88, 'certifications.placeholders.title', 'es', 'Ej: AWS Certified Developer', '2026-05-21 01:49:54', '2026-05-21 01:49:54'),
-	(89, 'certifications.placeholders.issuer', 'en', 'Eg: Amazon', '2026-05-21 01:49:54', '2026-05-21 01:49:54'),
-	(90, 'certifications.placeholders.issuer', 'es', 'Ej: Amazon', '2026-05-21 01:49:54', '2026-05-21 01:49:54'),
-	(91, 'certifications.placeholders.url', 'en', 'https://example.com/certificate', '2026-05-21 01:49:54', '2026-05-21 01:49:54'),
-	(92, 'certifications.placeholders.url', 'es', 'https://example.com/certificate', '2026-05-21 01:49:54', '2026-05-21 01:49:54'),
-	(93, 'certifications.placeholders.secret', 'en', 'Your secret key', '2026-05-21 01:49:54', '2026-05-21 01:49:54'),
-	(94, 'certifications.placeholders.secret', 'es', 'Tu clave secreta', '2026-05-21 01:49:54', '2026-05-21 01:49:54'),
-	(95, 'certifications.fields.image', 'en', 'Image', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(96, 'certifications.fields.image', 'es', 'Imagen', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(97, 'certifications.labels.view', 'en', 'View certificate', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(98, 'certifications.labels.view', 'es', 'Ver certificado', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(99, 'certifications.delete.title', 'en', 'Delete certificate', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(100, 'certifications.delete.title', 'es', 'Eliminar certificado', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(101, 'certifications.delete.prompt', 'en', 'You are about to delete: :title', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(102, 'certifications.delete.prompt', 'es', 'Vas a eliminar: :title', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(103, 'certifications.delete.fallback', 'en', 'You are about to delete this certificate', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(104, 'certifications.delete.fallback', 'es', 'Vas a eliminar este certificado', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(105, 'certifications.delete.secret_label', 'en', 'Are you Jeisson Villaizan?', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(106, 'certifications.delete.secret_label', 'es', '¿Eres Jeisson Villaizan?', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(107, 'certifications.delete.secret_placeholder', 'en', 'Your password', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(108, 'certifications.delete.secret_placeholder', 'es', 'Tu contraseña', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(109, 'certifications.delete.cancel', 'en', 'I am a tourist :D', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(110, 'certifications.delete.cancel', 'es', 'soy turista :D', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(111, 'certifications.delete.confirm', 'en', 'Delete certificate', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(112, 'certifications.delete.confirm', 'es', 'eliminar certificado', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(113, 'certifications.delete.aria_close', 'en', 'Close delete popup', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(114, 'certifications.delete.aria_close', 'es', 'Cerrar popup de eliminación', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(115, 'certifications.delete.aria_button', 'en', 'Delete certificate', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(116, 'certifications.delete.aria_button', 'es', 'Eliminar certificado', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(117, 'certifications.fields.secret', 'en', 'Secret key', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(118, 'certifications.fields.secret', 'es', 'Clave secreta', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(119, 'certifications.fields.image_button', 'en', 'Choose image', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(120, 'certifications.fields.image_button', 'es', 'Elegir imagen', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(121, 'certifications.fields.image_selected', 'en', 'No file selected', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(122, 'certifications.fields.image_selected', 'es', 'Sin archivo seleccionado', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(123, 'certifications.fields.secret_prompt', 'en', 'Are you Jeisson Villaizan?', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(124, 'certifications.fields.secret_prompt', 'es', '¿Eres Jeisson Villaizan?', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(125, 'certifications.errors.not_jeisson', 'en', 'You are not Jeisson Villaizan!', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(126, 'certifications.errors.not_jeisson', 'es', '¡No eres Jeisson Villaizan!', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(127, 'certifications.validation.title.required', 'en', 'The title field is required.', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(128, 'certifications.validation.title.required', 'es', 'El campo título es obligatorio.', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(129, 'certifications.validation.title.string', 'en', 'The title field must be a string.', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(130, 'certifications.validation.title.string', 'es', 'El campo título debe ser una cadena de texto.', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(131, 'certifications.validation.title.max', 'en', 'The title field may not be greater than 255 characters.', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(132, 'certifications.validation.title.max', 'es', 'El campo título no puede tener más de 255 caracteres.', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(133, 'certifications.validation.issuer.string', 'en', 'The issuer field must be a string.', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(134, 'certifications.validation.issuer.string', 'es', 'El campo emisor debe ser una cadena de texto.', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(135, 'certifications.validation.issuer.max', 'en', 'The issuer field may not be greater than 255 characters.', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(136, 'certifications.validation.issuer.max', 'es', 'El campo emisor no puede tener más de 255 caracteres.', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(137, 'certifications.validation.date.date', 'en', 'The date field must be a valid date.', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(138, 'certifications.validation.date.date', 'es', 'El campo fecha debe ser una fecha válida.', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(139, 'certifications.validation.url.url', 'en', 'The URL field must be a valid URL.', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(140, 'certifications.validation.url.url', 'es', 'El campo URL debe ser una URL válida.', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(141, 'certifications.validation.url.max', 'en', 'The URL field may not be greater than 2048 characters.', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(142, 'certifications.validation.url.max', 'es', 'El campo URL no puede tener más de 2048 caracteres.', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(143, 'certifications.validation.image.image', 'en', 'The image field must be an image.', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(144, 'certifications.validation.image.image', 'es', 'El campo imagen debe ser una imagen.', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(145, 'certifications.validation.image.max', 'en', 'The image field may not be greater than 2048 kilobytes.', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(146, 'certifications.validation.image.max', 'es', 'El campo imagen no puede ser mayor de 2048 kilobytes.', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(147, 'certifications.validation.secret.required', 'en', 'The secret field is required.', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(148, 'certifications.validation.secret.required', 'es', 'El campo clave secreta es obligatorio.', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(149, 'certifications.validation.secret.string', 'en', 'The secret field must be a string.', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(150, 'certifications.validation.secret.string', 'es', 'El campo clave secreta debe ser una cadena de texto.', '2026-05-21 02:31:37', '2026-05-21 02:31:37'),
-	(151, 'contacts.modal.title', 'en', 'Contact Me', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(152, 'contacts.modal.title', 'es', 'Contactame', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(153, 'contacts.fields.email', 'en', 'Email', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(154, 'contacts.fields.email', 'es', 'Correo electronico', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(155, 'contacts.fields.subject', 'en', 'Subject', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(156, 'contacts.fields.subject', 'es', 'Asunto', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(157, 'contacts.fields.message', 'en', 'Message', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(158, 'contacts.fields.message', 'es', 'Mensaje', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(159, 'contacts.placeholders.email', 'en', 'you@example.com', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(160, 'contacts.placeholders.email', 'es', 'tu@correo.com', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(161, 'contacts.placeholders.subject', 'en', 'How can I help you?', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(162, 'contacts.placeholders.subject', 'es', 'Como puedo ayudarte?', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(163, 'contacts.placeholders.message', 'en', 'Write your message here...', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(164, 'contacts.placeholders.message', 'es', 'Escribe tu mensaje aqui...', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(165, 'contacts.success.saved', 'en', 'Your message has been saved.', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(166, 'contacts.success.saved', 'es', 'Tu mensaje ha sido guardado.', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(167, 'contacts.validation.email.required', 'en', 'The email field is required.', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(168, 'contacts.validation.email.required', 'es', 'El campo correo electronico es obligatorio.', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(169, 'contacts.validation.email.email', 'en', 'The email field must be a valid email address.', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(170, 'contacts.validation.email.email', 'es', 'El campo correo electronico debe ser una direccion de correo valida.', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(171, 'contacts.validation.email.max', 'en', 'The email field may not be greater than 255 characters.', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(172, 'contacts.validation.email.max', 'es', 'El campo correo electronico no puede tener mas de 255 caracteres.', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(173, 'contacts.validation.subject.required', 'en', 'The subject field is required.', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(174, 'contacts.validation.subject.required', 'es', 'El campo asunto es obligatorio.', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(175, 'contacts.validation.subject.string', 'en', 'The subject field must be a string.', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(176, 'contacts.validation.subject.string', 'es', 'El campo asunto debe ser una cadena de texto.', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(177, 'contacts.validation.subject.max', 'en', 'The subject field may not be greater than 255 characters.', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(178, 'contacts.validation.subject.max', 'es', 'El campo asunto no puede tener mas de 255 caracteres.', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(179, 'contacts.validation.message.required', 'en', 'The message field is required.', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(180, 'contacts.validation.message.required', 'es', 'El campo mensaje es obligatorio.', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(181, 'contacts.validation.message.string', 'en', 'The message field must be a string.', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(182, 'contacts.validation.message.string', 'es', 'El campo mensaje debe ser una cadena de texto.', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(183, 'contacts.validation.message.max', 'en', 'The message field may not be greater than 5000 characters.', '2026-05-21 02:46:37', '2026-05-21 02:47:54'),
-	(184, 'contacts.validation.message.max', 'es', 'El campo mensaje no puede tener mas de 5000 caracteres.', '2026-05-21 02:46:37', '2026-05-21 02:47:54');
+CREATE TABLE public.contact_messages (
+    id bigint NOT NULL,
+    email character varying(255) NOT NULL,
+    subject character varying(255) NOT NULL,
+    message text NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
 
--- Volcando estructura para tabla jeis_backendlab.users
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla jeis_backendlab.users: ~0 rows (aproximadamente)
+ALTER TABLE public.contact_messages OWNER TO postgres;
 
-/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
+--
+-- TOC entry 223 (class 1259 OID 16424)
+-- Name: contact_messages_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.contact_messages ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.contact_messages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 226 (class 1259 OID 16437)
+-- Name: dashboard_visits; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dashboard_visits (
+    id bigint NOT NULL,
+    month_key character varying(255) NOT NULL,
+    visits integer DEFAULT 1430 NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.dashboard_visits OWNER TO postgres;
+
+--
+-- TOC entry 225 (class 1259 OID 16436)
+-- Name: dashboard_visits_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.dashboard_visits ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.dashboard_visits_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 228 (class 1259 OID 16449)
+-- Name: failed_jobs; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.failed_jobs (
+    id bigint NOT NULL,
+    uuid character varying(255) NOT NULL,
+    connection character varying(255) NOT NULL,
+    queue character varying(255) NOT NULL,
+    payload text NOT NULL,
+    exception text NOT NULL,
+    failed_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+ALTER TABLE public.failed_jobs OWNER TO postgres;
+
+--
+-- TOC entry 227 (class 1259 OID 16448)
+-- Name: failed_jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.failed_jobs ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.failed_jobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 231 (class 1259 OID 16482)
+-- Name: job_batches; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.job_batches (
+    id character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    total_jobs integer NOT NULL,
+    pending_jobs integer NOT NULL,
+    failed_jobs integer NOT NULL,
+    failed_job_ids text NOT NULL,
+    options text,
+    cancelled_at integer,
+    created_at integer NOT NULL,
+    finished_at integer
+);
+
+
+ALTER TABLE public.job_batches OWNER TO postgres;
+
+--
+-- TOC entry 230 (class 1259 OID 16468)
+-- Name: jobs; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.jobs (
+    id bigint NOT NULL,
+    queue character varying(255) NOT NULL,
+    payload text NOT NULL,
+    attempts smallint NOT NULL,
+    reserved_at integer,
+    available_at integer NOT NULL,
+    created_at integer NOT NULL
+);
+
+
+ALTER TABLE public.jobs OWNER TO postgres;
+
+--
+-- TOC entry 229 (class 1259 OID 16467)
+-- Name: jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.jobs ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.jobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 233 (class 1259 OID 16497)
+-- Name: migrations; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.migrations (
+    id integer NOT NULL,
+    migration character varying(255) NOT NULL,
+    batch integer NOT NULL
+);
+
+
+ALTER TABLE public.migrations OWNER TO postgres;
+
+--
+-- TOC entry 232 (class 1259 OID 16496)
+-- Name: migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.migrations ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.migrations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 234 (class 1259 OID 16505)
+-- Name: password_reset_tokens; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.password_reset_tokens (
+    email character varying(255) NOT NULL,
+    token character varying(255) NOT NULL,
+    created_at timestamp without time zone
+);
+
+
+ALTER TABLE public.password_reset_tokens OWNER TO postgres;
+
+--
+-- TOC entry 236 (class 1259 OID 16522)
+-- Name: projects; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.projects (
+    id bigint NOT NULL,
+    title character varying(255) NOT NULL,
+    description text NOT NULL,
+    technologies character varying(255) NOT NULL,
+    status public.project_status_enum DEFAULT 'En Progreso'::public.project_status_enum NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.projects OWNER TO postgres;
+
+--
+-- TOC entry 235 (class 1259 OID 16521)
+-- Name: projects_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.projects ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.projects_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 237 (class 1259 OID 16535)
+-- Name: sessions; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.sessions (
+    id character varying(255) NOT NULL,
+    user_id bigint,
+    ip_address character varying(45) DEFAULT NULL::character varying,
+    user_agent text,
+    payload text NOT NULL,
+    last_activity integer NOT NULL
+);
+
+
+ALTER TABLE public.sessions OWNER TO postgres;
+
+--
+-- TOC entry 239 (class 1259 OID 16549)
+-- Name: translations; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.translations (
+    id bigint NOT NULL,
+    key character varying(255) NOT NULL,
+    locale character varying(5) NOT NULL,
+    value text NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.translations OWNER TO postgres;
+
+--
+-- TOC entry 238 (class 1259 OID 16548)
+-- Name: translations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.translations ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.translations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 241 (class 1259 OID 16564)
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.users (
+    id bigint NOT NULL,
+    name character varying(255) NOT NULL,
+    email character varying(255) NOT NULL,
+    email_verified_at timestamp without time zone,
+    password character varying(255) NOT NULL,
+    remember_token character varying(100) DEFAULT NULL::character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- TOC entry 240 (class 1259 OID 16563)
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.users ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 3584 (class 0 OID 16389)
+-- Dependencies: 219
+-- Data for Name: cache; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.cache (key, value, expiration) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3585 (class 0 OID 16400)
+-- Dependencies: 220
+-- Data for Name: cache_locks; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.cache_locks (key, owner, expiration) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3587 (class 0 OID 16412)
+-- Dependencies: 222
+-- Data for Name: certifications; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.certifications (id, title, issuer, date, url, image, created_at, updated_at) FROM stdin;
+1	Oracle Cloud Infrastructure 2025 Certified Foundations Associate	Oracle	2025-01-15	https://catalog-education.oracle.com/	\N	2026-07-22 23:02:14.868263	2026-07-22 23:02:14.868263
+4	Curso de PHP Avanzado	Platzi	2026-05-20	https://platzi.com/p/Jeisson18119/curso/12186-course/diploma/detalle/	\N	2026-07-22 23:02:14.868263	2026-07-22 23:10:09.002707
+6	Curso de OAuth 2.0 y OpenID Connect: Flujos de Autenticación y Casos de Estudio	Platzi	2026-01-18	https://platzi.com/p/Jeisson18119/curso/7197-course/diploma/detalle/	\N	2026-07-22 23:02:14.868263	2026-07-22 23:10:09.002707
+3	Curso de TailwindCSS	Platzi	2026-01-18	https://platzi.com/p/Jeisson18119/curso/11886-course/diploma/detalle/	\N	2026-07-22 23:02:14.868263	2026-07-22 23:10:09.002707
+5	Curso de Inglés Práctico y Conversacional	Platzi	2026-05-20	https://platzi.com/p/Jeisson18119/curso/10332-course/diploma/detalle/	\N	2026-07-22 23:02:14.868263	2026-07-22 23:10:09.002707
+7	Audio Historia en Inglés: Origen del idioma	Platzi	2026-05-20	https://platzi.com/p/Jeisson18119/curso/7957-course/diploma/detalle/	\N	2026-07-22 23:02:14.868263	2026-07-22 23:10:09.002707
+\.
+
+
+--
+-- TOC entry 3589 (class 0 OID 16425)
+-- Dependencies: 224
+-- Data for Name: contact_messages; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.contact_messages (id, email, subject, message, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3591 (class 0 OID 16437)
+-- Dependencies: 226
+-- Data for Name: dashboard_visits; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dashboard_visits (id, month_key, visits, created_at, updated_at) FROM stdin;
+1	2026-05	1478	2026-05-21 02:37:31	2026-05-21 03:50:32
+2	2026-07	1664	2026-07-09 02:51:42	2026-07-24 21:18:37
+\.
+
+
+--
+-- TOC entry 3593 (class 0 OID 16449)
+-- Dependencies: 228
+-- Data for Name: failed_jobs; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.failed_jobs (id, uuid, connection, queue, payload, exception, failed_at) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3596 (class 0 OID 16482)
+-- Dependencies: 231
+-- Data for Name: job_batches; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.job_batches (id, name, total_jobs, pending_jobs, failed_jobs, failed_job_ids, options, cancelled_at, created_at, finished_at) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3595 (class 0 OID 16468)
+-- Dependencies: 230
+-- Data for Name: jobs; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.jobs (id, queue, payload, attempts, reserved_at, available_at, created_at) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3598 (class 0 OID 16497)
+-- Dependencies: 233
+-- Data for Name: migrations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.migrations (id, migration, batch) FROM stdin;
+1	0001_01_01_000000_create_users_table	1
+2	0001_01_01_000001_create_cache_table	1
+3	0001_01_01_000002_create_jobs_table	1
+4	2026_05_13_205405_create_projects_table	2
+5	2026_05_13_220000_create_translations_table	3
+6	2026_05_20_000000_create_certifications_table	4
+7	2026_05_20_000001_add_image_to_certifications_table	5
+8	2026_05_20_000002_create_dashboard_visits_table	6
+9	2026_05_20_000003_create_contact_messages_table	7
+\.
+
+
+--
+-- TOC entry 3599 (class 0 OID 16505)
+-- Dependencies: 234
+-- Data for Name: password_reset_tokens; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.password_reset_tokens (email, token, created_at) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3601 (class 0 OID 16522)
+-- Dependencies: 236
+-- Data for Name: projects; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.projects (id, title, description, technologies, status, created_at, updated_at) FROM stdin;
+1	Sistema Dropshipping con Shopify	Sistema completo de dropshipping integrado con Shopify y gestión de coordinadora para entregas automáticas.	Laravel + Shopify + Coordinadora	En Progreso	2026-05-14 01:56:20	2026-05-14 01:56:20
+2	Sistema Automatización IA + WhatsApp	Plataforma de automatización de procesos empresariales con integración de inteligencia artificial y WhatsApp API para comunicación directa con clientes.	EasyPanel + Evolution API + N8N + Goflow API	Completado	2026-05-14 01:56:26	2026-05-14 01:56:26
+3	Red Social Emergente	Red social moderna diseñada para profesionales backend con features de conexión, compartir proyectos y colaboración en tiempo real.	Laravel + Vue.js + PostgreSQL	Completado	2026-05-14 01:56:30	2026-05-14 01:56:30
+\.
+
+
+--
+-- TOC entry 3602 (class 0 OID 16535)
+-- Dependencies: 237
+-- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sessions (id, user_id, ip_address, user_agent, payload, last_activity) FROM stdin;
+0qPgHEKNcvextVz58tp1yCWB1gjBVCs7dZxTD1TX	\N	127.0.0.1	Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.26200; es-CO) PowerShell/7.6.0	eyJfdG9rZW4iOiJ2TWlmRUVpbVpKd09iS0FadHJKS05oMzU0YUtxZ3lxMWlrVFZBd0dCIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwIiwicm91dGUiOm51bGx9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19	1779313144
+AWiIugwllmFefE4TA2U5JGQPNBQilYhlGbzDik33	\N	127.0.0.1	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.120.0 Chrome/142.0.7444.265 Electron/39.8.8 Safari/537.36	eyJfdG9rZW4iOiJVMDY1aFl3RGlHSG95TnBDeDBqOE1ZcTBhQXQ3bkxmdEUydkJEYVJRIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwIiwicm91dGUiOm51bGx9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19	1779317432
+ECWLIKiwSu3C4PbBmBUfm6VbCu6KajxuskMDYfjE	\N	127.0.0.1	Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.26200; es-CO) PowerShell/7.6.0	eyJfdG9rZW4iOiJQUjB5d093T21UYVlnaWRLZTFBbnR6ZjY4NEhWbFBUaVBSWmhqVkFhIiwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119fQ==	1779313771
+HlGRLml4epGXxc4ZSpDrhNfrTO45m9NIq9KKo9aM	\N	127.0.0.1	Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.26200; es-CO) PowerShell/7.6.0	eyJfdG9rZW4iOiIzcFdQNGkyVkxidVV6OXliNFdVUFBPZDNrREZrM051QmNpdzFwcDBrIiwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119fQ==	1779313690
+Iz9w4p4YIgy4p0jJ6Eq88vV69pWKKS3VhLiyusLu	\N	127.0.0.1	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36	eyJfdG9rZW4iOiJiWlIxTDdYRVUxRk81Z0lnQ3lTWHk0VWh2enFwN0IzNmpEeFdQSnB0IiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwIiwicm91dGUiOm51bGx9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19	1779313232
+mwhL1vNF7WFrs8Rqao5i1rvvNqTj6bDZ7vy0QLgP	\N	127.0.0.1	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36	eyJfdG9rZW4iOiJNSVE2bXpUT1VYY3A1MWtqNHRXdDQ3aVVHSnpyNTQ1QVFLRHlqb1FUIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwIiwicm91dGUiOm51bGx9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX0sImxvY2FsZSI6ImVzIn0=	1779316994
+pSTztvPXcBrVBRPuZyIRxKvVNj0QbMnORIg5T5g1	\N	127.0.0.1	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36	eyJfdG9rZW4iOiJJb3FnTlQ0ODdPT3hoWTh4dlBtWmgzekZ2cjYzYnhia3FZWkQydHpFIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwXC9jZXJ0aWZpY2F0aW9ucyIsInJvdXRlIjoiY2VydGlmaWNhdGlvbnMifSwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119LCJsb2NhbGUiOiJlcyJ9	1779317070
+uCecO0JRlLWQUAAfcxxtKJyX7qG0Rxbk6UWra2i5	\N	127.0.0.1	Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.26200; es-CO) PowerShell/7.6.0	eyJfdG9rZW4iOiJwREZOSDNkWUNhYjNoaUNFN1h1TGRMWXdOYWxrd0VVVnVoS2g3VFU4IiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwIiwicm91dGUiOm51bGx9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19	1779313658
+xuCQofmBvJsXaPinnCI8njWrgUh29EE77H8ub0ur	\N	127.0.0.1	Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.26200; es-CO) PowerShell/7.6.0	eyJfdG9rZW4iOiIxajZSellLeGVqZ0tlYUtTVHlZU1JwMTc1SWY1SkxCeXRPWGo0eDBZIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwIiwicm91dGUiOm51bGx9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19	1779313672
+YCMhjqn5OzFHVshzLcuaPNJ73owBYVyOXnXZBWw9	\N	127.0.0.1	Mozilla/5.0 (Windows NT 10.0; Microsoft Windows 10.0.26200; es-CO) PowerShell/7.6.0	eyJfdG9rZW4iOiJhNHRHcVlkcGJFNTNhWWZ1ZzdRbU1GOVU3NTE3WG54bWd1bGRtQWJ4IiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDAwIiwicm91dGUiOm51bGx9LCJfZmxhc2giOnsib2xkIjpbXSwibmV3IjpbXX19	1779313051
+YffVMT5aB5O6VPRlQqj8WA09spn57nQVf7V9z1hH	\N	127.0.0.1	curl/8.19.0	eyJfdG9rZW4iOiJyQ2U0cnU4dWlYa3lHRE9KR3owNHBpNmF1WldxcTh5OGM1NG42clFSIiwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119fQ==	1779308996
+\.
+
+
+--
+-- TOC entry 3604 (class 0 OID 16549)
+-- Dependencies: 239
+-- Data for Name: translations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.translations (id, key, locale, value, created_at, updated_at) FROM stdin;
+1	header.default_title	en	Dashboard	2026-05-14 02:26:34	2026-05-21 02:47:54
+2	header.default_title	es	Dashboard	2026-05-14 02:26:34	2026-05-21 02:47:54
+3	header.default_subtitle	en	Welcome to your professional portfolio	2026-05-14 02:26:34	2026-05-21 02:47:54
+4	header.default_subtitle	es	Bienvenido a tu portafolio profesional	2026-05-14 02:26:34	2026-05-21 02:47:54
+5	nav.dashboard	en	Dashboard	2026-05-14 02:26:34	2026-05-21 02:47:54
+6	nav.dashboard	es	Dashboard	2026-05-14 02:26:34	2026-05-21 02:47:54
+7	nav.projects	en	Projects	2026-05-14 02:26:34	2026-05-21 02:47:54
+9	nav.settings	en	Settings	2026-05-14 02:26:34	2026-05-21 02:47:54
+10	nav.settings	es	Configuracion	2026-05-14 02:26:34	2026-05-21 02:47:54
+11	home.page_title	en	Dashboard	2026-05-14 02:26:34	2026-05-21 02:47:54
+12	home.page_title	es	Dashboard	2026-05-14 02:26:34	2026-05-21 02:47:54
+13	home.page_subtitle	en	Welcome to my web portfolio	2026-05-14 02:26:34	2026-05-21 02:47:54
+14	home.page_subtitle	es	Bienvenido a mi Portafolio web	2026-05-14 02:26:34	2026-05-21 02:47:54
+15	home.stats.completed_projects	en	Completed Projects	2026-05-14 02:26:34	2026-05-21 02:47:54
+16	home.stats.completed_projects	es	Proyectos Completados	2026-05-14 02:26:34	2026-05-21 02:47:54
+17	home.stats.completed_projects_change	en	↑ 2 this month	2026-05-14 02:26:34	2026-05-21 02:47:54
+18	home.stats.completed_projects_change	es	↑ 2 este mes	2026-05-14 02:26:34	2026-05-21 02:47:54
+19	home.stats.month_visits	en	Visits This Month	2026-05-14 02:26:34	2026-05-21 02:47:54
+20	home.stats.month_visits	es	Visitas Este Mes	2026-05-14 02:26:34	2026-05-21 02:47:54
+21	home.stats.month_visits_change	en	↑ 12% vs last month	2026-05-14 02:26:34	2026-05-21 02:47:54
+22	home.stats.month_visits_change	es	↑ 12% comparado	2026-05-14 02:26:34	2026-05-21 02:47:54
+23	home.stats.skills	en	Skills	2026-05-14 02:26:34	2026-05-21 02:47:54
+24	home.stats.skills	es	Habilidades	2026-05-14 02:26:34	2026-05-21 02:47:54
+25	home.stats.skills_in_progress	en	3 in progress	2026-05-14 02:26:34	2026-05-21 02:47:54
+26	home.stats.skills_in_progress	es	3 en progreso	2026-05-14 02:26:34	2026-05-21 02:47:54
+27	home.stats.contacts_received	en	Contacts Received	2026-05-14 02:26:34	2026-05-21 02:47:54
+28	home.stats.contacts_received	es	Contactos Recibidos	2026-05-14 02:26:34	2026-05-21 02:47:54
+29	home.stats.contacts_pending	en	5 unanswered	2026-05-14 02:26:34	2026-05-14 02:26:34
+30	home.stats.contacts_pending	es	5 no respondidas	2026-05-14 02:26:34	2026-05-14 02:26:34
+31	home.welcome.title	en	Welcome to my Backendlab	2026-05-14 02:26:34	2026-05-21 02:47:54
+32	home.welcome.title	es	Bienvenido a mi Backendlab	2026-05-14 02:26:34	2026-05-21 02:47:54
+33	home.welcome.description	en	This is my space to show my work, skills, and projects. I also track my progress and organize my professional journey here. Explore freely!	2026-05-14 02:26:34	2026-05-21 02:47:54
+34	home.welcome.description	es	Este es mi espacio para demostrarte mi trabajo, habilidades y proyectos, ademas, aqui registro mis logros y organizo mi vida laboral. ¡Explora a tu gusto!	2026-05-14 02:26:34	2026-05-21 02:47:54
+35	home.actions.github	en	View my GitHub	2026-05-14 02:26:34	2026-05-21 02:47:54
+36	home.actions.github	es	Ver mi Github	2026-05-14 02:26:34	2026-05-21 02:47:54
+37	home.actions.resume	en	View Resume	2026-05-14 02:26:34	2026-05-21 02:47:54
+38	home.actions.resume	es	Ver Curriculum	2026-05-14 02:26:34	2026-05-21 02:47:54
+39	home.actions.contact	en	Contact Me	2026-05-14 02:26:34	2026-05-21 02:47:54
+40	home.actions.contact	es	Contactame	2026-05-14 02:26:34	2026-05-21 02:47:54
+41	home.recent_projects	en	Recent Projects	2026-05-14 02:26:34	2026-05-21 02:47:54
+42	home.recent_projects	es	Proyectos Recientes	2026-05-14 02:26:34	2026-05-21 02:47:54
+43	projects.page_title	en	My Projects	2026-05-14 02:26:34	2026-05-21 02:47:54
+44	projects.page_title	es	Mis Proyectos	2026-05-14 02:26:34	2026-05-21 02:47:54
+45	projects.page_subtitle	en	Explore the projects I have developed	2026-05-14 02:26:34	2026-05-21 02:47:54
+46	projects.page_subtitle	es	Explora los proyectos que he desarrollado	2026-05-14 02:26:34	2026-05-21 02:47:54
+47	projects.description	en	Description	2026-05-14 02:26:34	2026-05-21 02:47:54
+48	projects.description	es	Descripcion	2026-05-14 02:26:34	2026-05-21 02:47:54
+49	projects.technologies	en	Technologies	2026-05-14 02:26:34	2026-05-21 02:47:54
+50	projects.technologies	es	Tecnologias	2026-05-14 02:26:34	2026-05-21 02:47:54
+51	projects.view_details	en	View Details	2026-05-14 02:26:34	2026-05-21 02:47:54
+52	projects.view_details	es	Ver Detalles	2026-05-14 02:26:34	2026-05-21 02:47:54
+53	projects.empty	en	No projects available yet.	2026-05-14 02:26:34	2026-05-21 02:47:54
+54	projects.empty	es	No hay proyectos disponibles aun.	2026-05-14 02:26:34	2026-05-21 02:47:54
+55	projects.empty_short	en	No projects available	2026-05-14 02:26:34	2026-05-21 02:47:54
+56	projects.empty_short	es	No hay proyectos disponibles	2026-05-14 02:26:34	2026-05-21 02:47:54
+57	status.completed	en	Completed	2026-05-14 02:26:34	2026-05-21 02:47:54
+58	status.completed	es	Completado	2026-05-14 02:26:34	2026-05-21 02:47:54
+59	status.in_progress	en	In Progress	2026-05-14 02:26:34	2026-05-21 02:47:54
+60	status.in_progress	es	En Progreso	2026-05-14 02:26:34	2026-05-21 02:47:54
+61	status.planned	en	Planned	2026-05-14 02:26:34	2026-05-21 02:47:54
+62	status.planned	es	Planificado	2026-05-14 02:26:34	2026-05-21 02:47:54
+63	nav.certifications	en	Certifications	2026-05-21 02:31:37	2026-05-21 02:31:37
+64	nav.certifications	es	Certificaciones	2026-05-21 02:31:37	2026-05-21 02:31:37
+65	certifications.page_title	en	Certifications	2026-05-21 02:31:37	2026-05-21 02:31:37
+66	certifications.page_title	es	Certificaciones	2026-05-21 02:31:37	2026-05-21 02:31:37
+67	certifications.page_subtitle	en	Manage your professional certifications	2026-05-21 02:31:37	2026-05-21 02:31:37
+68	certifications.page_subtitle	es	Administra tus certificaciones profesionales	2026-05-21 02:31:37	2026-05-21 02:31:37
+69	certifications.add	en	Add	2026-05-21 02:31:37	2026-05-21 02:31:37
+70	certifications.add	es	Añadir	2026-05-21 02:31:37	2026-05-21 02:31:37
+71	certifications.empty	en	No certifications yet. Click add to create one.	2026-05-21 02:31:37	2026-05-21 02:31:37
+72	certifications.empty	es	Aún no hay certificaciones. Haz clic en añadir para crear una.	2026-05-21 02:31:37	2026-05-21 02:31:37
+73	certifications.add_new	en	Add New Certification	2026-05-21 02:31:37	2026-05-21 02:31:37
+74	certifications.add_new	es	Añadir nueva certificación	2026-05-21 02:31:37	2026-05-21 02:31:37
+75	certifications.fields.title	en	Title	2026-05-21 02:31:37	2026-05-21 02:31:37
+76	certifications.fields.title	es	Título	2026-05-21 02:31:37	2026-05-21 02:31:37
+77	certifications.fields.issuer	en	Issuer	2026-05-21 02:31:37	2026-05-21 02:31:37
+78	certifications.fields.issuer	es	Emisor	2026-05-21 02:31:37	2026-05-21 02:31:37
+79	certifications.fields.date	en	Date	2026-05-21 02:31:37	2026-05-21 02:31:37
+80	certifications.fields.date	es	Fecha	2026-05-21 02:31:37	2026-05-21 02:31:37
+81	certifications.fields.url	en	URL	2026-05-21 02:31:37	2026-05-21 02:31:37
+82	certifications.fields.url	es	URL	2026-05-21 02:31:37	2026-05-21 02:31:37
+84	actions.cancel	es	Cancelar	2026-05-21 02:31:37	2026-05-21 02:31:37
+85	actions.save	en	Save	2026-05-21 02:31:37	2026-05-21 02:31:37
+86	actions.save	es	Guardar	2026-05-21 02:31:37	2026-05-21 02:31:37
+87	certifications.placeholders.title	en	Eg: AWS Certified Developer	2026-05-21 01:49:54	2026-05-21 01:49:54
+88	certifications.placeholders.title	es	Ej: AWS Certified Developer	2026-05-21 01:49:54	2026-05-21 01:49:54
+89	certifications.placeholders.issuer	en	Eg: Amazon	2026-05-21 01:49:54	2026-05-21 01:49:54
+90	certifications.placeholders.issuer	es	Ej: Amazon	2026-05-21 01:49:54	2026-05-21 01:49:54
+91	certifications.placeholders.url	en	https://example.com/certificate	2026-05-21 01:49:54	2026-05-21 01:49:54
+92	certifications.placeholders.url	es	https://example.com/certificate	2026-05-21 01:49:54	2026-05-21 01:49:54
+93	certifications.placeholders.secret	en	Your secret key	2026-05-21 01:49:54	2026-05-21 01:49:54
+94	certifications.placeholders.secret	es	Tu clave secreta	2026-05-21 01:49:54	2026-05-21 01:49:54
+95	certifications.fields.image	en	Image	2026-05-21 02:31:37	2026-05-21 02:31:37
+96	certifications.fields.image	es	Imagen	2026-05-21 02:31:37	2026-05-21 02:31:37
+97	certifications.labels.view	en	View certificate	2026-05-21 02:31:37	2026-05-21 02:31:37
+98	certifications.labels.view	es	Ver certificado	2026-05-21 02:31:37	2026-05-21 02:31:37
+99	certifications.delete.title	en	Delete certificate	2026-05-21 02:31:37	2026-05-21 02:31:37
+100	certifications.delete.title	es	Eliminar certificado	2026-05-21 02:31:37	2026-05-21 02:31:37
+101	certifications.delete.prompt	en	You are about to delete: :title	2026-05-21 02:31:37	2026-05-21 02:31:37
+102	certifications.delete.prompt	es	Vas a eliminar: :title	2026-05-21 02:31:37	2026-05-21 02:31:37
+103	certifications.delete.fallback	en	You are about to delete this certificate	2026-05-21 02:31:37	2026-05-21 02:31:37
+104	certifications.delete.fallback	es	Vas a eliminar este certificado	2026-05-21 02:31:37	2026-05-21 02:31:37
+105	certifications.delete.secret_label	en	Are you Jeisson Villaizan?	2026-05-21 02:31:37	2026-05-21 02:31:37
+106	certifications.delete.secret_label	es	¿Eres Jeisson Villaizan?	2026-05-21 02:31:37	2026-05-21 02:31:37
+107	certifications.delete.secret_placeholder	en	Your password	2026-05-21 02:31:37	2026-05-21 02:31:37
+108	certifications.delete.secret_placeholder	es	Tu contraseña	2026-05-21 02:31:37	2026-05-21 02:31:37
+109	certifications.delete.cancel	en	I am a tourist :D	2026-05-21 02:31:37	2026-05-21 02:31:37
+110	certifications.delete.cancel	es	soy turista :D	2026-05-21 02:31:37	2026-05-21 02:31:37
+111	certifications.delete.confirm	en	Delete certificate	2026-05-21 02:31:37	2026-05-21 02:31:37
+112	certifications.delete.confirm	es	eliminar certificado	2026-05-21 02:31:37	2026-05-21 02:31:37
+113	certifications.delete.aria_close	en	Close delete popup	2026-05-21 02:31:37	2026-05-21 02:31:37
+114	certifications.delete.aria_close	es	Cerrar popup de eliminación	2026-05-21 02:31:37	2026-05-21 02:31:37
+115	certifications.delete.aria_button	en	Delete certificate	2026-05-21 02:31:37	2026-05-21 02:31:37
+116	certifications.delete.aria_button	es	Eliminar certificado	2026-05-21 02:31:37	2026-05-21 02:31:37
+117	certifications.fields.secret	en	Secret key	2026-05-21 02:31:37	2026-05-21 02:31:37
+118	certifications.fields.secret	es	Clave secreta	2026-05-21 02:31:37	2026-05-21 02:31:37
+119	certifications.fields.image_button	en	Choose image	2026-05-21 02:31:37	2026-05-21 02:31:37
+120	certifications.fields.image_button	es	Elegir imagen	2026-05-21 02:31:37	2026-05-21 02:31:37
+121	certifications.fields.image_selected	en	No file selected	2026-05-21 02:31:37	2026-05-21 02:31:37
+122	certifications.fields.image_selected	es	Sin archivo seleccionado	2026-05-21 02:31:37	2026-05-21 02:31:37
+123	certifications.fields.secret_prompt	en	Are you Jeisson Villaizan?	2026-05-21 02:31:37	2026-05-21 02:31:37
+124	certifications.fields.secret_prompt	es	¿Eres Jeisson Villaizan?	2026-05-21 02:31:37	2026-05-21 02:31:37
+125	certifications.errors.not_jeisson	en	You are not Jeisson Villaizan!	2026-05-21 02:31:37	2026-05-21 02:31:37
+126	certifications.errors.not_jeisson	es	¡No eres Jeisson Villaizan!	2026-05-21 02:31:37	2026-05-21 02:31:37
+127	certifications.validation.title.required	en	The title field is required.	2026-05-21 02:31:37	2026-05-21 02:31:37
+128	certifications.validation.title.required	es	El campo título es obligatorio.	2026-05-21 02:31:37	2026-05-21 02:31:37
+129	certifications.validation.title.string	en	The title field must be a string.	2026-05-21 02:31:37	2026-05-21 02:31:37
+130	certifications.validation.title.string	es	El campo título debe ser una cadena de texto.	2026-05-21 02:31:37	2026-05-21 02:31:37
+131	certifications.validation.title.max	en	The title field may not be greater than 255 characters.	2026-05-21 02:31:37	2026-05-21 02:31:37
+132	certifications.validation.title.max	es	El campo título no puede tener más de 255 caracteres.	2026-05-21 02:31:37	2026-05-21 02:31:37
+133	certifications.validation.issuer.string	en	The issuer field must be a string.	2026-05-21 02:31:37	2026-05-21 02:31:37
+134	certifications.validation.issuer.string	es	El campo emisor debe ser una cadena de texto.	2026-05-21 02:31:37	2026-05-21 02:31:37
+135	certifications.validation.issuer.max	en	The issuer field may not be greater than 255 characters.	2026-05-21 02:31:37	2026-05-21 02:31:37
+136	certifications.validation.issuer.max	es	El campo emisor no puede tener más de 255 caracteres.	2026-05-21 02:31:37	2026-05-21 02:31:37
+137	certifications.validation.date.date	en	The date field must be a valid date.	2026-05-21 02:31:37	2026-05-21 02:31:37
+138	certifications.validation.date.date	es	El campo fecha debe ser una fecha válida.	2026-05-21 02:31:37	2026-05-21 02:31:37
+139	certifications.validation.url.url	en	The URL field must be a valid URL.	2026-05-21 02:31:37	2026-05-21 02:31:37
+140	certifications.validation.url.url	es	El campo URL debe ser una URL válida.	2026-05-21 02:31:37	2026-05-21 02:31:37
+141	certifications.validation.url.max	en	The URL field may not be greater than 2048 characters.	2026-05-21 02:31:37	2026-05-21 02:31:37
+142	certifications.validation.url.max	es	El campo URL no puede tener más de 2048 caracteres.	2026-05-21 02:31:37	2026-05-21 02:31:37
+143	certifications.validation.image.image	en	The image field must be an image.	2026-05-21 02:31:37	2026-05-21 02:31:37
+144	certifications.validation.image.image	es	El campo imagen debe ser una imagen.	2026-05-21 02:31:37	2026-05-21 02:31:37
+145	certifications.validation.image.max	en	The image field may not be greater than 2048 kilobytes.	2026-05-21 02:31:37	2026-05-21 02:31:37
+146	certifications.validation.image.max	es	El campo imagen no puede ser mayor de 2048 kilobytes.	2026-05-21 02:31:37	2026-05-21 02:31:37
+147	certifications.validation.secret.required	en	The secret field is required.	2026-05-21 02:31:37	2026-05-21 02:31:37
+148	certifications.validation.secret.required	es	El campo clave secreta es obligatorio.	2026-05-21 02:31:37	2026-05-21 02:31:37
+149	certifications.validation.secret.string	en	The secret field must be a string.	2026-05-21 02:31:37	2026-05-21 02:31:37
+150	certifications.validation.secret.string	es	El campo clave secreta debe ser una cadena de texto.	2026-05-21 02:31:37	2026-05-21 02:31:37
+151	contacts.modal.title	en	Contact Me	2026-05-21 02:46:37	2026-05-21 02:47:54
+152	contacts.modal.title	es	Contactame	2026-05-21 02:46:37	2026-05-21 02:47:54
+153	contacts.fields.email	en	Email	2026-05-21 02:46:37	2026-05-21 02:47:54
+154	contacts.fields.email	es	Correo electronico	2026-05-21 02:46:37	2026-05-21 02:47:54
+155	contacts.fields.subject	en	Subject	2026-05-21 02:46:37	2026-05-21 02:47:54
+156	contacts.fields.subject	es	Asunto	2026-05-21 02:46:37	2026-05-21 02:47:54
+157	contacts.fields.message	en	Message	2026-05-21 02:46:37	2026-05-21 02:47:54
+158	contacts.fields.message	es	Mensaje	2026-05-21 02:46:37	2026-05-21 02:47:54
+159	contacts.placeholders.email	en	you@example.com	2026-05-21 02:46:37	2026-05-21 02:47:54
+160	contacts.placeholders.email	es	tu@correo.com	2026-05-21 02:46:37	2026-05-21 02:47:54
+161	contacts.placeholders.subject	en	How can I help you?	2026-05-21 02:46:37	2026-05-21 02:47:54
+162	contacts.placeholders.subject	es	Como puedo ayudarte?	2026-05-21 02:46:37	2026-05-21 02:47:54
+163	contacts.placeholders.message	en	Write your message here...	2026-05-21 02:46:37	2026-05-21 02:47:54
+164	contacts.placeholders.message	es	Escribe tu mensaje aqui...	2026-05-21 02:46:37	2026-05-21 02:47:54
+165	contacts.success.saved	en	Your message has been saved.	2026-05-21 02:46:37	2026-05-21 02:47:54
+166	contacts.success.saved	es	Tu mensaje ha sido guardado.	2026-05-21 02:46:37	2026-05-21 02:47:54
+167	contacts.validation.email.required	en	The email field is required.	2026-05-21 02:46:37	2026-05-21 02:47:54
+168	contacts.validation.email.required	es	El campo correo electronico es obligatorio.	2026-05-21 02:46:37	2026-05-21 02:47:54
+169	contacts.validation.email.email	en	The email field must be a valid email address.	2026-05-21 02:46:37	2026-05-21 02:47:54
+170	contacts.validation.email.email	es	El campo correo electronico debe ser una direccion de correo valida.	2026-05-21 02:46:37	2026-05-21 02:47:54
+171	contacts.validation.email.max	en	The email field may not be greater than 255 characters.	2026-05-21 02:46:37	2026-05-21 02:47:54
+172	contacts.validation.email.max	es	El campo correo electronico no puede tener mas de 255 caracteres.	2026-05-21 02:46:37	2026-05-21 02:47:54
+173	contacts.validation.subject.required	en	The subject field is required.	2026-05-21 02:46:37	2026-05-21 02:47:54
+174	contacts.validation.subject.required	es	El campo asunto es obligatorio.	2026-05-21 02:46:37	2026-05-21 02:47:54
+175	contacts.validation.subject.string	en	The subject field must be a string.	2026-05-21 02:46:37	2026-05-21 02:47:54
+176	contacts.validation.subject.string	es	El campo asunto debe ser una cadena de texto.	2026-05-21 02:46:37	2026-05-21 02:47:54
+177	contacts.validation.subject.max	en	The subject field may not be greater than 255 characters.	2026-05-21 02:46:37	2026-05-21 02:47:54
+178	contacts.validation.subject.max	es	El campo asunto no puede tener mas de 255 caracteres.	2026-05-21 02:46:37	2026-05-21 02:47:54
+179	contacts.validation.message.required	en	The message field is required.	2026-05-21 02:46:37	2026-05-21 02:47:54
+180	contacts.validation.message.required	es	El campo mensaje es obligatorio.	2026-05-21 02:46:37	2026-05-21 02:47:54
+181	contacts.validation.message.string	en	The message field must be a string.	2026-05-21 02:46:37	2026-05-21 02:47:54
+182	contacts.validation.message.string	es	El campo mensaje debe ser una cadena de texto.	2026-05-21 02:46:37	2026-05-21 02:47:54
+183	contacts.validation.message.max	en	The message field may not be greater than 5000 characters.	2026-05-21 02:46:37	2026-05-21 02:47:54
+184	contacts.validation.message.max	es	El campo mensaje no puede tener mas de 5000 caracteres.	2026-05-21 02:46:37	2026-05-21 02:47:54
+185	nav.projects	es	Proyectos	2026-07-09 04:47:34	2026-07-09 04:47:34
+\.
+
+
+--
+-- TOC entry 3606 (class 0 OID 16564)
+-- Dependencies: 241
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.users (id, name, email, email_verified_at, password, remember_token, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3612 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: certifications_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.certifications_id_seq', 7, true);
+
+
+--
+-- TOC entry 3613 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: contact_messages_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.contact_messages_id_seq', 1, false);
+
+
+--
+-- TOC entry 3614 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: dashboard_visits_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.dashboard_visits_id_seq', 2, true);
+
+
+--
+-- TOC entry 3615 (class 0 OID 0)
+-- Dependencies: 227
+-- Name: failed_jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.failed_jobs_id_seq', 1, false);
+
+
+--
+-- TOC entry 3616 (class 0 OID 0)
+-- Dependencies: 229
+-- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.jobs_id_seq', 1, false);
+
+
+--
+-- TOC entry 3617 (class 0 OID 0)
+-- Dependencies: 232
+-- Name: migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.migrations_id_seq', 9, true);
+
+
+--
+-- TOC entry 3618 (class 0 OID 0)
+-- Dependencies: 235
+-- Name: projects_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.projects_id_seq', 3, true);
+
+
+--
+-- TOC entry 3619 (class 0 OID 0)
+-- Dependencies: 238
+-- Name: translations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.translations_id_seq', 187, true);
+
+
+--
+-- TOC entry 3620 (class 0 OID 0)
+-- Dependencies: 240
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.users_id_seq', 1, false);
+
+
+--
+-- TOC entry 3399 (class 2606 OID 16409)
+-- Name: cache_locks cache_locks_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cache_locks
+    ADD CONSTRAINT cache_locks_pkey PRIMARY KEY (key);
+
+
+--
+-- TOC entry 3396 (class 2606 OID 16398)
+-- Name: cache cache_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cache
+    ADD CONSTRAINT cache_pkey PRIMARY KEY (key);
+
+
+--
+-- TOC entry 3401 (class 2606 OID 16423)
+-- Name: certifications certifications_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.certifications
+    ADD CONSTRAINT certifications_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3403 (class 2606 OID 16435)
+-- Name: contact_messages contact_messages_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.contact_messages
+    ADD CONSTRAINT contact_messages_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3405 (class 2606 OID 16447)
+-- Name: dashboard_visits dashboard_visits_month_key_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_visits
+    ADD CONSTRAINT dashboard_visits_month_key_unique UNIQUE (month_key);
+
+
+--
+-- TOC entry 3407 (class 2606 OID 16445)
+-- Name: dashboard_visits dashboard_visits_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dashboard_visits
+    ADD CONSTRAINT dashboard_visits_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3410 (class 2606 OID 16463)
+-- Name: failed_jobs failed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.failed_jobs
+    ADD CONSTRAINT failed_jobs_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3412 (class 2606 OID 16465)
+-- Name: failed_jobs failed_jobs_uuid_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.failed_jobs
+    ADD CONSTRAINT failed_jobs_uuid_unique UNIQUE (uuid);
+
+
+--
+-- TOC entry 3417 (class 2606 OID 16495)
+-- Name: job_batches job_batches_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_batches
+    ADD CONSTRAINT job_batches_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3414 (class 2606 OID 16480)
+-- Name: jobs jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.jobs
+    ADD CONSTRAINT jobs_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3419 (class 2606 OID 16504)
+-- Name: migrations migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.migrations
+    ADD CONSTRAINT migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3421 (class 2606 OID 16513)
+-- Name: password_reset_tokens password_reset_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.password_reset_tokens
+    ADD CONSTRAINT password_reset_tokens_pkey PRIMARY KEY (email);
+
+
+--
+-- TOC entry 3423 (class 2606 OID 16534)
+-- Name: projects projects_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.projects
+    ADD CONSTRAINT projects_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3426 (class 2606 OID 16545)
+-- Name: sessions sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sessions
+    ADD CONSTRAINT sessions_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3429 (class 2606 OID 16561)
+-- Name: translations translations_key_locale_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.translations
+    ADD CONSTRAINT translations_key_locale_unique UNIQUE (key, locale);
+
+
+--
+-- TOC entry 3432 (class 2606 OID 16559)
+-- Name: translations translations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.translations
+    ADD CONSTRAINT translations_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3434 (class 2606 OID 16577)
+-- Name: users users_email_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_email_unique UNIQUE (email);
+
+
+--
+-- TOC entry 3436 (class 2606 OID 16575)
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3394 (class 1259 OID 16399)
+-- Name: cache_expiration_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX cache_expiration_index ON public.cache USING btree (expiration);
+
+
+--
+-- TOC entry 3397 (class 1259 OID 16410)
+-- Name: cache_locks_expiration_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX cache_locks_expiration_index ON public.cache_locks USING btree (expiration);
+
+
+--
+-- TOC entry 3408 (class 1259 OID 16466)
+-- Name: failed_jobs_connection_queue_failed_at_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX failed_jobs_connection_queue_failed_at_index ON public.failed_jobs USING btree (connection, queue, failed_at);
+
+
+--
+-- TOC entry 3415 (class 1259 OID 16481)
+-- Name: jobs_queue_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX jobs_queue_index ON public.jobs USING btree (queue);
+
+
+--
+-- TOC entry 3424 (class 1259 OID 16547)
+-- Name: sessions_last_activity_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX sessions_last_activity_index ON public.sessions USING btree (last_activity);
+
+
+--
+-- TOC entry 3427 (class 1259 OID 16546)
+-- Name: sessions_user_id_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX sessions_user_id_index ON public.sessions USING btree (user_id);
+
+
+--
+-- TOC entry 3430 (class 1259 OID 16562)
+-- Name: translations_locale_index; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX translations_locale_index ON public.translations USING btree (locale);
+
+
+-- Completed on 2026-07-24 21:40:30 UTC
+
+--
+-- PostgreSQL database dump complete
+--
+
+\unrestrict kGLuhkO7EunHR0yDYzmJcUa8yY3yUy6EfglQgJfK6M5OaAfKdLEeIgI8fzod4ib
+

@@ -56,9 +56,9 @@
 </div>
 
 <!-- Modal -->
-<div id="cert-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 {{ session('open_cert_modal') || $errors->getBag('store')->any() ? '' : 'hidden' }}"></div>
+<div id="cert-overlay" class="fixed inset-0 bg-black/50 z-40 {{ session('open_cert_modal') || $errors->getBag('store')->any() ? '' : 'hidden' }}"></div>
 <div id="cert-modal" class="fixed inset-0 z-50 flex items-start pt-24 justify-center px-4 sm:px-6 lg:px-8 {{ session('open_cert_modal') || $errors->getBag('store')->any() ? '' : 'hidden' }}">
-    <div class="w-full max-w-2xl bg-[#0f1419] border border-blue-900/30 rounded-xl shadow-xl overflow-hidden">
+    <div class=" bg-gradient-to-br from-[#1a2942] to-[#0f1419] w-full max-w-2xl bg-[#0f1419] border border-blue-900/30 rounded-xl shadow-xl overflow-hidden">
         <div class="px-6 py-4 border-b border-blue-900/20 flex items-center justify-between">
             <h3 class="text-lg font-bold text-white">{{ t('certifications.add_new') }}</h3>
             <button id="cert-close-btn" class="text-gray-400 hover:text-white">✕</button>
