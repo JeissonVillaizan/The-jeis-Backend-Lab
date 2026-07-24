@@ -6,11 +6,11 @@
 
 @section('content')
 <div class="space-y-8">
-    @if(session('status'))
-        <div class="rounded-xl border border-green-500/30 bg-green-500/10 px-4 py-3 text-sm text-green-200">
-            {{ session('status') }}
+
+        <div id="status-message" class="rounded-xl border border-green-500/30 bg-green-500/10 px-4 py-3 text-sm text-green-200 hidden">
+            
         </div>
-    @endif
+
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div class="lg:col-span-1 bg-gradient-to-br from-[#1a2942] to-[#0f1419] border border-blue-900/30 rounded-xl shadow-xl p-6">
@@ -21,7 +21,7 @@
                 <div class="space-y-1.5">
                     <label class="block text-sm text-gray-400">Key</label>
                     <input type="text" name="key" value="{{ old('key') }}" placeholder="home.page_title" class="w-full bg-[#0b1116] border @error('key') border-red-500 @else border-blue-900/20 @enderror rounded-md px-3 py-2 text-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition" />
-                    @error('key')<p class="text-xs text-red-300">{{ $message }}</p>@enderror
+                    <p id="key-error-0" class="text-xs text-red-300"></p>
                 </div>
 
                 <div class="space-y-1.5">
@@ -30,13 +30,13 @@
                         <option value="en" @selected(old('locale') === 'en')>English</option>
                         <option value="es" @selected(old('locale') === 'es')>Spanish</option>
                     </select>
-                    @error('locale')<p class="text-xs text-red-300">{{ $message }}</p>@enderror
+                    <p id="key-error-1" class="text-xs text-red-300"></p>
                 </div>
 
                 <div class="space-y-1.5">
                     <label class="block text-sm text-gray-400">Value</label>
                     <textarea name="value" rows="5" placeholder="Dashboard" class="w-full bg-[#0b1116] border @error('value') border-red-500 @else border-blue-900/20 @enderror rounded-md px-3 py-2 text-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition">{{ old('value') }}</textarea>
-                    @error('value')<p class="text-xs text-red-300">{{ $message }}</p>@enderror
+                    <p id="key-error-2" class="text-xs text-red-300"></p>
                 </div>
                 <button type="submit" class="openmodal w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-all">
                     Save translation
@@ -94,7 +94,8 @@
         "passwordDescription":"{{ t('Translation.Password.Description') }}",
         "password":"{{ t('Translation.Password') }}",
         "cancel":"{{ t('Translation.cancel') }}",
-        "confirm":"{{ t('Translation.confirm') }}"
+        "confirm":"{{ t('Translation.confirm') }}",
+        "keyError":"{{ t('Translation.Key_Error') }}"
     }
 </script>
 @endsection

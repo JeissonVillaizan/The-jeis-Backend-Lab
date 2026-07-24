@@ -15,17 +15,22 @@ document
     .querySelector("#saveTranslation-form")
     ?.addEventListener("submit", (e) => {
         e.preventDefault();
-        let isEmptyField = false;
+        let emptyFields = [];
         const formData = new FormData(e.target);
         const dataObject = Object.fromEntries(formData.entries());
-        Object.values(dataObject).forEach((value) => {
+        Object.values(dataObject).forEach((value, index) => {
             if (value.trim() === "") {
-                isEmptyField = true;
+                emptyFields.push(index - 1);
             }
         });
+        console.log("Empty fields:", emptyFields);
+        if (emptyFields.length > 0) {
+            for (const index of emptyFields) {
+                console.log("Empty field index:", index);
+                document.querySelector(`#key-error-${index}`).innerText =
+                    modalTranslations.keyError;
+            }
 
-        if (isEmptyField) {
-            alert("Please fill in all fields.");
             return;
         }
 
@@ -70,8 +75,8 @@ function openSubmitModal(id = null, behavior, data = null) {
                     class="w-full bg-[#0b1116] border border-blue-900/20 rounded-md px-3 py-2 text-gray-200"
                     placeholder="Password" />
 
-                    <p class="mt-2 text-sm text-red-300">
-                        {{ $message }}
+                    <p id="modal-error-message" class="mt-2 text-sm text-red-300">
+                        
                     </p>
             </div>
 
@@ -147,10 +152,15 @@ function openSubmitModal(id = null, behavior, data = null) {
 
             .then((data) => {
                 if (data.success) {
-                    alert(data.message);
+                    document
+                        .querySelector("#status-message")
+                        .classList.remove("hidden");
+                    document.querySelector("#status-message").innerText =
+                        data.message;
                     closeModal(container);
                 } else {
-                    alert(data.message);
+                    container.querySelector("#modal-error-message").innerText =
+                        data.message;
                 }
             });
     });
