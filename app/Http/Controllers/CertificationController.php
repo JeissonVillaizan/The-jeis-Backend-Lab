@@ -44,7 +44,7 @@ class CertificationController extends Controller
                     'secret' => t('certifications.errors.not_jeisson')
                 ], 'store')
                 ->withInput()
-                ->with('open_cert_modal', true);
+                ->with('open_cert_modal', true); 
         }
 
         $certData = [
