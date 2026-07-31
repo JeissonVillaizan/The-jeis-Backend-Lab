@@ -55,3 +55,12 @@
     animation: slide-in 0.5s ease-in-out both;
     mix-blend-mode: normal;
 }
+
+html {
+    background-image: linear-gradient(
+        to bottom right,
+        #0b1120,
+        #111827,
+        #1e3a8a
+    );
+}
