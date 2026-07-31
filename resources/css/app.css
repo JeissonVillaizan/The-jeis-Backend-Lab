@@ -17,29 +17,41 @@
 
 @keyframes slide-in {
     from {
-        translate: -100vw;
+        transform: translateX(100%);
     }
 }
 
 @keyframes slide-out {
     to {
-        translate: 100vw;
+        transform: translateX(-100%);
     }
+}
+
+::view-transition-group(mcontent),
+::view-transition-image-pair(mcontent),
+::view-transition-old(mcontent),
+::view-transition-new(mcontent) {
+    background: inherit;
 }
 
 ::view-transition-group(mcontent) {
     animation-duration: 0.5s;
     animation-timing-function: ease-in-out;
+    overflow: clip;
+    position: absolute;
+    inset: 0;
 }
 
 #main-content {
-    view-transition-name: m-content;
+    view-transition-name: mcontent;
 }
 
 ::view-transition-old(mcontent) {
-    animation-name: slide-out;
+    animation: slide-out 0.5s ease-in-out both;
+    mix-blend-mode: normal;
 }
 
 ::view-transition-new(mcontent) {
-    animation-name: slide-in;
+    animation: slide-in 0.5s ease-in-out both;
+    mix-blend-mode: normal;
 }
