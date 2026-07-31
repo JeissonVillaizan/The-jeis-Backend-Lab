@@ -33,6 +33,29 @@
         </div>
     </div>
 
+<script>
+
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark');
+    } else {
+        document.body.classList.remove('dark');
+    }
+
+
+    function setTheme(theme) {
+        if (theme === 'dark') {
+            document.body.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+            document.querySelector('meta[name="theme-color"]').setAttribute('content', '#111827');
+        } else {
+            document.body.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+
+        }
+    }
+
+</script>
+
     @yield('scripts')
 </body>
 </html>

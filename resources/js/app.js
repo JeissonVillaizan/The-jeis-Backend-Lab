@@ -44,11 +44,7 @@ if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
         navigator.serviceWorker
             .register("js/sw.js")
-            .then(() => {
-                console.log("Service Worker registrado correctamente.");
-            })
-            .catch((error) => {
-                console.error("Error registrando Service Worker:", error);
-            });
+            .then(() => {})
+            .catch((error) => {});
     });
 }

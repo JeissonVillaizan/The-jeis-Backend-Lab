@@ -8,7 +8,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\CertificationController;
 use App\Http\Controllers\SettingsController;
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index']) -> name('dashboard');
 Route::get('/projects', [ProjectController::class, 'index'])->name('projects');
 Route::get('/certifications', [CertificationController::class, 'index'])->name('certifications');
 Route::get('/settings', [SettingsController::class, 'index'])->name('settings');

@@ -1,5 +1,5 @@
 <!-- resources/views/components/header.blade.php -->
-<header class="bg-[#0f1419] border-b border-blue-900/20 px-6 py-4 shadow-lg">
+<header class="bg-[#71b1c9] border-b border-blue-900/20 px-6 py-4 shadow-lg dark:bg-[#111827] dark:border-blue-900/30 dark:shadow-none">
     <div class="flex items-center justify-between">
         <div class="flex items-center gap-4">
             <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg hover:bg-gray-800 text-gray-300" aria-label="Open menu">
@@ -14,21 +14,47 @@
             </div>
         </div>
         <div class="flex items-center gap-4">
-            <div class="flex items-center gap-2 bg-[#111827] border border-blue-900/30 rounded-lg p-1">
-                <a href="{{ route('locale.update', ['locale' => 'en']) }}" class="px-3 py-1 text-xs font-semibold rounded-md transition-all {{ ($currentLocale ?? 'en') === 'en' ? 'bg-blue-600 text-white' : 'text-gray-300 hover:bg-gray-800' }}">
+            <div class="flex items-center gap-2 bg-[#79bed6] dark:bg-[#111827] border border-gray-700/30 rounded-lg p-1">
+                <x-button href="{{ route('locale.update', ['locale' => 'en']) }}" variant="{{ ($currentLocale ?? 'es') === 'en' ? 'active' : 'inactive' }}" >
                     EN
-                </a>
-                <a href="{{ route('locale.update', ['locale' => 'es']) }}" class="px-3 py-1 text-xs font-semibold rounded-md transition-all {{ ($currentLocale ?? 'en') === 'es' ? 'bg-blue-600 text-white' : 'text-gray-300 hover:bg-gray-800' }}">
+                </x-button>
+                <x-button href="{{ route('locale.update', ['locale' => 'es']) }}" variant="{{ ($currentLocale ?? 'en') === 'es' ? 'active' : 'inactive' }}" >
                     ES
-                </a>
+                </x-button>
             </div>
 
+            <div class="flex items-center gap-2 border border-gray-700/30 rounded-lg p-0.5 bg-[#79bed6] dark:bg-[#111827] dark:border-blue-900/30">
+                    <!-- white mode -->
+                     <button onclick="setTheme('light')"  class=" transform scale-80 px-2 py-1 bg-[#0B78B3]  rounded-lg transition-all dark:bg-[#111827] dark:hover:bg-gray-800 ">
+                        <svg class="w-5 h-5 " stroke-width="2" fill="currentColor" stroke="currentColor" viewBox="0 0 25 25">
+
+                            <path d="M9 12a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+                            <path d="M12 5l0 -2" />
+                            <path d="M17 7l1.4 -1.4" />
+                            <path d="M19 12l2 0" />
+                            <path d="M17 17l1.4 1.4" />
+                            <path d="M12 19l0 2" />
+                            <path d="M7 17l-1.4 1.4" />
+                            <path d="M6 12l-2 0" />
+                            <path d="M7 7l-1.4 -1.4" />   
+                        </svg>
+                    </button>   
+                    <!-- dark mode -->
+                     <button onclick="setTheme('dark')" class="transform scale-80 px-2 py-1 hover:bg-gray-800 rounded-lg transition-all text-blue-900 dark:text-white hover:text-gray-200 dark:bg-blue-600 ">
+                        <svg class="w-5 h-5" stroke-width="2" fill="currentColor" stroke="currentColor" viewBox="0 0 25 25">
+                            <!-- Moon icon -->
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z" />
+                        </svg>
+                    </button>
+            </div>            
+            <!-- notifications button -->
             <button class="p-2 hover:bg-gray-800 rounded-lg transition-all text-gray-400 hover:text-gray-200">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
                 </svg>
             </button>
-            <button class="p-2 hover:bg-gray-800 rounded-lg transition-all text-gray-400 hover:text-gray-200">
+            <!-- settings button -->
+            <button class="p-2 hover:bg-gray-800 rounded-lg transition-all text-gray-400 hover:text-gray-200    ">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -37,3 +63,4 @@
         </div>
     </div>
 </header>
+
