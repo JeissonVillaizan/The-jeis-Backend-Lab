@@ -17,7 +17,7 @@
 
 @keyframes slide-in {
     from {
-        transform: translateX(10%);
+        transform: translateX(50%);
         opacity: 0;
     }
     to {
@@ -32,7 +32,7 @@
         opacity: 1;
     }
     to {
-        transform: translateX(-10%);
+        transform: translateX(-50%);
         opacity: 0;
     }
 }
@@ -57,14 +57,14 @@
 }
 
 ::view-transition-old(mcontent) {
-    animation: slide-out 0.5s ease-in-out both;
+    animation: slide-out 0.3s ease-in-out both;
     mix-blend-mode: normal;
     isolation: isolate;
     contain: paint;
 }
 
 ::view-transition-new(mcontent) {
-    animation: slide-in 0.5s ease-in-out both;
+    animation: slide-in 0.3s ease-in-out both;
     mix-blend-mode: normal;
     isolation: isolate;
     contain: paint;
