@@ -10,7 +10,7 @@
     <!-- Stats Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <!-- Card 1 -->
-        <a href="{{ route('projects') }}" class="block bg-gradient-to-br from-[#1a2942] to-[#0f1419] border border-blue-900/30 rounded-xl p-6 hover:border-blue-800/50 transition-all shadow-xl group">
+        <x-card href="{{ route('projects') }}" >
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-gray-400 text-sm">{{ t('home.stats.completed_projects') }}</p>
@@ -23,10 +23,10 @@
                 </div>
             </div>
             <p class="text-xs text-green-400 mt-4">{{ t('home.stats.completed_projects_change') }}</p>
-        </a>
+        </x-card>
 
         <!-- Card 2 -->
-        <div class="bg-gradient-to-br from-[#1a2942] to-[#0f1419] border border-blue-900/30 rounded-xl p-6 hover:border-blue-800/50 transition-all shadow-xl">
+        <x-card>
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-gray-400 text-sm">{{ t('home.stats.month_visits') }}</p>
@@ -40,10 +40,10 @@
                 </div>
             </div>
             <p class="text-xs text-green-400 mt-4">{{ t('home.stats.month_visits_change') }}</p>
-        </div>
+        </x-card>
 
         <!-- Card 3 -->
-        <a href="{{ route('certifications') }}" class="block bg-gradient-to-br from-[#1a2942] to-[#0f1419] border border-blue-900/30 rounded-xl p-6 hover:border-blue-800/50 transition-all shadow-xl group">
+        <x-card href="{{ route('certifications') }}">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-gray-400 text-sm">{{ t('home.stats.skills') }}</p>
@@ -56,10 +56,10 @@
                 </div>
             </div>
             <p class="text-xs text-gray-400 mt-4">{{ t('nav.certifications') }}</p>
-        </a>
+        </x-card>
 
         <!-- Card 4 -->
-        <div class="bg-gradient-to-br from-[#1a2942] to-[#0f1419] border border-blue-900/30 rounded-xl p-6 hover:border-blue-800/50 transition-all shadow-xl">
+        <x-card>
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-gray-400 text-sm">{{ t('home.stats.contacts_received') }}</p>
@@ -71,11 +71,11 @@
                     </svg>
                 </div>
             </div>
-        </div>
+        </x-card>
     </div>
 
     <!-- Welcome Section -->
-    <div class="bg-gradient-to-br from-[#1a2942] to-[#0f1419] border border-blue-900/30 rounded-xl p-8 shadow-xl">
+    <x-card >
         <h3 class="text-2xl font-bold text-white mb-4">{{ t('home.welcome.title') }}</h3>
         <p class="text-gray-300 leading-relaxed mb-6">
             {{ t('home.welcome.description') }}
@@ -91,10 +91,10 @@
                 {{ t('home.actions.contact') }}
             </button>
         </div>
-    </div>
+    </x-card>
 
     <!-- Recent Projects -->
-    <div class="bg-gradient-to-br from-[#1a2942] to-[#0f1419] border border-blue-900/30 rounded-xl shadow-xl">
+    <x-card>
         <div class="p-6 border-b border-blue-900/20">
             <h3 class="text-xl font-bold text-white">{{ t('home.recent_projects') }}</h3>
         </div>
@@ -129,7 +129,7 @@
                 @endforelse
             </div>
         </div>
-    </div>
+    </x-card>
 </div>
 
 <!-- Contact modal -->
