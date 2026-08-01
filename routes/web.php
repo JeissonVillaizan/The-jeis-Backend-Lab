@@ -18,3 +18,5 @@ Route::post('/contact', [ContactMessageController::class, 'store'])->name('conta
 Route::post('/certifications', [CertificationController::class, 'store'])->name('certifications.store');
 Route::delete('/certifications/{certification}', [CertificationController::class, 'destroy'])->name('certifications.destroy');
 Route::get('/locale/{locale}', [LocaleController::class, 'update'])->name('locale.update');
+route::redirect('/github', 'https://github.com/JeissonVillaizan') -> name('github');
+route::redirect('/resume', 'https://jeissonvillaizan.github.io/The-jeis-Portfolio') -> name('resume');

@@ -22,7 +22,7 @@
                     </svg>
                 </div>
             </div>
-            <p class="text-xs text-green-400 mt-4">{{ t('home.stats.completed_projects_change') }}</p>
+            <p class="text-xs text-green-600! mt-4">{{ t('home.stats.completed_projects_change') }}</p>
         </x-card>
 
         <!-- Card 2 -->
@@ -39,7 +39,7 @@
                     </svg>
                 </div>
             </div>
-            <p class="text-xs text-green-400 mt-4">{{ t('home.stats.month_visits_change') }}</p>
+            <p class="text-xs text-green-600! mt-4">{{ t('home.stats.month_visits_change') }}</p>
         </x-card>
 
         <!-- Card 3 -->
@@ -50,12 +50,12 @@
                     <p class="text-3xl font-bold  mt-2">{{ $certificationsCount }}</p>
                 </div>
                 <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
-                    <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-6 h-6 text-green-600!" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                     </svg>
                 </div>
             </div>
-            <p class="text-xs mt-4">{{ t('nav.certifications') }}</p>
+            <p class=" text-green-600! text-xs mt-4">{{ t('nav.certifications') }}</p>
         </x-card>
 
         <!-- Card 4 -->
@@ -76,19 +76,19 @@
 
     <!-- Welcome Section -->
     <x-card >
-        <h3 class="text-2xl font-bold text-white mb-4">{{ t('home.welcome.title') }}</h3>
+        <h3 class="text-2xl font-bold   mb-4">{{ t('home.welcome.title') }}</h3>
         <p class="text-gray-300 leading-relaxed mb-6">
             {{ t('home.welcome.description') }}
         </p>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <button class="border border-gray-600 text-gray-300 hover:bg-gray-700 font-medium py-2 px-4 rounded-lg transition-all">
+            <a href="{{ route('github') }}" target="_blank" class="buttonSecondary flex items-center justify-center text-center">
                 {{ t('home.actions.github') }}
-            </button>
-            <button class="border border-blue-500 text-blue-400 hover:bg-blue-500/10 font-medium py-2 px-4 rounded-lg transition-all">
+            </a>
+            <a href="{{ route('resume') }}" target="_blank" class=" buttonSecondary flex items-center justify-center text-center">
                 {{ t('home.actions.resume') }}
-            </button>
-                <button id="contact-open-btn" type="button" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-all">
-                {{ t('home.actions.contact') }}
+            </a>
+            <button id="contact-open-btn" type="button" class=" buttonPrimary w-full">
+                {{ t('home.actions.contact') }} 
             </button>
         </div>
     </x-card>
@@ -107,7 +107,7 @@
                     </div>
                     <span class="px-3 py-1 text-xs rounded-full
                         @if($project->status === 'Completado')
-                            bg-green-500/20 text-green-400
+                            bg-green-500/20 text-green-600!
                         @elseif($project->status === 'En Progreso')
                             bg-yellow-500/20 text-yellow-400
                         @else
@@ -132,12 +132,12 @@
 
 
 <!-- Contact modal -->
-<div id="contact-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 {{ session('open_contact_modal') || $errors->getBag('contact')->any() ? '' : 'hidden' }}"></div>
+<div id="contact-overlay" class="fixed inset-0 bg-black/50 z-40 {{ session('open_contact_modal') || $errors->getBag('contact')->any() ? '' : 'hidden' }}"></div>
 <div id="contact-modal" class="fixed inset-0 z-50 flex items-start pt-24 justify-center px-4 sm:px-6 lg:px-8 {{ session('open_contact_modal') || $errors->getBag('contact')->any() ? '' : 'hidden' }}">
-    <div class="w-full max-w-2xl bg-[#0f1419] border border-blue-900/30 rounded-xl shadow-xl overflow-hidden">
+    <div class="w-full max-w-2xl cardGradient border border-blue-900/30 rounded-xl shadow-xl overflow-hidden">
         <div class="px-6 py-4 border-b border-blue-900/20 flex items-center justify-between">
             <h3 class="text-lg font-bold text-white">{{ t('contacts.modal.title') }}</h3>
-            <button id="contact-close-btn" type="button" class="text-gray-400 hover:text-white">✕</button>
+            <button id="contact-close-btn" type="button" class=" hover:text-white">✕</button>
         </div>
 
         <form class="p-6 space-y-5" method="POST" action="{{ route('contact.store') }}">
@@ -155,22 +155,22 @@
 
             <div class="space-y-1.5">
                 <label class="block text-sm">{{ t('contacts.fields.email') }}</label>
-                <input type="email" name="email" value="{{ old('email') }}" autocomplete="email" class="w-full bg-[#0b1116] border border-blue-900/20 rounded-md px-3 py-2 text-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition" placeholder="{{ t('contacts.placeholders.email') }}" />
+                <input type="email" name="email" value="{{ old('email') }}" autocomplete="email" class="w-full cardGradient border border-blue-900/20 rounded-md px-3 py-2  focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition" placeholder="{{ t('contacts.placeholders.email') }}" />
             </div>
 
             <div class="space-y-1.5">
                 <label class="block text-sm">{{ t('contacts.fields.subject') }}</label>
-                <input type="text" name="subject" value="{{ old('subject') }}" class="w-full bg-[#0b1116] border border-blue-900/20 rounded-md px-3 py-2 text-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition" placeholder="{{ t('contacts.placeholders.subject') }}" />
+                <input type="text" name="subject" value="{{ old('subject') }}" class="w-full cardGradient border border-blue-900/20 rounded-md px-3 py-2  focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition" placeholder="{{ t('contacts.placeholders.subject') }}" />
             </div>
 
             <div class="space-y-1.5">
                 <label class="block text-sm">{{ t('contacts.fields.message') }}</label>
-                <textarea name="message" rows="5" class="w-full bg-[#0b1116] border border-blue-900/20 rounded-md px-3 py-2 text-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition" placeholder="{{ t('contacts.placeholders.message') }}">{{ old('message') }}</textarea>
+                <textarea name="message" rows="5" class="w-full cardGradient border border-blue-900/20 rounded-md px-3 py-2  focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition" placeholder="{{ t('contacts.placeholders.message') }}">{{ old('message') }}</textarea>
             </div>
 
             <div class="flex items-center justify-end gap-2 pt-2">
-                <button type="button" id="contact-cancel" class="px-4 py-2 rounded-md bg-gray-700 text-gray-200 hover:bg-gray-600">{{ t('actions.cancel') }}</button>
-                <button type="submit" class="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700">{{ t('actions.save') }}</button>
+                <button type="button" id="contact-cancel" class="buttonSecondary">{{ t('actions.cancel') }}</button>
+                <button type="submit" class="buttonPrimary">{{ t('actions.save') }}</button>
             </div>
         </form>
     </div>

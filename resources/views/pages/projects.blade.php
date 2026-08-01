@@ -7,13 +7,15 @@
 
 @section('content')
 <div class="space-y-8">
-    <!-- Projects Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @forelse($projects as $project)
-        <div class="bg-gradient-to-br from-[#1a2942] to-[#0f1419] border border-blue-900/30 rounded-xl overflow-hidden hover:border-blue-800/50 transition-all shadow-xl">
+
+        <div class="cardGradient border border-[#B7DCE8] dark:border-[#1E3A8A] dark:hover:border-blue-900/50 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition-transform duration-200 flex flex-col  rounded-xl overflow-hidden transition-all shadow-xl h-full">
+
             <!-- Header -->
-            <div class="p-6 border-b border-blue-900/20">
-                <h3 class="text-xl font-bold text-white mb-2">{{ $project->title }}</h3>
+            <div class="p-6">
+                <h3 class="text-xl font-bold mb-2">{{ $project->title }}</h3>
+
                 <span class="inline-block px-3 py-1 rounded-full text-xs font-medium
                     @if($project->status === 'Completado')
                         bg-green-500/20 text-green-400
@@ -34,29 +36,30 @@
             </div>
 
             <!-- Content -->
-            <div class="p-6 space-y-4">
+            <div class="flex-1 p-6 space-y-4">
                 <div>
-                    <p class="text-gray-400 text-sm mb-2">{{ t('projects.description') }}</p>
-                    <p class="text-gray-300">{{ $project->description }}</p>
+                    <p class="text-sm mb-2">{{ t('projects.description') }}</p>
+                    <p>{{ $project->description }}</p>
                 </div>
 
                 <div>
-                    <p class="text-gray-400 text-sm mb-2">{{ t('projects.technologies') }}</p>
-                    <p class="text-blue-400 font-medium">{{ $project->technologies }}</p>
+                    <p class="text-sm mb-2">{{ t('projects.technologies') }}</p>
+                    <p class="font-medium text-[var(--primary)]">
+                        {{ $project->technologies }}
+                    </p>
                 </div>
             </div>
 
             <!-- Footer -->
-            <div class="px-6 py-4 bg-[#0f1419] border-t border-blue-900/20">
-                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-all">
+            <div class="p-6">
+                <button class="buttonPrimary w-full">
                     {{ t('projects.view_details') }}
                 </button>
             </div>
+
         </div>
+
         @empty
-        <div class="col-span-full text-center py-12">
-            <p class="text-gray-400 text-lg">{{ t('projects.empty') }}</p>
-        </div>
         @endforelse
     </div>
 </div>
