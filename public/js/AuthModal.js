@@ -42,7 +42,7 @@ function openSubmitModal(id = null, behavior, data = null) {
 
     container.innerHTML = `
 
-    <form class="w-full max-w-lg bg-gradient-to-br from-[#1a2942] to-[#0f1419] border border-blue-900/30 rounded-xl shadow-xl overflow-hidden">
+    <form class="w-full max-w-lg cardGradient border border-blue-900/30 rounded-xl shadow-xl overflow-hidden">
 
         <div class="px-6 py-4 border-b border-blue-900/20 flex items-center justify-between">
             <h3 class="text-lg font-bold text-white">
@@ -72,7 +72,7 @@ function openSubmitModal(id = null, behavior, data = null) {
                     id="modal-secret"
                     name="secret"
                     type="password"
-                    class="w-full bg-[#0b1116] border border-blue-900/20 rounded-md px-3 py-2 text-gray-200"
+                    class="w-full cardGradient border border-blue-900/20 rounded-md px-3 py-2"
                     placeholder="Password" />
 
                     <p id="modal-error-message" class="mt-2 text-sm text-red-300">
@@ -84,13 +84,13 @@ function openSubmitModal(id = null, behavior, data = null) {
                 <button type="button"
                         id="translation-cancel"
                         data-modal="close-modal"
-                        class="px-4 py-2 rounded-md bg-gray-700 text-gray-200 hover:bg-gray-600">
+                        class="px-4 py-2 rounded-md buttonSecondary hover:bg-blue-700/20">
                     ${modalTranslations.cancel}
                 </button>
 
                 <button type="submit"
                         id="translation-confirm"
-                        class=" px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700">
+                        class=" px-4 py-2 rounded-md buttonPrimary hover:bg-blue-700/20">
                     ${modalTranslations.confirm}
                 </button>
             </div>
