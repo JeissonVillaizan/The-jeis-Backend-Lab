@@ -1,5 +1,5 @@
 <!-- resources/views/components/header.blade.php -->
-<header class="bg-[#71b1c9] border-b border-blue-900/20 px-6 py-4 shadow-lg dark:bg-[#111827] dark:border-blue-900/30 dark:shadow-none">
+<header class="cardGradient border-b border-blue-900/20 px-6 py-4 shadow-lg dark:bg-[#111827] dark:border-blue-900/30 dark:shadow-none">
     <div class="flex items-center justify-between">
         <div class="flex items-center gap-4">
             <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg hover:bg-gray-800 text-gray-300" aria-label="Open menu">
@@ -25,7 +25,7 @@
 
             <div class="flex items-center gap-2 border border-gray-700/30 rounded-lg p-0.5 bg-[#79bed6] dark:bg-[#111827] dark:border-blue-900/30">
                     <!-- white mode -->
-                     <button onclick="setTheme('light')"  class=" transform scale-80 px-2 py-1 bg-[#0B78B3]  rounded-lg transition-all dark:bg-[#111827] dark:hover:bg-gray-800 ">
+                     <button onclick="setTheme('light')"  class=" transform scale-80 px-2 py-1 bg-[#0B78B3] text-white  rounded-lg transition-all dark:bg-[#111827] dark:hover:bg-gray-800 ">
                         <svg class="w-5 h-5 " stroke-width="2" fill="currentColor" stroke="currentColor" viewBox="0 0 25 25">
 
                             <path d="M9 12a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />

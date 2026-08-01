@@ -14,7 +14,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @endif
 </head>
-<body class="bg-gradient-to-br from-[#0b1120] via-[#111827] to-[#1e3a8a] text-gray-100 min-h-screen">
+<body class="cardGradient min-h-screen ">
     <div class="flex h-screen">
         <!-- Sidebar -->
         <x-sidebar />
@@ -36,19 +36,19 @@
 <script>
 
     if (localStorage.getItem('theme') === 'dark') {
-        document.body.classList.add('dark');
+        document.documentElement.classList.add('dark');
     } else {
-        document.body.classList.remove('dark');
+        document.documentElement.classList.remove('dark');
     }
 
 
     function setTheme(theme) {
         if (theme === 'dark') {
-            document.body.classList.add('dark');
+            document.documentElement.classList.add('dark');
             localStorage.setItem('theme', 'dark');
             document.querySelector('meta[name="theme-color"]').setAttribute('content', '#111827');
         } else {
-            document.body.classList.remove('dark');
+            document.documentElement.classList.remove('dark');
             localStorage.setItem('theme', 'light');
 
         }

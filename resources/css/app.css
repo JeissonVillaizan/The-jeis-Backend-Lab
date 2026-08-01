@@ -71,11 +71,52 @@
     contain: paint;
 }
 
-html {
+@utility cardGradient {
+    --gradient-from: #eef8fb;
+    --gradient-via: #d9eef5;
+    --gradient-to: #b9dce9;
+
+    --title: #0f172a;
+    --text: #334155;
+    --border: #cfe5ee;
+
     background-image: linear-gradient(
         to bottom right,
-        #0b1120,
-        #111827,
-        #1e3a8a
+        var(--gradient-from),
+        var(--gradient-via),
+        var(--gradient-to)
     );
+
+    color: var(--text);
+}
+
+.dark .cardGradient {
+    --gradient-from: #0b1120;
+    --gradient-via: #111827;
+    --gradient-to: #1e3a8a;
+
+    --title: #ffffff;
+    --text: #cbd5e1;
+    --border: #1e3a8a;
+}
+
+.cardGradient h1,
+.cardGradient h2,
+.cardGradient h3,
+.cardGradient h4 {
+    color: var(--title);
+}
+
+.cardGradient p {
+    color: var(--text);
+}
+
+.cardGradient hr {
+    border-color: var(--border);
+}
+
+.cardGradient input,
+.cardGradient textarea,
+.cardGradient select {
+    border-color: var(--border);
 }
