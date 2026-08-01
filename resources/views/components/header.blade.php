@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="flex items-center gap-4">
-            <div class="flex items-center gap-2 bg-[#79bed6] dark:bg-[#111827] border border-gray-700/30 rounded-lg p-1">
+            <div class="flex items-center gap-2 bg-[#71b1c9] dark:bg-[#111827] border border-gray-700/10 rounded-lg p-1">
                 <x-button href="{{ route('locale.update', ['locale' => 'en']) }}" variant="{{ ($currentLocale ?? 'es') === 'en' ? 'active' : 'inactive' }}" >
                     EN
                 </x-button>
@@ -23,7 +23,7 @@
                 </x-button>
             </div>
 
-            <div class="flex items-center gap-2 border border-gray-700/30 rounded-lg p-0.5 bg-[#79bed6] dark:bg-[#111827] dark:border-blue-900/30">
+            <div class="flex items-center gap-2 border border-gray-700/10 rounded-lg p-0.5 bg-[#71b1c9] dark:bg-[#111827] dark:border-blue-900/30">
                     <!-- white mode -->
                      <button onclick="setTheme('light')"  class=" transform scale-80 px-2 py-1 bg-[#0B78B3] text-white  rounded-lg transition-all dark:bg-[#111827] dark:hover:bg-gray-800 ">
                         <svg class="w-5 h-5 " stroke-width="2" fill="currentColor" stroke="currentColor" viewBox="0 0 25 25">
