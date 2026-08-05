@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\view;
+use App\view\Components\HeaderComposer;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,5 +25,10 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->environment('production')) {
             URL::forceScheme('https');
         }
+
+        View::composer('components.header', function ($view) {
+            $notifications = \App\Models\Notification::latest()->get();
+            $view->with('notifications', $notifications);
+        });
     }
 }

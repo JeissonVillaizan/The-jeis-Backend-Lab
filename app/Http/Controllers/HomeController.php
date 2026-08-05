@@ -9,6 +9,7 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Notification;
 
 class HomeController extends Controller
 {
@@ -40,7 +41,10 @@ class HomeController extends Controller
         $projectsCount = Project::where('status', 'Completado')->count();
         $certificationsCount = Certification::count();
         $contactsReceivedCount = 47 + ContactMessage::count(); // Count stored contact messages plus the initial 47
+        $notifications = Notification::latest()->get();
+        return view('pages.home', compact('recentProjects', 'projectsCount', 'monthVisits', 'certificationsCount', 'contactsReceivedCount', 'notifications'));
 
-        return view('pages.home', compact('recentProjects', 'projectsCount', 'monthVisits', 'certificationsCount', 'contactsReceivedCount'));
+
+
     }
 }

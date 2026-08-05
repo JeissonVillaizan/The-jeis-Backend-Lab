@@ -5,6 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\ContactMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\contactMail;
+use App\Models\Notification;
+
+
+
+
 
 class ContactMessageController extends Controller
 {
@@ -35,8 +42,18 @@ class ContactMessageController extends Controller
 
         $validated = $validator->validated();
 
-        ContactMessage::create($validated);
+        $contactMessage = ContactMessage::create($validated);
 
+        // Create a new notification for the contact message
+        $notifications = Notification::create([
+            'type' => 'contact',
+            'title' => $validated['subject'],
+            'message' => $validated['message'],
+            'visibility_status' => true,
+        ]);
+
+
+    
         return back()->with('status', t('contacts.success.saved'))->with('open_contact_modal', true);
     }
 }

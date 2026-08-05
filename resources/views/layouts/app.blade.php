@@ -43,6 +43,7 @@
             </main>
         </div>
     </div>
+<div id="overlay" class="flex items-center justify-center fixed inset-0 bg-black/50 z-40 hidden"></div>
 
 <script>
 

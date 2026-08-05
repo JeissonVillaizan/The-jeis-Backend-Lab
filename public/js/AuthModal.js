@@ -1,6 +1,7 @@
 const openModal = document.querySelectorAll('[data-modal="open-modal"]');
 const modalScript = document.getElementById("modalTranslations");
 const modalTranslations = JSON.parse(modalScript.innerText);
+const container = document.querySelector("#overlay");
 
 openModal.forEach((button) => {
     button.addEventListener("click", (e) => {
@@ -9,6 +10,12 @@ openModal.forEach((button) => {
         const behavior = element.getAttribute("data-behavior");
         openSubmitModal(id, behavior);
     });
+});
+
+container.addEventListener("click", (overlayElement) => {
+    if (overlayElement.target === overlayElement.currentTarget) {
+        closeModal();
+    }
 });
 
 document
@@ -38,8 +45,6 @@ document
     });
 
 function openSubmitModal(id = null, behavior, data = null) {
-    const container = document.querySelector("#overlay");
-
     container.innerHTML = `
 
     <form class="w-full max-w-lg cardGradient border border-blue-900/30 rounded-xl shadow-xl overflow-hidden">
@@ -101,19 +106,13 @@ function openSubmitModal(id = null, behavior, data = null) {
 
     container.classList.remove("hidden");
 
-    container
-        .querySelector('[data-modal="close-modal"]')
-        .addEventListener("click", () => {
-            closeModal(container);
+    const form = container.querySelector("form");
+    form.querySelectorAll('[data-modal="close-modal"]').forEach((button) => {
+        button.addEventListener("click", () => {
+            closeModal();
         });
-
-    container.addEventListener("click", (e) => {
-        if (event.target === event.currentTarget) {
-            closeModal(container);
-        }
     });
 
-    const form = container.querySelector("form");
     form.addEventListener("submit", (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -157,7 +156,7 @@ function openSubmitModal(id = null, behavior, data = null) {
                         .classList.remove("hidden");
                     document.querySelector("#status-message").innerText =
                         data.message;
-                    closeModal(container);
+                    closeModal();
                 } else {
                     container.querySelector("#modal-error-message").innerText =
                         data.message;
@@ -166,6 +165,7 @@ function openSubmitModal(id = null, behavior, data = null) {
     });
 }
 
-function closeModal(container) {
+function closeModal() {
     container.classList.add("hidden");
+    container.innerHTML = "";
 }
