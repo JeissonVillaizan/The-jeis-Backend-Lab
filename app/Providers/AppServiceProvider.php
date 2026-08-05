@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\view;
+use Illuminate\Support\Facades\View;
 use App\view\Components\HeaderComposer;
 
 class AppServiceProvider extends ServiceProvider
