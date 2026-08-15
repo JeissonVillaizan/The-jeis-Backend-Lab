@@ -5,7 +5,7 @@
 
 <!-- Mobile sidebar (drawer) -->
 <div id="mobile-sidebar" class="fixed inset-y-0 left-0 z-40 w-64 transform -translate-x-full transition-transform md:hidden">
-    <aside class="h-full softCardGradient border-r border-[var(--border)] shadow-xl">
+    <aside class="h-full CardGradient shadow-xl">
         <div class="h-full flex flex-col">
             <!-- Logo Section -->
             <div class="px-6 py-8 border-b border-[var(--border)]">
@@ -74,10 +74,10 @@
 </div>
 
 <!-- Desktop sidebar -->
-<aside class="w-64 softCardGradient border-r border-[var(--border)] shadow-xl hidden md:block">
+<aside class="w-64 CardGradient shadow-xl hidden md:block">
     <div class="h-full flex flex-col">
         <!-- Logo Section -->
-        <div class="px-6 py-8 border-b border-[var(--border)]">
+        <div class="px-6 py-8 ">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-lg flex items-center justify-center">
 <svg class="w-100 h-10 text-slate-700 dark:text-white" fill="none" viewBox="0 0 24 24">

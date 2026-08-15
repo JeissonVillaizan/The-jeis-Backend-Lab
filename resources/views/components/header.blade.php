@@ -1,5 +1,5 @@
 <!-- resources/views/components/header.blade.php -->
-<header class="softCardGradient border-b border-[var(--border)] px-6 py-4 shadow-lg dark:bg-[#111827] dark:shadow-none">
+<header class="CardGradient  px-6 py-4 shadow-lg ">
     <div class="flex items-center justify-between">
         <div class="flex items-center gap-4">
             <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg hover:bg-slate-900/10 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" aria-label="Open menu">
