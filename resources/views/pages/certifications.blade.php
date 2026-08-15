@@ -14,12 +14,12 @@
     </div>
 
     @if(session('status'))
-        <div class="px-4 py-3 rounded-md bg-green-700 text-white">{{ session('status') }}</div>
+        <div class="  px-4 py-3 rounded-md bg-green-700 text-white">{{ session('status') }}</div>
     @endif
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+    <div class="  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
         @forelse($certifications as $cert)
-            <div class="relative cardGradient border border-[#B7DCE8] dark:border-[#1E3A8A] dark:hover:border-blue-900/50 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition-transform duration-200">
+            <div class="relative softCardGradient border border-[#B7DCE8] dark:border-[#1E3A8A] dark:hover:border-blue-900/50 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition-transform duration-200">
                 <button
                     type="button"
                     class="cert-delete-open absolute top-3 right-3 inline-flex h-9 w-9 items-center justify-center rounded-full bg-black/40 text-white border border-white/10 hover:bg-red-600/80 transition"
@@ -58,7 +58,7 @@
 <!-- Modal -->
 <div id="cert-overlay" class="fixed inset-0 bg-black/50 z-40 {{ session('open_cert_modal') || $errors->getBag('store')->any() ? '' : 'hidden' }}"></div>
 <div id="cert-modal" class="fixed inset-0 z-50 flex items-start pt-24 justify-center px-4 sm:px-6 lg:px-8 {{ session('open_cert_modal') || $errors->getBag('store')->any() ? '' : 'hidden' }}">
-    <div class=" cardGradient w-full max-w-2xl  rounded-xl shadow-xl overflow-hidden">
+    <div class=" softCardGradient w-full max-w-2xl  rounded-xl shadow-xl overflow-hidden">
         <div class="px-6 py-4  flex items-center justify-between">
             <h3 class="text-lg font-bold text-white">{{ t('certifications.add_new') }}</h3>
             <button id="cert-close-btn" class=" hover:text-white">✕</button>
@@ -77,23 +77,23 @@
             @endif
             <div class="space-y-1.5">
                 <label class="block text-sm ">{{ t('certifications.fields.title') }}</label>
-                <input type="text" name="title" value="{{ old('title') }}" class="w-full cardGradient border border-blue-900/20 rounded-md px-3 py-2  focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition" placeholder="{{ t('certifications.placeholders.title') }}" />
+                <input type="text" name="title" value="{{ old('title') }}" class="w-full softCardGradient border border-blue-900/20 rounded-md px-3 py-2  focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition" placeholder="{{ t('certifications.placeholders.title') }}" />
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="space-y-1.5">
                     <label class="block text-sm ">{{ t('certifications.fields.issuer') }}</label>
-                    <input type="text" name="issuer" value="{{ old('issuer') }}" class="w-full cardGradient border border-blue-900/20 rounded-md px-3 py-2  focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition" placeholder="{{ t('certifications.placeholders.issuer') }}" />
+                    <input type="text" name="issuer" value="{{ old('issuer') }}" class="w-full softCardGradient border border-blue-900/20 rounded-md px-3 py-2  focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition" placeholder="{{ t('certifications.placeholders.issuer') }}" />
                 </div>
                 <div class="space-y-1.5">
                     <label class="block text-sm ">{{ t('certifications.fields.date') }}</label>
-                    <input type="date" name="date" value="{{ old('date') }}" lang="{{ app()->getLocale() }}" autocomplete="off" class="w-full cardGradient border border-blue-900/20 rounded-md px-3 py-2  focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition" />
+                    <input type="date" name="date" value="{{ old('date') }}" lang="{{ app()->getLocale() }}" autocomplete="off" class="w-full softCardGradient border border-blue-900/20 rounded-md px-3 py-2  focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition" />
                 </div>
             </div>
 
             <div class="space-y-1.5">
                 <label class="block text-sm ">{{ t('certifications.fields.url') }}</label>
-                <input type="url" name="url" value="{{ old('url') }}" autocomplete="off" inputmode="url" class="w-full cardGradient border border-blue-900/20 rounded-md px-3 py-2  focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition" placeholder="{{ t('certifications.placeholders.url') }}" />
+                <input type="url" name="url" value="{{ old('url') }}" autocomplete="off" inputmode="url" class="w-full softCardGradient border border-blue-900/20 rounded-md px-3 py-2  focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition" placeholder="{{ t('certifications.placeholders.url') }}" />
             </div>
 
             <div class="space-y-1.5">
@@ -107,7 +107,7 @@
 
             <div class="pt-4 border-t border-blue-900/20 space-y-1.5">
                 <label class="block text-sm ">{{ t('certifications.fields.secret_prompt') }}</label>
-                <input type="password" name="secret" class="w-full cardGradient border border-blue-900/20 rounded-md px-3 py-2  focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition" placeholder="{{ t('certifications.placeholders.secret') }}" />
+                <input type="password" name="secret" class="w-full softCardGradient border border-blue-900/20 rounded-md px-3 py-2  focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition" placeholder="{{ t('certifications.placeholders.secret') }}" />
             </div>
 
             <div class="flex items-center justify-end gap-2 pt-2">
@@ -122,7 +122,7 @@
 <div id="cert-delete-overlay" class="fixed inset-0 bg-black/50 z-40 {{ session('open_cert_delete_modal') || $errors->getBag('destroy')->any() ? '' : 'hidden' }}"></div>
 
 <div id="cert-delete-modal" class="fixed inset-0 z-50 flex items-start pt-24 justify-center px-4 sm:px-6 lg:px-8 {{ session('open_cert_delete_modal') || $errors->getBag('destroy')->any() ? '' : 'hidden' }}">
-    <div class="w-full max-w-lg bg-gradient-to-br from-[#1a2942] to-[#0f1419] border border-blue-900/30 rounded-xl shadow-xl overflow-hidden">
+    <div class="w-full max-w-lg softCardGradient border border-blue-900/30 rounded-xl shadow-xl overflow-hidden">
 
         <div class="px-6 py-4 border-b border-blue-900/20 flex items-center justify-between">
             <h3 class="text-lg font-bold text-white">
@@ -152,7 +152,7 @@
                 <input
                     type="password"
                     name="secret"
-                    class="w-full cardGradient border border-blue-900/20 rounded-md px-3 py-2 "
+                    class="w-full softCardGradient border border-blue-900/20 rounded-md px-3 py-2 "
                     placeholder="{{ t('certifications.delete.secret_placeholder') }}" />
 
                 @if($errors->getBag('destroy')->any())
@@ -166,13 +166,13 @@
                 <button
                     type="button"
                     id="cert-delete-cancel"
-                    class="px-4 py-2 rounded-md bg-gray-700  hover:bg-gray-600">
+                    class="buttonSecondary">
                     {{ t('certifications.delete.cancel') }}
                 </button>
 
                 <button
                     type="submit"
-                    class="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700">
+                    class="buttonPrimary">
                     {{ t('certifications.delete.confirm') }}
                 </button>
             </div>
@@ -282,3 +282,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
 </script>
 @endsection
+

@@ -10,7 +10,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @forelse($projects as $project)
 
-        <div class="cardGradient border border-[#B7DCE8] dark:border-[#1E3A8A] dark:hover:border-blue-900/50 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition-transform duration-200 flex flex-col  rounded-xl overflow-hidden transition-all shadow-xl h-full">
+        <div class="softCardGradient border border-[var(--border)] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition-transform duration-200 flex flex-col  rounded-xl overflow-hidden transition-all shadow-xl h-full">
 
             <!-- Header -->
             <div class="p-6">
@@ -64,3 +64,4 @@
     </div>
 </div>
 @endsection
+

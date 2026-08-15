@@ -73,13 +73,13 @@
 
 /* Gradientes */
 @utility cardGradient {
-    --gradient-from: #eef8fb;
-    --gradient-via: #d9eef5;
-    --gradient-to: #b9dce9;
+    --gradient-from: #e6fffa;
+    --gradient-via: #e0f2fe;
+    --gradient-to: #ede9fe;
 
     --title: #0f172a;
-    --text: #334155;
-    --border: #cfe5ee;
+    --text: #1e293b;
+    --border: #bfd7e6;
 
     background-image: linear-gradient(
         to bottom right,
@@ -91,24 +91,57 @@
     color: var(--text);
 }
 
-.dark .cardGradient {
-    --gradient-from: #11203d;
-    --gradient-via: #1b2c4d;
-    --gradient-to: #305d96;
+@utility softCardGradient {
+    --gradient-from: #eff6fb;
+    --gradient-via: #f2f8fb;
+    --gradient-to: #e9f2f8;
 
-    --title: #ffffff;
+    --title: #0f172a;
+    --text: #1e293b;
+    --border: #c8dbea;
+
+    background-color: #edf5fa;
+    background-image: linear-gradient(
+        to bottom,
+        var(--gradient-from),
+        var(--gradient-via) 52%,
+        var(--gradient-to)
+    );
+
+    color: var(--text);
+}
+.dark .cardGradient {
+    --gradient-from: #0d1b2a;
+    --gradient-via: #1b2a41;
+    --gradient-to: #2e1a47;
+
+    --title: #e2e8f0;
     --text: #cbd5e1;
-    --border: #1e3a8a;
+    --border: #16315c;
 }
 
-.cardGradient h1,
-.cardGradient h2,
-.cardGradient h3,
-.cardGradient h4 {
-    color: var(--title);
+.dark .softCardGradient {
+    --gradient-from: #1b2b47;
+    --gradient-via: #182640;
+    --gradient-to: #17253d;
+
+    --title: #e2e8f0;
+    --text: #cbd5e1;
+    --border: #121a2c75;
 }
 
 .cardGradient p {
+    color: var(--text);
+}
+
+.softCardGradient h1,
+.softCardGradient h2,
+.softCardGradient h3,
+.softCardGradient h4 {
+    color: var(--title);
+}
+
+.softCardGradient p {
     color: var(--text);
 }
 
@@ -118,12 +151,19 @@
     border-color: var(--border);
 }
 
+.softCardGradient input,
+.softCardGradient textarea,
+.softCardGradient select {
+    border-color: var(--border);
+}
+
+/* Boton primario */
 /* Boton primario */
 @utility buttonPrimary {
-    --btn-bg: #71b1c9;
-    --btn-hover: #5a9db8;
+    --btn-bg: #3552e0;
+    --btn-hover: #2c44bf;
     --btn-text: #ffffff;
-    --btn-border: #71b1c9;
+    --btn-border: #3552e0;
 
     display: inline-flex;
     align-items: center;
@@ -156,21 +196,19 @@
 }
 
 .dark .buttonPrimary {
-    --btn-bg: #2563eb;
-    --btn-hover: #1d4ed8;
+    --btn-bg: #4f6bf0;
+    --btn-hover: #6478f5;
     --btn-text: #ffffff;
-    --btn-border: #2563eb;
+    --btn-border: #4f6bf0;
 }
 
 /* Boton secundario */
 @utility buttonSecondary {
-    /* Colores */
     --btn-bg: transparent;
-    --btn-hover: rgba(113, 177, 201, 0.12);
-    --btn-text: #3b6473;
-    --btn-border: #71b1c9;
+    --btn-hover: rgba(53, 82, 224, 0.1);
+    --btn-text: #1f3a6e;
+    --btn-border: #7d9be0;
 
-    /* Estilo */
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -189,8 +227,8 @@
 
 .buttonSecondary:hover {
     background-color: var(--btn-hover);
-    color: #24586c;
-    border-color: #5ea6c1;
+    color: #16294f;
+    border-color: #5c7cd6;
 }
 
 .buttonSecondary:active {
@@ -204,12 +242,12 @@
 
 .dark .buttonSecondary {
     --btn-bg: transparent;
-    --btn-hover: rgba(59, 130, 246, 0.12);
-    --btn-text: #93c5fd;
-    --btn-border: #3b82f6;
+    --btn-hover: rgba(199, 210, 254, 0.1);
+    --btn-text: #c7d2fe;
+    --btn-border: #4a5d99;
 }
 
 .dark .buttonSecondary:hover {
-    color: #bfdbfe;
-    border-color: #60a5fa;
+    color: #e0e7ff;
+    border-color: #6b7fc9;
 }

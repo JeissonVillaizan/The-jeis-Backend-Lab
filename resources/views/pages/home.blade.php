@@ -95,12 +95,12 @@
 
     <!-- Recent Projects -->
 
-        <x-card class="p-6 border-b border-blue-900/20">
+        <x-card class="p-6 border-b border-[var(--border)]">
             <h3 class="text-xl font-bold text-white">{{ t('home.recent_projects') }}</h3>
         <div class="p-6">
             <div class="space-y-4">
                 @forelse($recentProjects as $project)
-                <div class="flex items-center justify-between p-4 cardGradient rounded-lg transition-all">
+                <div class="flex items-center justify-between p-4 softCardGradient rounded-lg transition-all">
                     <div>
                         <p class="text-white font-medium">{{ $project->title }}</p>
                         <p class="text-sm">{{ $project->technologies }}</p>
@@ -134,8 +134,8 @@
 <!-- Contact modal -->
 <div id="contact-overlay" class="fixed inset-0 bg-black/50 z-40 {{ session('open_contact_modal') || $errors->getBag('contact')->any() ? '' : 'hidden' }}"></div>
 <div id="contact-modal" class="fixed inset-0 z-50 flex items-start pt-24 justify-center px-4 sm:px-6 lg:px-8 {{ session('open_contact_modal') || $errors->getBag('contact')->any() ? '' : 'hidden' }}">
-    <div class="w-full max-w-2xl cardGradient border border-blue-900/30 rounded-xl shadow-xl overflow-hidden">
-        <div class="px-6 py-4 border-b border-blue-900/20 flex items-center justify-between">
+    <div class="w-full max-w-2xl softCardGradient border border-[var(--border)] rounded-xl shadow-xl overflow-hidden">
+        <div class="px-6 py-4 border-b border-[var(--border)] flex items-center justify-between">
             <h3 class="text-lg font-bold text-white">{{ t('contacts.modal.title') }}</h3>
             <button id="contact-close-btn" type="button" class=" hover:text-white">✕</button>
         </div>
@@ -155,17 +155,17 @@
 
             <div class="space-y-1.5">
                 <label class="block text-sm">{{ t('contacts.fields.email') }}</label>
-                <input type="email" name="email" value="{{ old('email') }}" autocomplete="email" class="w-full cardGradient border border-blue-900/20 rounded-md px-3 py-2  focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition" placeholder="{{ t('contacts.placeholders.email') }}" />
+                <input type="email" name="email" value="{{ old('email') }}" autocomplete="email" class="w-full softCardGradient border border-[var(--border)] rounded-md px-3 py-2  focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition" placeholder="{{ t('contacts.placeholders.email') }}" />
             </div>
 
             <div class="space-y-1.5">
                 <label class="block text-sm">{{ t('contacts.fields.subject') }}</label>
-                <input type="text" name="subject" value="{{ old('subject') }}" class="w-full cardGradient border border-blue-900/20 rounded-md px-3 py-2  focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition" placeholder="{{ t('contacts.placeholders.subject') }}" />
+                <input type="text" name="subject" value="{{ old('subject') }}" class="w-full softCardGradient border border-[var(--border)] rounded-md px-3 py-2  focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition" placeholder="{{ t('contacts.placeholders.subject') }}" />
             </div>
 
             <div class="space-y-1.5">
                 <label class="block text-sm">{{ t('contacts.fields.message') }}</label>
-                <textarea name="message" rows="5" class="w-full cardGradient border border-blue-900/20 rounded-md px-3 py-2  focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition" placeholder="{{ t('contacts.placeholders.message') }}">{{ old('message') }}</textarea>
+                <textarea name="message" rows="5" class="w-full softCardGradient border border-[var(--border)] rounded-md px-3 py-2  focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition" placeholder="{{ t('contacts.placeholders.message') }}">{{ old('message') }}</textarea>
             </div>
 
             <div class="flex items-center justify-end gap-2 pt-2">

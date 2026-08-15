@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <script>
         const theme = localStorage.getItem('theme');
 
@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="manifest" href="{{ asset('manifest.json') }}">
-    <meta name="theme-color" content="#0f172a">
+    <meta name="theme-color" content="#eaf4fb">
     <title>@yield('title', "Jei's Backendlab - Portafolio")</title>
     @if(app()->environment('local') && env('VITE_DEV_SERVER_URL'))
         <script type="module" src="{{ rtrim(env('VITE_DEV_SERVER_URL'), '/') }}/@@vite/client"></script>
@@ -62,6 +62,7 @@
         } else {
             document.documentElement.classList.remove('dark');
             localStorage.setItem('theme', 'light');
+            document.querySelector('meta[name="theme-color"]').setAttribute('content', '#eaf4fb');
 
         }
     }
@@ -71,3 +72,4 @@
     @yield('scripts')
 </body>
 </html>
+

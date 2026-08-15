@@ -7,8 +7,8 @@
 
 @php
 $classes = match ($variant) {
-    'active' => 'bg-[#0B78B3] hover:bg-blue-700 text-white   dark:bg-blue-600 dark:text-white',
-    'inactive' => 'dark:text-white hover:bg-gray-300 text-gray-100   dark:text-gray-300 dark:hover:bg-gray-800',
+    'active' => 'bg-[#0e7490] hover:bg-[#0b5e73] text-white dark:bg-[#0e7490] dark:text-white',
+    'inactive' => 'text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800',
     'off' => 'bg-transparent   dark:text-gray-300',
     'default' => 'bg-blue-600 hover:bg-blue-700 text-white   dark:bg-blue-600 dark:text-white',
 };

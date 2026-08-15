@@ -13,20 +13,20 @@
 
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div class="lg:col-span-1 cardGradient border border-blue-900/30 rounded-xl shadow-xl p-6">
+        <div class="lg:col-span-1 softCardGradient border border-blue-900/30 rounded-xl shadow-xl p-6">
             <h3 class="text-lg font-bold text-white mb-4">Add or update translation</h3>
             <form id="saveTranslation-form" class="space-y-4">
                 @csrf
 
                 <div class="space-y-1.5">
                     <label class="block text-sm ">Key</label>
-                    <input type="text" name="key" value="{{ old('key') }}" placeholder="home.page_title" class="w-full cardGradient border @error('key') border-red-500 @else border-blue-900/20 @enderror rounded-md px-3 py-2  focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition" />
+                    <input type="text" name="key" value="{{ old('key') }}" placeholder="home.page_title" class="w-full softCardGradient border @error('key') border-red-500 @else border-blue-900/20 @enderror rounded-md px-3 py-2  focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition" />
                     <p id="key-error-0" class="text-xs text-red-300"></p>
                 </div>
 
                 <div class="space-y-1.5">
                     <label class="block text-sm ">Locale</label>
-                    <select name="locale" class="w-full cardGradient border @error('locale') border-red-500 @else border-blue-900/20 @enderror rounded-md px-3 py-2  focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition">
+                    <select name="locale" class="w-full softCardGradient border @error('locale') border-red-500 @else border-blue-900/20 @enderror rounded-md px-3 py-2  focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition">
                         <option value="en" @selected(old('locale') === 'en')>English</option>
                         <option value="es" @selected(old('locale') === 'es')>Spanish</option>
                     </select>
@@ -35,7 +35,7 @@
 
                 <div class="space-y-1.5">
                     <label class="block text-sm ">Value</label>
-                    <textarea name="value" rows="5" placeholder="Dashboard" class="w-full cardGradient border @error('value') border-red-500 @else border-blue-900/20 @enderror rounded-md px-3 py-2  focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition">{{ old('value') }}</textarea>
+                    <textarea name="value" rows="5" placeholder="Dashboard" class="w-full softCardGradient border @error('value') border-red-500 @else border-blue-900/20 @enderror rounded-md px-3 py-2  focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition">{{ old('value') }}</textarea>
                     <p id="key-error-2" class="text-xs text-red-300"></p>
                 </div>
                 <button type="submit" class=" buttonPrimary openmodal w-full">
@@ -44,7 +44,7 @@
             </form>
         </div>
 
-        <div class="lg:col-span-2 cardGradient border border-blue-900/30 rounded-xl shadow-xl overflow-hidden">
+        <div class="lg:col-span-2 softCardGradient border border-blue-900/30 rounded-xl shadow-xl overflow-hidden">
             <div class="p-6 border-b border-blue-900/20 flex items-center justify-between">
                 <div>
                     <h3 class="text-lg font-bold">Current translations</h3>
@@ -54,7 +54,7 @@
 
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-blue-900/20 text-sm">
-                    <thead class="cardGradient  uppercase tracking-wide text-xs">
+                    <thead class="softCardGradient  uppercase tracking-wide text-xs">
                         <tr>
                             <th class="px-6 py-3 text-left">Key</th>
                             <th class="px-6 py-3 text-left">Locale</th>
