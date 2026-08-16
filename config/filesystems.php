@@ -30,6 +30,18 @@ return [
 
     'disks' => [
 
+        'r2' => [
+    'driver' => 's3',
+    'key' => env('CLOUDFLARE_ACCESS_KEY_ID'),
+    'secret' => env('CLOUDFLARE_SECRET_ACCESS_KEY'),
+    'region' => 'auto',
+    'bucket' => env('CLOUDFLARE_BUCKET'),
+    'endpoint' => env('CLOUDFLARE_ENDPOINT'),
+    'use_path_style_endpoint' => true,
+    'visibility' => 'public',
+    'url' => env('CLOUDFLARE_URL'),
+    ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app/private'),
@@ -76,5 +88,4 @@ return [
     'links' => [
         public_path('storage') => storage_path('app/public'),
     ],
-
 ];

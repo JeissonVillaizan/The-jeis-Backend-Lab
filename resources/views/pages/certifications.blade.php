@@ -31,7 +31,7 @@
                 </button>
                 @if($cert->image)
                     <div class="w-full h-48 overflow-hidden">
-                        <img src="{{ asset('storage/' . $cert->image) }}" alt="{{ $cert->title }}" class="w-full h-48 object-cover" />
+                        <img src="{{ $cert->image_url }}" alt="{{ $cert->title }}" class="w-full h-48 object-cover" />
                     </div>
                 @endif
                 <div class="p-6">

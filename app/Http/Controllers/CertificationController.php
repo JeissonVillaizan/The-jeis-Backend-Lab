@@ -56,7 +56,7 @@ class CertificationController extends Controller
         ];
 
         if ($request->hasFile('image')) {
-            $certData['image'] = $request->file('image')->store('certifications', 'public');
+            $certData['image'] = $request->file('image')->store('certifications', 'r2');
         }
 
         Certification::create($certData);
@@ -101,7 +101,7 @@ class CertificationController extends Controller
         }
 
         if ($certification->image) {
-            Storage::disk('public')->delete($certification->image);
+            Storage::disk('r2')->delete($certification->image);
         }
 
         $certification->delete();
