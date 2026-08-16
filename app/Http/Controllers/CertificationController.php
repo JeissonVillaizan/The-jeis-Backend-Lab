@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class CertificationController extends Controller
 {
+    //empaqueta y envia la variable $certifications a la pagina de certificacion en orden descendente
     public function index()
     {
         $certifications = Certification::orderBy('date', 'desc')->get();
