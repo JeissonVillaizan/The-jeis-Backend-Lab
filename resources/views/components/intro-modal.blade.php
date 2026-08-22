@@ -135,7 +135,7 @@
                 <circle cx="10" cy="13.5" r="1" fill="currentColor"></circle>
             </svg>
         </div>
-        <h1 class="text-4xl font-bold mb-2">{{ t('intro.title') }}</h1>
+        <h1 class="text-4xl font-bold mb-8">{{ t('intro.title') }}</h1>
         <p class="text-slate-600 dark:text-slate-300 mb-4 max-w-xl text-lg relative z-10">{{ t('intro.description') }}
         </p>
 
@@ -195,8 +195,8 @@
         if (introCloseButton) {
             introCloseButton.addEventListener('click', function () {
                 // Set a temporal day cookie to remember that the intro has been seen
-                //const expires = new Date(Date.now() + 86400000).toUTCString();
-                //document.cookie = "intro_seen=true; expires=" + expires + "; path=/; SameSite=Lax";
+                const expires = new Date(Date.now() + 7200000).toUTCString();
+                document.cookie = "intro_seen=true; expires=" + expires + "; path=/; SameSite=Lax";
                 hideIntroModal();
             });
         }
