@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <script>
         const theme = localStorage.getItem('theme');
-
         if (theme === 'dark' || theme === null) {
             document.documentElement.classList.add('dark');
         } else {
@@ -25,7 +25,9 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @endif
 </head>
+
 <body class="cardGradient min-h-screen ">
+    <x-intro-modal />
     <div class="flex h-screen">
         <!-- Sidebar -->
         <x-sidebar />
@@ -37,39 +39,33 @@
 
             <!-- Content -->
             <main id="main-content" class="flex-1 overflow-y-auto">
-                <div  class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                     @yield('content')
                 </div>
             </main>
         </div>
     </div>
-<div id="overlay" class="flex items-center justify-center fixed inset-0 bg-black/50 z-40 hidden"></div>
+    <div id="overlay" class="flex items-center justify-center fixed inset-0 bg-black/50 z-40 hidden"></div>
 
-<script>
-
-    if (localStorage.getItem('theme') === 'dark') {
-        document.documentElement.classList.add('dark');
-    } else {
-        document.documentElement.classList.remove('dark');
-    }
+    <script>
 
 
-    function setTheme(theme) {
-        if (theme === 'dark') {
-            document.documentElement.classList.add('dark');
-            localStorage.setItem('theme', 'dark');
-            document.querySelector('meta[name="theme-color"]').setAttribute('content', '#111827');
-        } else {
-            document.documentElement.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
-            document.querySelector('meta[name="theme-color"]').setAttribute('content', '#eaf4fb');
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                document.querySelector('meta[name="theme-color"]').setAttribute('content', '#111827');
+            } else {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                document.querySelector('meta[name="theme-color"]').setAttribute('content', '#eaf4fb');
 
+            }
         }
-    }
 
-</script>
+    </script>
 
     @yield('scripts')
 </body>
-</html>
 
+</html>

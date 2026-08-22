@@ -130,7 +130,7 @@
     --border: #121a2c75;
 }
 
-.cardGradient p {
+.cardGradient > p {
     color: var(--text);
 }
 
