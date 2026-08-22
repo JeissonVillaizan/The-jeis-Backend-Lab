@@ -11,9 +11,13 @@ class SetLocale
 {
     public function handle(Request $request, Closure $next): Response
     {
-        $locale = $request->session()->get('locale', 'en');
+        // Detectamos el idioma del navegador eligiendo entre los que soportas
+        $browserLanguage = $request->getPreferredLanguage(['en', 'es']);
 
-        if (! in_array($locale, ['en', 'es'], true)) {
+        // Buscamos en la sesión. Si no hay nada guardado, usamos el del navegador
+        $locale = $request->session()->get('locale', $browserLanguage);
+
+        if (!in_array($locale, ['en', 'es'], true)) {
             $locale = 'en';
         }
 
