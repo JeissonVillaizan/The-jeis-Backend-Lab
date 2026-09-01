@@ -138,7 +138,7 @@ function openSubmitModal(id = null, behavior, data = null) {
         if (id) {
             filteredEndpoint.endpoint += id;
         }
-        const dataJSON = JSON.stringify(data, null, 2);
+        const dataJSON = JSON.stringify(data ?? {}, null, 2);
         const response = fetch(filteredEndpoint.endpoint, {
             method: filteredEndpoint.method,
             headers: {
