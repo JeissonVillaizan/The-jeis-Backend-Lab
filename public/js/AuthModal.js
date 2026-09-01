@@ -47,61 +47,61 @@ document
 function openSubmitModal(id = null, behavior, data = null) {
     container.innerHTML = `
 
-    <form class="w-full max-w-lg cardGradient border border-blue-900/30 rounded-xl shadow-xl overflow-hidden">
+<form class="w-full max-w-lg cardGradient border border-blue-900/30 rounded-xl shadow-xl overflow-hidden">
 
-        <div class="px-6 py-4 border-b border-blue-900/20 flex items-center justify-between">
-            <h3 class="text-lg font-bold text-white">
-                ${modalTranslations.confirmChanges}
-            </h3>
+    <div class="px-6 py-4 border-b border-blue-900/20 flex items-center justify-between">
+        <h3 class="text-lg font-bold text-slate-900 dark:text-white">
+            ${modalTranslations.confirmChanges}
+        </h3>
 
+        <button type="button"
+                id="translation-close"
+                data-modal="close-modal"
+                class="text-slate-400 hover:text-slate-900 dark:hover:text-white">
+            ✕
+        </button>
+    </div>
+
+    <div class="p-6 space-y-4">
+
+        <p class="text-sm text-slate-600 dark:text-slate-300">
+             ${modalTranslations.passwordDescription} 
+        </p>
+
+        <div>
+            <label class="block text-sm text-slate-700 dark:text-slate-400 mb-1">
+              ${modalTranslations.password}  
+            </label>
+
+            <input
+                id="modal-secret"
+                name="secret"
+                type="password"
+                class="w-full cardGradient border border-blue-900/20 rounded-md px-3 py-2 text-slate-900 dark:text-white placeholder-slate-400"
+                placeholder="Password" />
+
+                <p id="modal-error-message" class="mt-2 text-sm text-red-500 dark:text-red-300">
+                    
+                </p>
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-4 border-t border-blue-900/20">
             <button type="button"
-                    id="translation-close"
+                    id="translation-cancel"
                     data-modal="close-modal"
-                    class="text-gray-400 hover:text-white">
-                ✕
+                    class="px-4 py-2 rounded-md buttonSecondary">
+                ${modalTranslations.cancel}
+            </button>
+
+            <button type="submit"
+                    id="translation-confirm"
+                    class="px-4 py-2 rounded-md buttonPrimary">
+                ${modalTranslations.confirm}
             </button>
         </div>
 
-        <div class="p-6 space-y-4">
-
-            <p class="text-sm text-gray-300">
-               ${modalTranslations.passwordDescription} 
-            </p>
-
-            <div>
-                <label class="block text-sm text-gray-400 mb-1">
-                  ${modalTranslations.password}  
-                </label>
-
-                <input
-                    id="modal-secret"
-                    name="secret"
-                    type="password"
-                    class="w-full cardGradient border border-blue-900/20 rounded-md px-3 py-2"
-                    placeholder="Password" />
-
-                    <p id="modal-error-message" class="mt-2 text-sm text-red-300">
-                        
-                    </p>
-            </div>
-
-            <div class="flex items-center justify-end gap-2 pt-4 border-t border-blue-900/20">
-                <button type="button"
-                        id="translation-cancel"
-                        data-modal="close-modal"
-                        class="px-4 py-2 rounded-md buttonSecondary hover:bg-blue-700/20">
-                    ${modalTranslations.cancel}
-                </button>
-
-                <button type="submit"
-                        id="translation-confirm"
-                        class=" px-4 py-2 rounded-md buttonPrimary hover:bg-blue-700/20">
-                    ${modalTranslations.confirm}
-                </button>
-            </div>
-
-        </div>
-    </form>
+    </div>
+</form>
             `;
 
     container.classList.remove("hidden");
